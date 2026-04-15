@@ -92,7 +92,7 @@ Each member is responsible for their system and must understand how it integrate
 
 ---
 
-## Noah – Ghost Mechanics & Lives
+## Jordan Spencer – Ghost Mechanics & Lives
 
 - [ ] Life system (9 lives)
 - [ ] Death/reset system
@@ -104,7 +104,7 @@ Each member is responsible for their system and must understand how it integrate
 
 ---
 
-## Jordan Spencer – Gameplay & Interaction
+## Noah – Gameplay & Interaction
 
 - [ ] Movement (WASD)
 - [ ] Run (Shift)
