@@ -8,11 +8,11 @@
   </p>
 
 <p>
-  <a href="https://github.com/USERNAME/REPO_NAME/graphs/contributors">
-    <img src="https://img.shields.io/github/contributors/USERNAME/REPO_NAME" alt="contributors" />
+  <a href="https://github.com/nancicardenas/FinalGroupProject/graphs/contributors">
+    <img src="https://img.shields.io/github/contributors/nancicardenas/FinalGroupProject" alt="contributors" />
   </a>
-  <a href="https://github.com/USERNAME/REPO_NAME">
-    <img src="https://img.shields.io/github/last-commit/USERNAME/REPO_NAME" alt="last update" />
+  <a href="https://github.com/nancicardenas/FinalGroupProject">
+    <img src="https://img.shields.io/github/last-commit/nancicardenas/FinalGroupProject" alt="last update" />
   </a>
 </p>
 
@@ -20,7 +20,7 @@
 
 ---
 
-# 📚 Table of Contents
+# Table of Contents
 
 - [Repository](#-repository)
 - [Game Name](#-game-name)
@@ -35,17 +35,17 @@
 
 ---
 
-# 📌 Repository
+# Repository
 https://github.com/USERNAME/REPO_NAME
 
 ---
 
-# 🎮 Game Name
+# Game Name
 **Nine Lives: Echo Alley**
 
 ---
 
-# 🧠 Game Description
+# Game Description
 
 **Nine Lives: Echo Alley** is a puzzle-stealth game where the player controls a cat navigating a city environment using all nine of its lives as a core gameplay mechanic. Each time the player dies or manually resets, that attempt is recorded and replayed as a ghost in the next run. These ghost cats repeat previous actions exactly and can be used to distract enemies, activate switches, and solve environmental puzzles.
 
@@ -55,7 +55,7 @@ This project incorporates course concepts including **state machines, AI behavio
 
 ---
 
-# ⭐ X-Factors (Core Innovations)
+# X-Factors (Core Innovations)
 
 - **Ghost Replay System**
   - Each life becomes a replayable “ghost”  
@@ -75,7 +75,7 @@ This project incorporates course concepts including **state machines, AI behavio
 
 ---
 
-# 📸 Screenshots
+# Screenshots
 
 <div align="center"> 
   <img src="https://placehold.co/600x400?text=Title+Screen" alt="screenshot" />
@@ -84,7 +84,7 @@ This project incorporates course concepts including **state machines, AI behavio
 
 ---
 
-# 👥 Group Organization & Responsibilities
+# Group Organization & Responsibilities
 
 **Group Name:** [Insert Group Name]
 
@@ -92,7 +92,7 @@ Each member is responsible for their system and must understand how it integrate
 
 ---
 
-## 🧠 Noah – Ghost Mechanics & Lives
+## Noah – Ghost Mechanics & Lives
 
 - [ ] Life system (9 lives)
 - [ ] Death/reset system
@@ -104,7 +104,7 @@ Each member is responsible for their system and must understand how it integrate
 
 ---
 
-## 🎮 Jordan Spencer – Gameplay & Interaction
+## Jordan Spencer – Gameplay & Interaction
 
 - [ ] Movement (WASD)
 - [ ] Run (Shift)
@@ -118,7 +118,7 @@ Each member is responsible for their system and must understand how it integrate
 
 ---
 
-## 🤖 Dylan Rambo – Enemies & AI
+## Dylan Rambo – Enemies & AI
 
 - [ ] NPC state machine system
 - [ ] Dog AI (patrol, chase)
@@ -129,7 +129,7 @@ Each member is responsible for their system and must understand how it integrate
 
 ---
 
-## 🧱 Nanci Cardenas – Level Building & UI
+## Nanci Cardenas – Level Building & UI
 
 - [ ] Title screen (Play, Options, Exit)
 - [ ] Options menu (sound slider)
@@ -142,7 +142,7 @@ Each member is responsible for their system and must understand how it integrate
 
 ---
 
-# 📊 Project Status (Midway Review)
+# Project Status (Midway Review)
 
 **Current Phase:** Prototype
 
@@ -160,7 +160,7 @@ Each member is responsible for their system and must understand how it integrate
 
 ---
 
-# 🚧 Anticipated Challenges / Assistance Needed
+# Anticipated Challenges / Assistance Needed
 
 - Ghost replay synchronization  
 - Interaction consistency across runs  
@@ -170,7 +170,7 @@ Each member is responsible for their system and must understand how it integrate
 
 ---
 
-# 🧱 Project Structure
+# Project Structure
 
 ```txt
 Assets/
