@@ -1,16 +1,53 @@
 using UnityEngine;
+using TMPro;
+using System.Collections;
+
+/// <summary>
+/// Shows tutorial text prompts at the right moments.
+/// Uses trigger zones placed in the level.
+/// </summary>
 
 public class TutorialManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public static TutorialManager Instance { get; private set; }
+
+    [Header("UI")]
+    public TextMeshProUGUI promptText;
+    public GameObject promptPanel;
+
+    [Header("Timing")]
+    public float defaultDisplayTime = 5f;
+    private Coroutine hideCoroutine;
+
+    void Awake()
     {
-        
+        Instance = this;
     }
 
-    // Update is called once per frame
-    void Update()
+    void Start()
     {
-        
+        HidePrompt();
+        ShowPrompt("Welcome to Echo Alley!\nUse WASD to move. Hold SHIFT to run.", 6f);
+    }
+
+    public void ShowPrompt(string message, float duration = 0f)
+    {
+        if (hideCoroutine != null) StopCoroutine(hideCoroutine);
+        promptText.text = message;
+        promptPanel.SetActive(true);
+        float displayTime = duration > 0 ? duration : defaultDisplayTime;
+        hideCoroutine = StartCoroutine(HideAfterDelay(displayTime));
+    }
+
+    public void HidePrompt()
+    {
+        promptPanel.SetActive(false);
+        promptText.text = "";
+    }
+
+    IEnumerator HideAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        HidePrompt();
     }
 }

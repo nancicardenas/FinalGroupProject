@@ -1,16 +1,12 @@
 using UnityEngine;
 
-public class Pickup : MonoBehaviour
+public class KeyPickup : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void Pickup(PlayerInteraction player)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (AudioManager.Instance != null) AudioManager.Instance.PlayPickup();
+        player.hasKey = true;
+        Debug.Log("Key picked up!");
+        gameObject.SetActive(false); // hide the key
     }
 }

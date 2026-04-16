@@ -2,15 +2,17 @@ using UnityEngine;
 
 public class TrapZone : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void OnTriggerEnter(Collider other)
     {
-        
-    }
+        if (other.CompareTag("Player"))
+        {
+            PlayerLife life = other.GetComponent<PlayerLife>();
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+            if (life != null)
+            {
+                Debug.Log("Trap triggered!");
+                life.Die();
+            }
+        }
     }
 }
