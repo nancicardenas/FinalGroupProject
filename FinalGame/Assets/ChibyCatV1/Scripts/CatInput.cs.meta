@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: d8b47e06888a5484e81243dac0eef17e
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 193438
+  packageName: Chibi Cat V1
+  packageVersion: 1.02
+  assetPath: Assets/Ladymito_ChibyCatV1/Scripts/CatInput.cs
+  uploadId: 432096
