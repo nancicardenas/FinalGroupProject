@@ -1,0 +1,5 @@
+If you are wondering why the streets are floating in the demo scene: For the street meshes to properly snap to the terrain, a script called "ConformStreetToFloor" is used. This is activated once you press play. 
+For this to work, you'll need to select a layer. You can select "Everything" (allthought it will snap to any object below then) or create a layer for your terrain or ground and use that.
+
+By default this is set to "Everything", which will result in a few glitches in the demoscene. Sadly I can't include layers in asset store submissions, so you'll have to set this up yourself and adjust the LayerMask on the street prefabs.
+You can use this script to conform meshes down to the terrain in your own scenes. The script is executed, then removed at start, so there is no performance hit.
