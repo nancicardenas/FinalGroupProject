@@ -156,7 +156,9 @@ Each member is responsible for their system and must understand how it integrate
 - [ ] UI flow  
 - [ ] Player controller  
 - [ ] Interaction system  
-- [ ] Ghost system  
+- [ ] Ghost system
+- [ ] Key, gate, trap placement for level 1
+- [ ] Sound effects
 
 ---
 
