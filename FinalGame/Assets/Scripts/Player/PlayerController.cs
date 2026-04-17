@@ -23,6 +23,8 @@ public class PlayerController : MonoBehaviour
 
     private CharacterController controller;
     private Vector3 velocity;
+    
+    public Transform cameraTransform;
 
     void Start()
     {
@@ -42,7 +44,19 @@ public class PlayerController : MonoBehaviour
         // Input
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
-        Vector3 direction = new Vector3(h, 0f, v).normalized;
+        
+        // Camera-relative directions
+        Vector3 camForward = cameraTransform.forward;
+        Vector3 camRight = cameraTransform.right;
+
+        camForward.y = 0f;
+        camRight.y = 0f;
+        camForward.Normalize();
+        camRight.Normalize();
+        
+        //Vector3 direction = new Vector3(h, 0f, v).normalized;
+        
+        Vector3 direction = (camForward * v + camRight * h).normalized;
         isRunning = Input.GetKey(KeyCode.LeftShift);
         isMoving = direction.magnitude >= 0.1f;
 
