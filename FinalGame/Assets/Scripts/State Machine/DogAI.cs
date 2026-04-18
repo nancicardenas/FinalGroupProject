@@ -17,14 +17,20 @@ public class DogAI : MonoBehaviour
     public Transform player;
     public NavMeshAgent dogAgent;
 
-    private Vector3 destinationPos;
-    private float distanceToPlayer;
+    public Vector3 destinationPos;
+    //public float distanceToPlayer;
     
-    private float viewDistance = 5f;
+    //private float viewDistance = 2f;
+    private float detectionRadius = 10f;
+    
+    //Change These when resizing cat/dog objects
+    private float dogHeight = 0.75f;
+    private float catHeight = 0.5f;
     
     // Update is called once per frame
     void Update()
     {
+        //distanceToPlayer = Vector3.Distance(player.position, transform.position);
         switch (state)
         {
             case dogState.patrol:
@@ -43,15 +49,16 @@ public class DogAI : MonoBehaviour
     {
         //Move randomly until player gets within range
         //When player gets within range change state to chase
-        distanceToPlayer = Vector3.Distance(player.position, transform.position);
         
-        destinationPos = new Vector3(Random.Range(-4, 4), 1,  Random.Range(-4, 4));
         if (!dogAgent.hasPath)
         {
+            //TODO Change to a array of points or wider area
+            destinationPos = new Vector3(Random.Range(-4, 4), 1,  Random.Range(-4, 4));
             dogAgent.SetDestination(destinationPos);
         }
         
-        if (distanceToPlayer <= 2f && CanSeePlayer())
+        //If the player is within distance and is visible set state to chase
+        if (CanSeePlayer())
         {
             state = dogState.chase;
         }
@@ -61,22 +68,34 @@ public class DogAI : MonoBehaviour
     {
         //Move towards the player if the player is in sight and is within distance
         //Otherwise change state to patrol
-
-        destinationPos = player.position;
-        dogAgent.SetDestination(destinationPos);
+        if (CanSeePlayer())
+        {
+            dogAgent.SetDestination(player.position);
+        }
+        else{
+            state = dogState.patrol;
+            dogAgent.ResetPath();
+            print("Path Reset");
+        }
     }
 
+    //
     bool CanSeePlayer()
     {
-        Vector3 origin = transform.position + Vector3.up * 1.5f;
-        Vector3 target = player.position + Vector3.up * 1.0f;
+        //Ray setup
+        Vector3 origin = transform.position + Vector3.up * dogHeight;
+        Vector3 target = player.position + Vector3.up * catHeight;
         Vector3 dir = (target - origin).normalized;
+        
         float dist = Vector3.Distance(origin, target);
 
-        if (dist > viewDistance) return false;
+        //The distance between the player and the dog has to be less than the detection radius to return true
+        if (dist > detectionRadius) return false;
 
+        //Cast a ray toward the player to see if there is an obstacle in the way
         if (Physics.Raycast(origin, dir, out RaycastHit hit, dist))
         {
+            print("chase");
             return hit.transform == player;
         }
 
@@ -88,12 +107,44 @@ public class DogAI : MonoBehaviour
         
     }
     
+    //Helper used to draw gizmos in the editor for detection
     void OnDrawGizmosSelected()
     {
+        if (player == null) return;
+
+        Vector3 origin = transform.position + Vector3.up * dogHeight;
+        Vector3 target = player.position + Vector3.up * catHeight;
+        Vector3 dir = (target - origin).normalized;
+        float dist = Vector3.Distance(origin, target);
+
+        // Draw detection radius
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, viewDistance);
-        Gizmos.color = Color.blue;
-        Gizmos.DrawLine(transform.position, transform.position * viewDistance);
-        Gizmos.DrawLine(transform.position, transform.position * viewDistance);
+        Gizmos.DrawWireSphere(origin, detectionRadius);
+
+        // Draw line to player (full distance)
+        Gizmos.color = Color.gray;
+        Gizmos.DrawLine(origin, target);
+
+        // Draw raycast (actual vision check)
+        if (dist <= detectionRadius)
+        {
+            if (Physics.Raycast(origin, dir, out RaycastHit hit, dist))
+            {
+                // Green if player is visible
+                if (hit.transform == player)
+                {
+                    Gizmos.color = Color.green;
+                }
+                else // Red if something is blocking
+                {
+                    Gizmos.color = Color.red;
+                }
+
+                Gizmos.DrawLine(origin, hit.point);
+
+                // Draw hit point
+                Gizmos.DrawSphere(hit.point, 0.1f);
+            }
+        }
     }
 }
