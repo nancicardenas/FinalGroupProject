@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -6,33 +7,40 @@ public class DogAI : MonoBehaviour
 
     public enum dogState : int
     {
+        idle,
         patrol,
         chase,
         playerCaught,
         numStates
     }
 
-    public dogState state;
+    public dogState state = dogState.patrol;
     
     public Transform player;
     public NavMeshAgent dogAgent;
 
     public Vector3 destinationPos;
-    //public float distanceToPlayer;
-    
-    //private float viewDistance = 2f;
     private float detectionRadius = 10f;
+    private float idleTimer = 0f;
+    private float idleDuration = 1f;
+
+    private float catchRadius = 4f;
     
     //Change These when resizing cat/dog objects
     private float dogHeight = 0.75f;
     private float catHeight = 0.5f;
-    
+
+    private float patrolSpeed = 2f;
+
+    private float chaseSpeed = 5f;
     // Update is called once per frame
     void Update()
     {
-        //distanceToPlayer = Vector3.Distance(player.position, transform.position);
         switch (state)
         {
+            case dogState.idle:
+                UpdateIdle();
+                break;
             case dogState.patrol:
                 UpdatePatrol();
                 break;
@@ -45,41 +53,99 @@ public class DogAI : MonoBehaviour
         }
     }
 
+    //Enter the Idle state, stop the agent's movement
+    void EnterIdle()
+    {
+        state = dogState.idle;
+        dogAgent.isStopped = true;
+        idleTimer = 0f;
+    }
+
+    void UpdateIdle()
+    {
+        //If player is in range and visible start chasing
+        if (CanSeePlayer())
+        {
+            EnterChase();
+            return;
+        }
+
+        idleTimer += Time.deltaTime;
+
+        //After waiting, pick new patrolling point
+        if (idleTimer >= idleDuration)
+        {
+            EnterPatrol();
+        }
+    }
+
+    //Helper for readability
+    bool HasReachedDestination()
+    {
+        return !dogAgent.pathPending &&
+               dogAgent.remainingDistance <= dogAgent.stoppingDistance &&
+               (!dogAgent.hasPath || dogAgent.velocity.sqrMagnitude < 0.01f);
+    }
+
+    void EnterPatrol()
+    {
+        dogAgent.isStopped = false;
+        dogAgent.speed = patrolSpeed;
+        
+        destinationPos = new Vector3(Random.Range(-10, 10), 1,  Random.Range(-10, 10));
+        dogAgent.SetDestination(destinationPos);
+
+        state = dogState.patrol;
+    }
     void UpdatePatrol()
     {
-        //Move randomly until player gets within range
-        //When player gets within range change state to chase
-        
-        if (!dogAgent.hasPath)
-        {
-            //TODO Change to a array of points or wider area
-            destinationPos = new Vector3(Random.Range(-4, 4), 1,  Random.Range(-4, 4));
-            dogAgent.SetDestination(destinationPos);
-        }
-        
         //If the player is within distance and is visible set state to chase
         if (CanSeePlayer())
         {
-            state = dogState.chase;
+            EnterChase();
+            return;
         }
+        
+        //Once dog reaches destination enter the idle state
+        if (HasReachedDestination())
+        {
+            EnterIdle();
+        }
+    }
+
+    void EnterChase()
+    {
+        dogAgent.isStopped = false;
+        dogAgent.speed = chaseSpeed;
+        state = dogState.chase;
     }
 
     void UpdateChase()
     {
+        //If the player has been caught enter player caught state
+        if (ReachedPlayer())
+        {
+            EnterPlayerCaught();
+            return;
+        }
+        
         //Move towards the player if the player is in sight and is within distance
-        //Otherwise change state to patrol
         if (CanSeePlayer())
         {
             dogAgent.SetDestination(player.position);
+            return;
         }
-        else{
-            state = dogState.patrol;
-            dogAgent.ResetPath();
-            print("Path Reset");
-        }
+        
+        dogAgent.ResetPath();
+        EnterIdle();
     }
 
-    //
+    //If the player is within the catchRadius return true
+    bool ReachedPlayer()
+    {
+        return Vector3.Distance(player.position, transform.position) <= catchRadius;
+    }
+    
     bool CanSeePlayer()
     {
         //Ray setup
@@ -102,9 +168,29 @@ public class DogAI : MonoBehaviour
         return false;
     }
 
+    //Enter the playerCaught state
+    void EnterPlayerCaught()
+    {
+        dogAgent.isStopped = true;
+        dogAgent.ResetPath();
+        state = dogState.playerCaught;
+    }
+
+    //TODO: Mayble delete function later, only used for testing purposes. State would need to be reset if game over.
     void UpdatePlayerCaught()
     {
-        
+        if (!ReachedPlayer())
+        {
+            dogAgent.isStopped = false;
+            if (CanSeePlayer())
+            {
+                state = dogState.chase;
+            }
+            else
+            {
+                state = dogState.patrol;
+            }
+        }
     }
     
     //Helper used to draw gizmos in the editor for detection
