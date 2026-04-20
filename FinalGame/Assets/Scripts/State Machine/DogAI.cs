@@ -19,6 +19,7 @@ public class DogAI : MonoBehaviour
     public Transform player;
     public NavMeshAgent dogAgent;
 
+    public Transform[] destinationPoints;
     public Vector3 destinationPos;
     private float detectionRadius = 10f;
     private float idleTimer = 0f;
@@ -92,7 +93,7 @@ public class DogAI : MonoBehaviour
         dogAgent.isStopped = false;
         dogAgent.speed = patrolSpeed;
         
-        destinationPos = new Vector3(Random.Range(-10, 10), 1,  Random.Range(-10, 10));
+        destinationPos = destinationPoints[Random.Range(0, destinationPoints.Length)].position;
         dogAgent.SetDestination(destinationPos);
 
         state = dogState.patrol;
