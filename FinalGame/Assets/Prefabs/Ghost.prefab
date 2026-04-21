@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5754602498797413704}
   - component: {fileID: 4452819316945553739}
+  - component: {fileID: 506734334329411996}
   m_Layer: 7
   m_Name: Ghost
   m_TagString: Ghost
@@ -45,6 +46,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02cddcc8917e10341a618cf3883be616, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ghostDetection: {fileID: 6122322019295772020, guid: 43fa0f03ea19d6243831c062f7acb83a, type: 3}
+--- !u!136 &506734334329411996
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3187050632275158436}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.3
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!1001 &8345287719435411135
 PrefabInstance:
   m_ObjectHideFlags: 0

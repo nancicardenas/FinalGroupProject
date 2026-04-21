@@ -1246,6 +1246,7 @@ GameObject:
   - component: {fileID: 7395555914532165207}
   - component: {fileID: 5922367511703210190}
   - component: {fileID: 4639756255391193038}
+  - component: {fileID: 6122322019295772020}
   m_Layer: 0
   m_Name: DogEnemy
   m_TagString: Untagged
@@ -1305,8 +1306,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
-  player: {fileID: 0}
+  target: {fileID: 0}
   dogAgent: {fileID: 5922367511703210190}
+  destinationPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   destinationPos: {x: 0, y: 0, z: 0}
 --- !u!195 &5922367511703210190
 NavMeshAgent:
@@ -1344,6 +1349,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dogAnimator: {fileID: 3132110203630800856}
   dogAI: {fileID: 7395555914532165207}
+--- !u!114 &6122322019295772020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1990111127728168193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d1fab9fc9600a0459fbab81c0a88e16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dogAIScript: {fileID: 7395555914532165207}
+  ghostManager: {fileID: 0}
+  player: {fileID: 0}
 --- !u!1 &2081816076176074498
 GameObject:
   m_ObjectHideFlags: 0
