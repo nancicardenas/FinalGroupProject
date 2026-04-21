@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using System.Collections.Generic;
 
@@ -10,6 +11,10 @@ public class GhostReplay : MonoBehaviour
     private int currentFrame = 0;
     private bool isPlaying = false;
     private Animator animator;
+    
+    private float despawnDuration = 3f;
+    private GhostManager ghostManager;
+    private bool delayedDespawnRunning;
 
     public void Initialize(List<GhostRecorder.GhostFrame> recordedFrames)
     {
@@ -21,6 +26,7 @@ public class GhostReplay : MonoBehaviour
     void Start()
     {
         animator = GetComponentInChildren<Animator>();
+        ghostManager = GameObject.FindGameObjectWithTag("GhostManager").GetComponent<GhostManager>();
     }
 
     void FixedUpdate()
@@ -36,7 +42,12 @@ public class GhostReplay : MonoBehaviour
             {
                 animator.SetFloat("Speed", 0f);
             }
-
+            
+            //Remove ghost from activeGhosts, Wait three seconds before disappearing, change target to different ghost or back to player
+            //TODO change to have different distinctions, (ex. permanent lifespan when on a pressure plate, temporary everywhere else
+            ghostManager.activeGhosts.Remove(gameObject);
+            ghostManager.SelectNewDogTarget.Invoke();
+            Destroy(gameObject, despawnDuration);
             return;
         }
 
@@ -52,4 +63,12 @@ public class GhostReplay : MonoBehaviour
         }
         currentFrame++;
     }
+
+    /*IEnumerator DelayedDespawn()
+    {
+        delayedDespawnRunning = true;
+        yield return new WaitForSeconds(despawnDuration);
+        Destroy(gameObject);
+        delayedDespawnRunning = false;
+    }*/
 }

@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 public class DogAI : MonoBehaviour
 {
@@ -16,7 +18,7 @@ public class DogAI : MonoBehaviour
 
     public dogState state = dogState.patrol;
     
-    public Transform player;
+    public Transform target;
     public NavMeshAgent dogAgent;
 
     public Transform[] destinationPoints;
@@ -34,6 +36,13 @@ public class DogAI : MonoBehaviour
     private float patrolSpeed = 2f;
 
     private float chaseSpeed = 5f;
+
+    private void Start()
+    {
+        
+    }
+
+
     // Update is called once per frame
     void Update()
     {
@@ -133,7 +142,7 @@ public class DogAI : MonoBehaviour
         //Move towards the player if the player is in sight and is within distance
         if (CanSeePlayer())
         {
-            dogAgent.SetDestination(player.position);
+            dogAgent.SetDestination(target.position);
             return;
         }
         
@@ -144,17 +153,17 @@ public class DogAI : MonoBehaviour
     //If the player is within the catchRadius return true
     bool ReachedPlayer()
     {
-        return Vector3.Distance(player.position, transform.position) <= catchRadius;
+        return Vector3.Distance(target.position, transform.position) <= catchRadius;
     }
     
     bool CanSeePlayer()
     {
         //Ray setup
         Vector3 origin = transform.position + Vector3.up * dogHeight;
-        Vector3 target = player.position + Vector3.up * catHeight;
-        Vector3 dir = (target - origin).normalized;
+        Vector3 targetPosition = this.target.position + Vector3.up * catHeight;
+        Vector3 dir = (targetPosition - origin).normalized;
         
-        float dist = Vector3.Distance(origin, target);
+        float dist = Vector3.Distance(origin, targetPosition);
 
         //The distance between the player and the dog has to be less than the detection radius to return true
         if (dist > detectionRadius) return false;
@@ -163,7 +172,7 @@ public class DogAI : MonoBehaviour
         if (Physics.Raycast(origin, dir, out RaycastHit hit, dist))
         {
             print("chase");
-            return hit.transform == player;
+            return hit.transform == this.target;
         }
 
         return false;
@@ -197,10 +206,10 @@ public class DogAI : MonoBehaviour
     //Helper used to draw gizmos in the editor for detection
     void OnDrawGizmosSelected()
     {
-        if (player == null) return;
+        if (this.target == null) return;
 
         Vector3 origin = transform.position + Vector3.up * dogHeight;
-        Vector3 target = player.position + Vector3.up * catHeight;
+        Vector3 target = this.target.position + Vector3.up * catHeight;
         Vector3 dir = (target - origin).normalized;
         float dist = Vector3.Distance(origin, target);
 
@@ -218,7 +227,7 @@ public class DogAI : MonoBehaviour
             if (Physics.Raycast(origin, dir, out RaycastHit hit, dist))
             {
                 // Green if player is visible
-                if (hit.transform == player)
+                if (hit.transform == this.target)
                 {
                     Gizmos.color = Color.green;
                 }
