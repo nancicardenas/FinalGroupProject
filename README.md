@@ -71,7 +71,9 @@ This project incorporates course concepts including **state machines, AI behavio
 
 - **NPC State Machine AI**
   - Enemies operate using state machines (patrol, chase, alert)  
-  - React to player, environment, and ghost echoes  
+  - React to player, environment, and ghost echoes
+  - Dog enemies will patrol certain points on the map
+  - If the player is within a certain distance it will be alerted and start chasing player
 
 - **Multi-Life Strategy System**
   - Failure becomes part of the solution  
@@ -139,7 +141,7 @@ Each member is responsible for their system and must understand how it integrate
 
 ## Nanci Cardenas – Level Building & UI
 
-- [ ] Title screen (Play, Options, Exit)
+- [x] Title screen (Play, Options, Exit)
 - [ ] Options menu (sound slider)
 - [ ] Cat selection
 - [ ] Tutorial level
