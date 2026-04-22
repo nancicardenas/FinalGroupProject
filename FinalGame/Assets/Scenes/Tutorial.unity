@@ -2418,6 +2418,11 @@ MonoBehaviour:
   ghostPrefab: {fileID: 3187050632275158436, guid: 3c65674875b350e45a7e221f0d7833b5, type: 3}
   playerRecorder: {fileID: 1723407377}
   playerLife: {fileID: 1723407376}
+  ghostDetection: {fileID: 0}
+  activeGhosts: []
+  SelectNewDogTarget:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &1781565109
 Transform:
   m_ObjectHideFlags: 0
