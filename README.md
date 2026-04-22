@@ -83,8 +83,8 @@ This project incorporates course concepts including **state machines, AI behavio
 # Screenshots
 
 <div align="center"> 
-  <img src="https://placehold.co/600x400?text=Title+Screen" alt="screenshot" />
-  <img src="https://placehold.co/600x400?text=Tutorial+Level" alt="screenshot" />
+  <img src="Title.png" alt="Title" width="500" />
+  <img src="Tutorial.png" alt="Tutorial" width="500" />
 </div>
 
 ---
