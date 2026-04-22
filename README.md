@@ -47,7 +47,7 @@ https://github.com/nancicardenas/FinalGroupProject
 
 # Game Description
 
-**Nine Lives: Echo Alley** is a puzzle-stealth game where the player controls a cat navigating a city environment using all nine of its lives as a core gameplay mechanic. Each time the player dies or manually resets, that attempt is recorded and replayed as a ghost in the next run. These ghost cats repeat previous actions exactly and can be used to distract enemies, activate switches, and solve environmental puzzles.
+**Nine Lives: Echo Alley** is a puzzle-stealth game where the player controls a cat navigating an environment using all nine of its lives as a core gameplay mechanic. Each time the player dies or manually resets, that attempt is recorded and replayed as a ghost in the next run. These ghost cats repeat previous actions and can be used to distract enemies, deactivate traps, and solve environmental puzzles.
 
 The gameplay emphasizes planning and coordination across multiple lives rather than traditional combat or simple avoidance. Players build a solution over multiple attempts, turning failure into a strategic advantage. This creates emergent gameplay situations where timing, positioning, and interaction between ghosts, enemies, and the environment are key to progression.
 
@@ -59,10 +59,14 @@ This project incorporates course concepts including **state machines, AI behavio
 
 - **Ghost Replay System**
   - Each life becomes a replayable “ghost”  
-  - Enables multi-agent puzzle solving  
+  - Enables multi-agent puzzle solving
+  - If dog detects ghosts, the ghosts will disappear
+  - If ghosts walk into traps, the ghost will disappear
+  - Ghosts will include a ghost effect shader
 
 - **Emergent Gameplay**
-  - Player + ghosts + enemies interact dynamically  
+  - Player + ghosts + enemies interact dynamically
+  - Patrol + chase 
   - No fixed solutions  
 
 - **NPC State Machine AI**
@@ -71,7 +75,8 @@ This project incorporates course concepts including **state machines, AI behavio
 
 - **Multi-Life Strategy System**
   - Failure becomes part of the solution  
-  - Encourages planning across multiple runs  
+  - Encourages planning across multiple runs
+  - Strategically use ghost cats to avoid enemies or go over traps 
 
 ---
 
@@ -94,11 +99,11 @@ Each member is responsible for their system and must understand how it integrate
 
 ## Jordan Spencer – Ghost Mechanics & Lives
 
-- [ ] Life system (9 lives)
-- [ ] Death/reset system
-- [ ] Record player actions
-- [ ] Ghost replay system
-- [ ] Multi-ghost support (2–5, up to 8 max)
+- [x] Life system (9 lives)
+- [x] Death/reset system
+- [x] Record player actions
+- [x] Ghost replay system
+- [x] Multi-ghost support (2–5, up to 8 max)
 - [ ] Interaction replay
 - [ ] Reset clearing logic
 
@@ -106,9 +111,9 @@ Each member is responsible for their system and must understand how it integrate
 
 ## Noah – Gameplay & Interaction
 
-- [ ] Movement (WASD)
+- [x] Movement (WASD)
 - [ ] Run (Shift)
-- [ ] Jump (Space)
+- [x] Jump (Space)
 - [ ] Idle animations (2 states)
 - [ ] Interaction (Left Click)
 - [ ] Manual reset (Right Click)
@@ -120,11 +125,11 @@ Each member is responsible for their system and must understand how it integrate
 
 ## Dylan Rambo – Enemies & AI
 
-- [ ] NPC state machine system
-- [ ] Dog AI (patrol, chase)
-- [ ] Human AI (alert, detection)
+- [x] NPC state machine system
+- [x] Dog AI (patrol, chase)
+- [x] Human AI (alert, detection)
 - [ ] Detection systems
-- [ ] Interaction with ghosts
+- [x] Interaction with ghosts
 - [ ] Balance enemy behavior
 
 ---
@@ -135,10 +140,10 @@ Each member is responsible for their system and must understand how it integrate
 - [ ] Options menu (sound slider)
 - [ ] Cat selection
 - [ ] Tutorial level
-- [ ] Key, gate, trap placement
+- [x] Key, gate, trap placement
 - [ ] UI prompts
 - [ ] Scene transitions
-- [ ] Sound effects (no music)
+- [x] Sound effects (no music)
 
 ---
 
@@ -149,7 +154,8 @@ Each member is responsible for their system and must understand how it integrate
 ### Completed
 - [x] Repository created  
 - [x] Roles assigned  
-- [x] Game concept finalized  
+- [x] Game concept finalized
+- [x] Midway review requirements 
 
 ### In Progress
 - [ ] Unity project skeleton  
@@ -158,7 +164,8 @@ Each member is responsible for their system and must understand how it integrate
 - [ ] Interaction system  
 - [ ] Ghost system
 - [ ] Key, gate, trap placement for level 1
-- [ ] Sound effects
+- [ ] Scene transition from tutorial to level 1
+- [ ] Cat Selection
 
 ---
 
@@ -168,7 +175,8 @@ Each member is responsible for their system and must understand how it integrate
 - Interaction consistency across runs  
 - Reset reliability  
 - NPC state machine implementation  
-- Animation integration  
+- Animation integration
+- Do we need to integrate more emergent situations with the AI? 
 
 ---
 
@@ -187,10 +195,10 @@ Assets/
 
 # Contact
 
-- Jordan Spencer: https://github.com/[your-username]
+- Jordan Spencer: https://github.com/[jordan-nicholas-spencer]
 
-- Dylan Rambo: https://github.com/[your-username]
+- Dylan Rambo: https://github.com/[dylanrambo26]
 
-- Nanci Cardenas: https://github.com/[your-username]
+- Nanci Cardenas: https://github.com/[nancicardenas]
 
-- Noah: https://github.com/[your-username]
+- Noah: https://github.com/[NoamJ2004]
