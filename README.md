@@ -85,6 +85,9 @@ This project incorporates course concepts including **state machines, AI behavio
 <div align="center"> 
   <img src="Title.png" alt="Title" width="500" />
   <img src="Tutorial.png" alt="Tutorial" width="500" />
+  <img src="DogAI.png" alt="DogAI" width="500" />
+  <img src="gate.png" alt="Gate" width="500" />
+  
 </div>
 
 ---
