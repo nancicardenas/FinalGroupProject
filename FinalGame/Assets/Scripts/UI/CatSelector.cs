@@ -5,8 +5,15 @@ using TMPro;
 
 public class CatSelector : MonoBehaviour
 {
+    // 6 prefabs: AmericanCurl, Bobtail, European, Persian, ScottishFold, Sphinx
     [Header("Cat Prefabs — assign in order")]
-    public GameObject[] catPrefabs; // 6 prefabs: AmericanCurl, Bobtail, European, Persian, ScottishFold, Sphinx
+    public GameObject[] AmericanCurl;
+    public GameObject[] Bobtail;
+    public GameObject[] European;
+    public GameObject[] Persian;
+    public GameObject[] ScottishFold;
+    public GameObject[] Sphinx;
+
 
     [Header("Cat Names — must match prefab order")]
     public string[] catNames;
