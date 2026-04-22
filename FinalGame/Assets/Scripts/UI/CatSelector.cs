@@ -7,12 +7,7 @@ public class CatSelector : MonoBehaviour
 {
     // 6 prefabs: AmericanCurl, Bobtail, European, Persian, ScottishFold, Sphinx
     [Header("Cat Prefabs — assign in order")]
-    public GameObject[] AmericanCurl;
-    public GameObject[] Bobtail;
-    public GameObject[] European;
-    public GameObject[] Persian;
-    public GameObject[] ScottishFold;
-    public GameObject[] Sphinx;
+    public GameObject[] catPrefabs;
 
 
     [Header("Cat Names — must match prefab order")]
@@ -35,6 +30,7 @@ public class CatSelector : MonoBehaviour
             catButtons[i].onClick.AddListener(() => SelectCat(index));
         }
         confirmButton.onClick.AddListener(OnConfirm);
+
     }
 
     void SelectCat(int index)
