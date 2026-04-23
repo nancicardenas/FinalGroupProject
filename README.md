@@ -30,7 +30,6 @@
 - [Group Organization & Responsibilities](#-group-organization--responsibilities)
 - [Project Status](#-project-status-midway-review)
 - [Anticipated Challenges](#-anticipated-challenges--assistance-needed)
-- [Project Structure](#-project-structure)
 - [Contact](#-contact)
 
 ---
@@ -110,9 +109,10 @@ Each member is responsible for their system and must understand how it integrate
 - [x] Death/reset system
 - [x] Record player actions
 - [x] Ghost replay system
-- [x] Multi-ghost support (2–5, up to 8 max)
+- [x] Multi-ghost support (8 max = death on 9th life)
+- [x] Reset clearing logic
 - [ ] Interaction replay
-- [ ] Reset clearing logic
+- [ ] Differentiate ghosts with shaders
 
 ---
 
@@ -178,26 +178,13 @@ Each member is responsible for their system and must understand how it integrate
 
 # Anticipated Challenges / Assistance Needed
 
-- Ghost replay synchronization  
+- Ghost replay synchronization 
 - Custom shader design/implementation
 - Interaction consistency across runs  
 - Reset reliability  
 - NPC state machine implementation  
 - Animation integration
-- Do we need to integrate more emergent situations with the AI? 
-
----
-
-# Project Structure
-
-```txt
-Assets/
-├── Scenes/
-├── Scripts/
-├── Prefabs/
-├── Audio/
-└── Art/
-```
+- Handling emergent situations with/from the AI
 
 ---
 
