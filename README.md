@@ -1,6 +1,6 @@
 <div align="center">
 
-  <img src="assets/logo.png" alt="logo" width="200" height="auto" />
+  <img src="logo.png" alt="logo" width="200" height="auto" />
   <h1>🐱 Nine Lives: Echo Alley</h1>
   
   <p>
