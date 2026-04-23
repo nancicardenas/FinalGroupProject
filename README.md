@@ -51,7 +51,7 @@ https://github.com/nancicardenas/FinalGroupProject
 
 The gameplay emphasizes planning and coordination across multiple lives rather than traditional combat or simple avoidance. Players build a solution over multiple attempts, turning failure into a strategic advantage. This creates emergent gameplay situations where timing, positioning, and interaction between ghosts, enemies, and the environment are key to progression.
 
-This project incorporates course concepts including **state machines, AI behavior, interaction systems, animation control, UI design, and structured code organization**. The ghost replay mechanic and NPC systems combine to create dynamic, non-linear gameplay.
+This project incorporates course concepts including **state machine AI behavior, custom shaders, interaction systems, animation control, UI design, and structured code organization**. The ghost replay mechanic and NPC systems combine to create dynamic, non-linear gameplay.
 
 ---
 
@@ -70,7 +70,7 @@ This project incorporates course concepts including **state machines, AI behavio
   - No fixed solutions  
 
 - **NPC State Machine AI**
-  - Enemies operate using state machines (patrol, chase, alert)  
+  - Enemies operate using state machines (patrol, chase, playerCaught)  
   - React to player, environment, and ghost echoes
   - Dog enemies will patrol certain points on the map
   - If the player is within a certain distance it will be alerted and start chasing player
@@ -79,6 +79,10 @@ This project incorporates course concepts including **state machines, AI behavio
   - Failure becomes part of the solution  
   - Encourages planning across multiple runs
   - Strategically use ghost cats to avoid enemies or go over traps 
+
+- **Custom Ghost Shaders**
+  - Different shaders for each ghost replay
+  - Visual effects (possibly glitching or waves)
 
 ---
 
@@ -95,8 +99,6 @@ This project incorporates course concepts including **state machines, AI behavio
 ---
 
 # Group Organization & Responsibilities
-
-**Group Name:** [Insert Group Name]
 
 Each member is responsible for their system and must understand how it integrates into the full game.
 
@@ -117,11 +119,11 @@ Each member is responsible for their system and must understand how it integrate
 ## Noah – Gameplay & Interaction
 
 - [x] Movement (WASD)
-- [ ] Run (Shift)
+- [x] Run (Shift)
 - [x] Jump (Space)
 - [ ] Idle animations (2 states)
-- [ ] Interaction (Left Click)
-- [ ] Manual reset (Right Click)
+- [x] Interaction (Left Click)
+- [x] Manual reset (Right Click)
 - [ ] Key system
 - [ ] Gate system
 - [ ] Win/lose conditions
@@ -132,8 +134,8 @@ Each member is responsible for their system and must understand how it integrate
 
 - [x] NPC state machine system
 - [x] Dog AI (patrol, chase)
-- [x] Human AI (alert, detection)
-- [ ] Detection systems
+- [ ] Human AI (alert, detection)
+- [x] Detection systems
 - [x] Interaction with ghosts
 - [ ] Balance enemy behavior
 
@@ -177,6 +179,7 @@ Each member is responsible for their system and must understand how it integrate
 # Anticipated Challenges / Assistance Needed
 
 - Ghost replay synchronization  
+- Custom shader design/implementation
 - Interaction consistency across runs  
 - Reset reliability  
 - NPC state machine implementation  
