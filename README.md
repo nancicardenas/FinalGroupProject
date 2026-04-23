@@ -26,7 +26,7 @@
 - [Game Description](#-game-description)
 - [X-Factors](#-x-factors-core-innovations)
 - [Screenshots](#-screenshots)
-- [Team](#-Team:-Nine-Lives-Devs)
+- [Team](#-team--nine-lives-devs)
 - [Organization & Responsibilities](#-group-organization--responsibilities)
 - [Project Status](#-project-status-midway-review)
 - [Anticipated Challenges](#-anticipated-challenges--assistance-needed)
