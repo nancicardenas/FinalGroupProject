@@ -23,7 +23,6 @@
 # Table of Contents
 
 - [Repository](#-repository)
-- [Game Name](#-game-name)
 - [Game Description](#-game-description)
 - [X-Factors](#-x-factors-core-innovations)
 - [Screenshots](#-screenshots)
@@ -36,11 +35,6 @@
 
 # Repository
 https://github.com/nancicardenas/FinalGroupProject
-
----
-
-# Game Name
-**Nine Lives: Echo Alley**
 
 ---
 
