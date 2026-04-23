@@ -1,7 +1,7 @@
 <div align="center">
 
   <img src="logo.png" alt="logo" width="200" height="auto" />
-  <h1>🐱 Nine Lives: Echo Alley</h1>
+  <h1>Nine Lives: Echo Alley</h1>
   
   <p>
     A puzzle-stealth game where each life becomes a ghost that helps solve the level.
