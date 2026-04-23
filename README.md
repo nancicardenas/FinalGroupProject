@@ -169,6 +169,7 @@ Each member is responsible for their system and must understand how it integrate
 
 ### In Progress
 - [ ] Level Design
+- [ ] Ghost Shaders
 - [ ] Key, gate, trap placement for level 1
 - [ ] Scene transition from tutorial to level 1
 - [ ] Game Ending
