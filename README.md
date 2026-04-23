@@ -22,15 +22,15 @@
 
 # Table of Contents
 
-- [Repository](#-repository)
-- [Game Description](#-game-description)
-- [X-Factors](#-x-factors-core-innovations)
-- [Screenshots](#-screenshots)
-- [Team](#-team--nine-lives-devs)
-- [Organization & Responsibilities](#-group-organization--responsibilities)
-- [Project Status](#-project-status-midway-review)
-- [Anticipated Challenges](#-anticipated-challenges--assistance-needed)
-- [Contact](#-contact)
+- [Repository](#repository)
+- [Game Description](#game-description)
+- [X-Factors](#x-factors-core-innovations)
+- [Screenshots](#screenshots)
+- [Team](#team-nine-lives-devs)
+- [Organization & Responsibilities](#organization--responsibilities)
+- [Project Status](#project-status)
+- [Anticipated Challenges](#anticipated-challenges--assistance-needed)
+- [Contact](#contact)
 
 ---
 
