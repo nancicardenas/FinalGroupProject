@@ -148,7 +148,7 @@ Each member is responsible for their system and must understand how it integrate
 
 ---
 
-# Project Status (Midway Review)
+# Project Status
 
 **Current Phase:** Prototype
 
@@ -156,16 +156,19 @@ Each member is responsible for their system and must understand how it integrate
 - [x] Repository created  
 - [x] Roles assigned  
 - [x] Game concept finalized
-- [x] Midway review requirements 
+- [x] Player controller  
+- [x] Interaction system  
+- [x] Ghost system
+- [x] README
 
 ### In Progress
-- [ ] Unity project skeleton  
-- [ ] UI flow  
-- [ ] Player controller  
-- [ ] Interaction system  
-- [ ] Ghost system
+- [ ] Level Design
 - [ ] Key, gate, trap placement for level 1
 - [ ] Scene transition from tutorial to level 1
+- [ ] Game Ending
+- [ ] Human AI interaction
+- [ ] Level interactables
+- [ ] UI flow
 - [ ] Cat Selection
 
 ---
