@@ -26,7 +26,8 @@
 - [Game Description](#-game-description)
 - [X-Factors](#-x-factors-core-innovations)
 - [Screenshots](#-screenshots)
-- [Group Organization & Responsibilities](#-group-organization--responsibilities)
+- [Team](#-Team:-Nine-Lives-Devs)
+- [Organization & Responsibilities](#-group-organization--responsibilities)
 - [Project Status](#-project-status-midway-review)
 - [Anticipated Challenges](#-anticipated-challenges--assistance-needed)
 - [Contact](#-contact)
@@ -91,7 +92,12 @@ This project incorporates course concepts including **state machine AI behavior,
 
 ---
 
-# Group Organization & Responsibilities
+# Team: Nine Lives Devs
+
+Nine Lives Devs is a collaborative game development team focused on building systems-driven gameplay experiences through iterative design and technical integration. For Nine Lives: Echo Alley, the team is developing a puzzle-stealth game centered around a unique multi-life replay mechanic, where each failure contributes to future success.
+
+---
+# Organization & Responsibilities
 
 Each member is responsible for their system and must understand how it integrates into the full game.
 
