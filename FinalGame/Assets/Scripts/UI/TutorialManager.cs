@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Shows tutorial text prompts at the right moments.
@@ -49,5 +50,19 @@ public class TutorialManager : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         HidePrompt();
+    }
+
+    //triggers when gate is opened 
+    public void CompleteTutorial(string nextScene)
+    {
+        ShowPrompt("Nice! You're ready to start.", 2f);
+        StartCoroutine(LoadNextSceneAfterDelay(nextScene));
+    }
+
+    IEnumerator LoadNextSceneAfterDelay(string sceneName)
+    {
+        yield return new WaitForSeconds(2f);
+        SceneManager.LoadScene(sceneName);
+
     }
 }

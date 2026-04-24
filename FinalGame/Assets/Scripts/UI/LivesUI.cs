@@ -10,7 +10,7 @@ public class LivesUI : MonoBehaviour
     {
         if (playerLife != null && livesText != null)
         {
-            livesText.text = "Lives: " + playerLife.currentLives;
+            livesText.text = playerLife.currentLives.ToString();
         }
     }
 }
