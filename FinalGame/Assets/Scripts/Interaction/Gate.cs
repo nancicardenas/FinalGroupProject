@@ -11,6 +11,12 @@ public class Gate : MonoBehaviour
         {
             if (AudioManager.Instance != null) AudioManager.Instance.PlayGateOpen();
             isOpen = true;
+
+            //if player is in tutorial change to level 1 scene 
+            if(TutorialManager.Instance != null)
+            {
+                TutorialManager.Instance.CompleteTutorial("AncientGreekIsland");
+            }
             Debug.Log("Gate opened!");
             // Simple open: just deactivate the gate
             gameObject.SetActive(false);
