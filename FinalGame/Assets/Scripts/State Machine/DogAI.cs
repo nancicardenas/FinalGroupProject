@@ -27,7 +27,9 @@ public class DogAI : MonoBehaviour
     private float idleTimer = 0f;
     private float idleDuration = 1f;
 
-    private float catchRadius = 4f;
+    private float catchRadius = 2f;
+    private float caughtTimer = 0f;
+    private float caughtDuration = 4f;
     
     //Change These when resizing cat/dog objects
     private float dogHeight = 0.75f;
@@ -37,6 +39,7 @@ public class DogAI : MonoBehaviour
 
     private float chaseSpeed = 5f;
 
+    public PlayerLife playerLife;
     private void Start()
     {
         
@@ -132,7 +135,7 @@ public class DogAI : MonoBehaviour
 
     void UpdateChase()
     {
-        //If the player has been caught enter player caught state
+        //If the player has been caught enter player caught state, don't enter if going after ghost
         if (ReachedPlayer())
         {
             EnterPlayerCaught();
@@ -183,13 +186,22 @@ public class DogAI : MonoBehaviour
     {
         dogAgent.isStopped = true;
         dogAgent.ResetPath();
+        caughtTimer = 0f;
+        caughtDuration =  target.root.CompareTag("Player") ? 1f : 4f; //Set the caughtDuration to 4 seconds if it is a ghost
         state = dogState.playerCaught;
+
+        //Kill player if the dog reaches them, don't kill if the target is a ghost
+        if (target.root.CompareTag("Player"))
+        {
+            playerLife.Die();
+        }
+        
     }
 
     //TODO: Mayble delete function later, only used for testing purposes. State would need to be reset if game over.
     void UpdatePlayerCaught()
     {
-        if (!ReachedPlayer())
+        /*if (!ReachedPlayer())
         {
             dogAgent.isStopped = false;
             if (CanSeePlayer())
@@ -200,6 +212,12 @@ public class DogAI : MonoBehaviour
             {
                 state = dogState.patrol;
             }
+        }*/
+        caughtTimer += Time.deltaTime;
+        dogAgent.isStopped = true;
+        if (caughtTimer >= caughtDuration)
+        {
+            EnterPatrol();
         }
     }
     
