@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
@@ -40,6 +38,7 @@ public class DogAI : MonoBehaviour
     private float chaseSpeed = 5f;
 
     public PlayerLife playerLife;
+    public GhostManager ghostManager;
     private void Start()
     {
         
