@@ -13,6 +13,7 @@ public class GhostDetection : MonoBehaviour
     {
         //Assign instance of DogAI on current object, and add listener SelectNewTarget to SelectNewDogTarget Event
         dogAIScript = GetComponent<DogAI>();
+        player = GameObject.FindGameObjectWithTag("Player").transform;
         ghostManager.SelectNewDogTarget.AddListener(SelectNewTarget);
     }
 
