@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 5754602498797413704}
   - component: {fileID: 4452819316945553739}
   - component: {fileID: 506734334329411996}
+  - component: {fileID: 2221585178392089223}
+  - component: {fileID: 6679216987742971533}
   m_Layer: 7
   m_Name: Ghost
   m_TagString: Ghost
@@ -46,7 +48,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02cddcc8917e10341a618cf3883be616, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ghostDetection: {fileID: 6122322019295772020, guid: 43fa0f03ea19d6243831c062f7acb83a, type: 3}
+  fadeDuration: 1
+  ghostIndex: 0
 --- !u!136 &506734334329411996
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -70,6 +73,54 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!135 &2221585178392089223
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3187050632275158436}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.4
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &6679216987742971533
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3187050632275158436}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &8345287719435411135
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,6 +1,15 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Manages lives, death, and per-life reset of all interactables.
+/// At the start of each new life:
+///   - Player teleports to spawn, loses key
+///   - Key respawns (no one holds it)
+///   - Gate respawns closed
+///   - Trap respawns active
+///   - Door resets
+/// </summary>
 public class PlayerLife : MonoBehaviour
 {
     [Header("Lives")]
@@ -12,9 +21,11 @@ public class PlayerLife : MonoBehaviour
 
     [Header("Manual Reset")]
     public KeyCode resetKey = KeyCode.Mouse1; // Right Click
-    // Event that other scripts can subscribe to
+
+    // Events for GhostManager
     public System.Action OnPlayerDied;
     public System.Action OnPlayerReset;
+
     private bool isDead = false;
 
     void Start()
@@ -33,68 +44,78 @@ public class PlayerLife : MonoBehaviour
     public void Die()
     {
         if (isDead) return;
-        if (AudioManager.Instance != null) AudioManager.Instance.PlayDeath();
         isDead = true;
+
         currentLives--;
         Debug.Log("Died! Lives remaining: " + currentLives);
-        // Notify listeners (GhostManager will use this)
+
+        if (AudioManager.Instance != null) AudioManager.Instance.PlayDeath();
+
+        // Save the ghost recording before anything resets
         OnPlayerDied?.Invoke();
 
         if (currentLives <= 0)
         {
             Debug.Log("All lives gone! Full level reset.");
-            // Reload the entire scene, clearing all ghosts
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             return;
         }
 
-        // Reset the level but keep ghost data
+        // Spawn ghosts from saved recordings
         OnPlayerReset?.Invoke();
-        ResetPlayer();
+
+        // Reset everything for the new life
+        ResetForNewLife();
     }
 
-    void ResetPlayer()
+    void ResetForNewLife()
     {
         isDead = false;
 
-        // Reset position
+        // Teleport player to spawn
         CharacterController cc = GetComponent<CharacterController>();
-
         if (cc != null)
         {
-            cc.enabled = false; // must disable to teleport
+            cc.enabled = false;
             transform.position = spawnPoint.position;
             cc.enabled = true;
         }
 
-        // Reset key
+        // Clear player's key
         PlayerInteraction interaction = GetComponent<PlayerInteraction>();
-
         if (interaction != null)
         {
             interaction.hasKey = false;
         }
 
-        // Re-enable interactables
-        // (Key and Gate need to come back for each attempt)
-        ResetInteractables();
+        // Reset all world objects
+        ResetAllInteractables();
     }
 
-    void ResetInteractables()
+    void ResetAllInteractables()
     {
-        // Find all keys and gates and re-enable them
         KeyPickup[] keys = FindObjectsByType<KeyPickup>(FindObjectsSortMode.None);
-
         foreach (var key in keys)
         {
-            key.gameObject.SetActive(true);
+            key.ResetKey();
         }
 
         Gate[] gates = FindObjectsByType<Gate>(FindObjectsSortMode.None);
-
         foreach (var gate in gates)
         {
-            gate.gameObject.SetActive(true);
+            gate.ResetGate();
+        }
+
+        TrapZone[] traps = FindObjectsByType<TrapZone>(FindObjectsSortMode.None);
+        foreach (var trap in traps)
+        {
+            trap.ResetTrap();
+        }
+
+        ExitDoor[] doors = FindObjectsByType<ExitDoor>(FindObjectsSortMode.None);
+        foreach (var door in doors)
+        {
+            door.ResetDoor();
         }
     }
 }

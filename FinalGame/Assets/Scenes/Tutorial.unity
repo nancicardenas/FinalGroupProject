@@ -864,6 +864,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fae1bb2c243f1a40acca18d29b06c34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPickedUp: 0
 --- !u!1 &446106014
 GameObject:
   m_ObjectHideFlags: 0
@@ -1586,6 +1587,8 @@ GameObject:
   - component: {fileID: 1277667810}
   - component: {fileID: 1277667809}
   - component: {fileID: 1277667813}
+  - component: {fileID: 1277667815}
+  - component: {fileID: 1277667814}
   m_Layer: 8
   m_Name: Gate
   m_TagString: Gate
@@ -1692,6 +1695,40 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2670185637a4b3a4b96b79d6a648f254, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isOpen: 0
+--- !u!65 &1277667814
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1277667808}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2, y: 1.5, z: 2}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1277667815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1277667808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76fcd2c054c7d6940a62ab04f160c1c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1295645768
@@ -1815,6 +1852,153 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7615c245ca3dc4249b57266e0e72781b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fadeDuration: 1
+  isTriggered: 0
+--- !u!1 &1319134662
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1319134668}
+  - component: {fileID: 1319134667}
+  - component: {fileID: 1319134666}
+  - component: {fileID: 1319134665}
+  - component: {fileID: 1319134664}
+  - component: {fileID: 1319134663}
+  m_Layer: 8
+  m_Name: ExitDoor
+  m_TagString: Interactable
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!135 &1319134663
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1319134662}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 2.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1319134664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1319134662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89e404b2fc5dcc64fbdc74c8c311ef37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextSceneName: AncientGreekIsland
+  isLocked: 0
+--- !u!65 &1319134665
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1319134662}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &1319134666
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1319134662}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 403f541a1020e0a45be407af0f24d3df, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &1319134667
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1319134662}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1319134668
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1319134662}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 24.5, y: 2, z: 0}
+  m_LocalScale: {x: 0.5, y: 4, z: 3}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1366650821
 GameObject:
   m_ObjectHideFlags: 0
@@ -1970,6 +2154,82 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!1 &1402497621
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1402497624}
+  - component: {fileID: 1402497623}
+  - component: {fileID: 1402497622}
+  m_Layer: 0
+  m_Name: Trigger_ExitPrompt
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1402497622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1402497621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3ae861d9a9eb18468af6e0abc48775f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  message: 'You made it through the gate! Beyond this alley, the city awaits.
+
+
+
+    When
+    you''re ready to venture out, click the door ahead to leave the tutorial.
+
+'
+  displayDuration: 8
+  triggerOnce: 1
+--- !u!65 &1402497623
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1402497621}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 8, y: 3, z: 8}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &1402497624
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1402497621}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 20, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1473704349
 GameObject:
   m_ObjectHideFlags: 0
@@ -2619,10 +2879,19 @@ MonoBehaviour:
   playerRecorder: {fileID: 1723407377}
   playerLife: {fileID: 1723407376}
   ghostDetection: {fileID: 0}
-  activeGhosts: []
+  ghostMaterials:
+  - {fileID: 2100000, guid: 90b6a9e7cdcdc7144bd97c238deac894, type: 2}
+  - {fileID: 2100000, guid: d065ea47328056a4f9fd6f67cc25bd54, type: 2}
+  - {fileID: 2100000, guid: 3f6052e00524a8941829d0c42a3180d0, type: 2}
+  - {fileID: 2100000, guid: a978a3ad49619cf4cb191218a98493d2, type: 2}
+  - {fileID: 2100000, guid: d22d30c829a04ca469d86a6026943887, type: 2}
+  - {fileID: 2100000, guid: ae4bf5229494f014ca10c4c0bf270af5, type: 2}
+  - {fileID: 2100000, guid: 598b41e17956f5b4c9513436452e16d1, type: 2}
+  - {fileID: 2100000, guid: f96aef658a635dd4b8ffdf422a58f785, type: 2}
   SelectNewDogTarget:
     m_PersistentCalls:
       m_Calls: []
+  activeGhosts: []
 --- !u!4 &1781565109
 Transform:
   m_ObjectHideFlags: 0
@@ -3119,3 +3388,5 @@ SceneRoots:
   - {fileID: 446106017}
   - {fileID: 1708470289}
   - {fileID: 783188373}
+  - {fileID: 1319134668}
+  - {fileID: 1402497624}

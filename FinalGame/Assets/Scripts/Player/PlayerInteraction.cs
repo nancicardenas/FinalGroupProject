@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections.Generic;
 
 public class PlayerInteraction : MonoBehaviour
 {
@@ -9,7 +8,6 @@ public class PlayerInteraction : MonoBehaviour
     public KeyCode interactKey = KeyCode.Mouse0; // Left Click
 
     [HideInInspector] public bool hasKey = false;
-    private List<GameObject> nearbyInteractables = new List<GameObject>();
 
     void Update()
     {
@@ -23,6 +21,7 @@ public class PlayerInteraction : MonoBehaviour
     {
         // Find nearest interactable within range
         Collider[] hits = Physics.OverlapSphere(transform.position, interactRange, interactableLayer);
+
         float closestDist = float.MaxValue;
         GameObject closest = null;
 
@@ -36,24 +35,30 @@ public class PlayerInteraction : MonoBehaviour
             }
         }
 
-        if (closest != null)
+        if (closest == null) return;
+
+        // Check for Key
+        KeyPickup key = closest.GetComponent<KeyPickup>();
+        if (key != null && !key.isPickedUp)
         {
-            // Check for Key
-            KeyPickup key = closest.GetComponent<KeyPickup>();
+            key.Pickup(this);
+            return;
+        }
 
-            if (key != null)
-            {
-                key.Pickup(this);
-                return;
-            }
+        // Check for Gate
+        Gate gate = closest.GetComponent<Gate>();
+        if (gate != null && !gate.isOpen)
+        {
+            gate.TryOpen(this);
+            return;
+        }
 
-            // Check for Gate
-            Gate gate = closest.GetComponent<Gate>();
-            if (gate != null)
-            {
-                gate.TryOpen(this);
-                return;
-            }
+        // Check for Exit Door
+        ExitDoor door = closest.GetComponent<ExitDoor>();
+        if (door != null)
+        {
+            door.Use();
+            return;
         }
     }
 }
