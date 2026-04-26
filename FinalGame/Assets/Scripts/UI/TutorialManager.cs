@@ -52,7 +52,7 @@ public class TutorialManager : MonoBehaviour
         HidePrompt();
     }
 
-    //triggers when gate is opened 
+    // triggers when gate is opened 
     public void CompleteTutorial(string nextScene)
     {
         ShowPrompt("Nice! You're ready to start.", 2f);
