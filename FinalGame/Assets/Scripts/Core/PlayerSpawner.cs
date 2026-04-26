@@ -14,6 +14,7 @@ public class PlayerSpawner : MonoBehaviour
     public CameraFollow cameraFollow;
     public GhostManager ghostManager;
     public LivesUI livesUI;
+    public PlayerController playerController;
 
     [Header("Fallback (if GameManager not found — for testing)")]
     public GameObject fallbackCatPrefab;
@@ -107,6 +108,22 @@ public class PlayerSpawner : MonoBehaviour
         if (livesUI != null)
         {
             livesUI.playerLife = life;
+        }
+        
+        //Wire references for Dog
+        //TODO change to foreach loop if multiple dogs
+        DogAI dogAI = FindFirstObjectByType<DogAI>();
+        if (dogAI != null)
+        {
+            dogAI.playerLife = spawnedPlayer.gameObject.GetComponent<PlayerLife>();
+            dogAI.ghostManager = ghostManager;
+            dogAI.target = spawnedPlayer.transform;
+        }
+        
+        GhostDetection ghostDetection = FindFirstObjectByType<GhostDetection>();
+        if (ghostDetection != null)
+        {
+            ghostDetection.player =  spawnedPlayer.transform;
         }
     }
 }
