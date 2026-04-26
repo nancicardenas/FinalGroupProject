@@ -1,6 +1,15 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Manages lives, death, and per-life reset of all interactables.
+/// At the start of each new life:
+///   - Player teleports to spawn, loses key
+///   - Key respawns (no one holds it)
+///   - Gate respawns closed
+///   - Trap respawns active
+///   - Door resets
+/// </summary>
 public class PlayerLife : MonoBehaviour
 {
     [Header("Lives")]
@@ -13,7 +22,7 @@ public class PlayerLife : MonoBehaviour
     [Header("Manual Reset")]
     public KeyCode resetKey = KeyCode.Mouse1; // Right Click
 
-    // Events that other scripts can subscribe to
+    // Events for GhostManager
     public System.Action OnPlayerDied;
     public System.Action OnPlayerReset;
 
@@ -42,7 +51,7 @@ public class PlayerLife : MonoBehaviour
 
         if (AudioManager.Instance != null) AudioManager.Instance.PlayDeath();
 
-        // Notify listeners (GhostManager saves the recording here)
+        // Save the ghost recording before anything resets
         OnPlayerDied?.Invoke();
 
         if (currentLives <= 0)
@@ -52,16 +61,18 @@ public class PlayerLife : MonoBehaviour
             return;
         }
 
-        // Reset the level but keep ghost data
+        // Spawn ghosts from saved recordings
         OnPlayerReset?.Invoke();
-        ResetPlayer();
+
+        // Reset everything for the new life
+        ResetForNewLife();
     }
 
-    void ResetPlayer()
+    void ResetForNewLife()
     {
         isDead = false;
 
-        // Reset position
+        // Teleport player to spawn
         CharacterController cc = GetComponent<CharacterController>();
         if (cc != null)
         {
@@ -70,41 +81,37 @@ public class PlayerLife : MonoBehaviour
             cc.enabled = true;
         }
 
-        // Reset key
+        // Clear player's key
         PlayerInteraction interaction = GetComponent<PlayerInteraction>();
         if (interaction != null)
         {
             interaction.hasKey = false;
         }
 
-        // Reset ALL interactables
+        // Reset all world objects
         ResetAllInteractables();
     }
 
     void ResetAllInteractables()
     {
-        // Reset keys
         KeyPickup[] keys = FindObjectsByType<KeyPickup>(FindObjectsSortMode.None);
         foreach (var key in keys)
         {
             key.ResetKey();
         }
 
-        // Reset gates
         Gate[] gates = FindObjectsByType<Gate>(FindObjectsSortMode.None);
         foreach (var gate in gates)
         {
             gate.ResetGate();
         }
 
-        // Reset traps
         TrapZone[] traps = FindObjectsByType<TrapZone>(FindObjectsSortMode.None);
         foreach (var trap in traps)
         {
             trap.ResetTrap();
         }
 
-        // Reset exit door lock state
         ExitDoor[] doors = FindObjectsByType<ExitDoor>(FindObjectsSortMode.None);
         foreach (var door in doors)
         {

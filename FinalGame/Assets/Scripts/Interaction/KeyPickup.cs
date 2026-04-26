@@ -1,12 +1,16 @@
 using UnityEngine;
 
+/// <summary>
+/// A key that can be picked up by the player or a ghost.
+/// First come, first served — whoever interacts first gets it.
+/// Resets fully at the start of each new life.
+/// </summary>
 public class KeyPickup : MonoBehaviour
 {
     [HideInInspector] public bool isPickedUp = false;
 
-    /// <summary>
-    /// Called when the player picks up this key.
-    /// </summary>
+    // --- Player pickup (called from PlayerInteraction) ---
+
     public void Pickup(PlayerInteraction player)
     {
         if (isPickedUp) return;
@@ -15,7 +19,7 @@ public class KeyPickup : MonoBehaviour
         player.hasKey = true;
         Debug.Log("Key picked up by player!");
 
-        // Record the interaction for ghost replay
+        // Record interaction so ghosts replay it
         GhostRecorder recorder = player.GetComponent<GhostRecorder>();
         if (recorder != null)
         {
@@ -26,10 +30,11 @@ public class KeyPickup : MonoBehaviour
 
         gameObject.SetActive(false);
     }
+    // --- Ghost pickup (called from GhostReplay) ---
 
     /// <summary>
-    /// Called when a ghost replays a key pickup.
-    /// Returns true if the ghost successfully got the key.
+    /// Returns true if the ghost successfully picked up the key.
+    /// Returns false if someone already took it.
     /// </summary>
     public bool GhostPickup()
     {
@@ -44,9 +49,8 @@ public class KeyPickup : MonoBehaviour
         return true;
     }
 
-    /// <summary>
-    /// Called at the start of each new life to reset this key.
-    /// </summary>
+    // --- Reset (called by PlayerLife at start of each new life) ---
+
     public void ResetKey()
     {
         isPickedUp = false;

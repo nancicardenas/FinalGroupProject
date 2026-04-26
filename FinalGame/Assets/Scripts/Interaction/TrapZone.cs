@@ -2,11 +2,12 @@ using UnityEngine;
 using System.Collections;
 
 /// <summary>
-/// A trap that triggers once per life. Can be triggered by player OR ghost.
-/// When triggered:
-///   - If player: player dies, trap fades away
-///   - If ghost: ghost fades and despawns, trap fades away
-/// The trap resets at the start of each new life.
+/// A trap that triggers once per life. First entity to touch it (player or ghost) triggers it.
+/// When triggered: trap fades away and disables.
+///   - If player triggered: player dies.
+///   - If ghost triggered: ghost fades and despawns.
+/// After triggering, the trap zone is safe for everyone else that life.
+/// Resets fully at the start of each new life.
 /// </summary>
 public class TrapZone : MonoBehaviour
 {
@@ -17,10 +18,13 @@ public class TrapZone : MonoBehaviour
 
     private Renderer trapRenderer;
     private Color originalColor;
+    private Collider trapCollider;
 
     void Start()
     {
         trapRenderer = GetComponent<Renderer>();
+        trapCollider = GetComponent<Collider>();
+
         if (trapRenderer != null)
         {
             originalColor = trapRenderer.material.color;
@@ -31,7 +35,7 @@ public class TrapZone : MonoBehaviour
     {
         if (isTriggered) return;
 
-        // Check for ghost first
+        // --- Ghost triggers the trap ---
         if (other.CompareTag("Ghost"))
         {
             GhostReplay ghost = other.GetComponent<GhostReplay>();
@@ -41,17 +45,13 @@ public class TrapZone : MonoBehaviour
             {
                 isTriggered = true;
                 Debug.Log("Trap triggered by ghost! Both fading away.");
-
-                // Ghost fades and despawns
                 ghost.DespawnAtTrap();
-
-                // Trap fades away
                 StartCoroutine(FadeTrap());
             }
             return;
         }
 
-        // Check for player
+        // --- Player triggers the trap ---
         if (other.CompareTag("Player"))
         {
             PlayerLife life = other.GetComponent<PlayerLife>();
@@ -59,10 +59,7 @@ public class TrapZone : MonoBehaviour
             {
                 isTriggered = true;
                 Debug.Log("Trap triggered by player!");
-
                 if (AudioManager.Instance != null) AudioManager.Instance.PlayDeath();
-
-                // Fade the trap, then kill the player
                 StartCoroutine(FadeTrapThenKill(life));
             }
         }
@@ -70,25 +67,16 @@ public class TrapZone : MonoBehaviour
 
     IEnumerator FadeTrap()
     {
-        // Disable the trigger so nothing else hits it
-        Collider col = GetComponent<Collider>();
-        if (col != null) col.enabled = false;
-
+        if (trapCollider != null) trapCollider.enabled = false;
         yield return StartCoroutine(DoFade());
-
         gameObject.SetActive(false);
     }
 
     IEnumerator FadeTrapThenKill(PlayerLife life)
     {
-        Collider col = GetComponent<Collider>();
-        if (col != null) col.enabled = false;
-
+        if (trapCollider != null) trapCollider.enabled = false;
         yield return StartCoroutine(DoFade());
-
         gameObject.SetActive(false);
-
-        // Kill the player after fade
         life.Die();
     }
 
@@ -110,16 +98,14 @@ public class TrapZone : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Called at the start of each new life to reset this trap.
-    /// </summary>
+    // --- Reset (called by PlayerLife at start of each new life) ---
+
     public void ResetTrap()
     {
         isTriggered = false;
         gameObject.SetActive(true);
 
-        Collider col = GetComponent<Collider>();
-        if (col != null) col.enabled = true;
+        if (trapCollider != null) trapCollider.enabled = true;
 
         if (trapRenderer != null)
         {

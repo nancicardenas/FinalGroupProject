@@ -1,12 +1,16 @@
 using UnityEngine;
 
+/// <summary>
+/// A gate that requires a key to open.
+/// Can be opened by the player or a ghost that holds the key.
+/// Resets fully at the start of each new life.
+/// </summary>
 public class Gate : MonoBehaviour
 {
     [HideInInspector] public bool isOpen = false;
 
-    /// <summary>
-    /// Called when the player tries to open the gate.
-    /// </summary>
+    // --- Player interaction (called from PlayerInteraction) ---
+
     public void TryOpen(PlayerInteraction player)
     {
         if (isOpen) return;
@@ -15,7 +19,7 @@ public class Gate : MonoBehaviour
         {
             Open();
 
-            // Record the interaction for ghost replay
+            // Record interaction so ghosts replay it
             GhostRecorder recorder = player.GetComponent<GhostRecorder>();
             if (recorder != null)
             {
@@ -28,9 +32,10 @@ public class Gate : MonoBehaviour
         }
     }
 
+    // --- Ghost interaction (called from GhostReplay) ---
+
     /// <summary>
-    /// Called by a ghost that has a key to open the gate.
-    /// Returns true if the gate was opened.
+    /// Returns true if the ghost successfully opened the gate.
     /// </summary>
     public bool GhostOpen(bool ghostHasKey)
     {
@@ -49,15 +54,12 @@ public class Gate : MonoBehaviour
     {
         isOpen = true;
         Debug.Log("Gate opened!");
-
         if (AudioManager.Instance != null) AudioManager.Instance.PlayGateOpen();
-
         gameObject.SetActive(false);
     }
 
-    /// <summary>
-    /// Called at the start of each new life to reset this gate.
-    /// </summary>
+    // --- Reset (called by PlayerLife at start of each new life) ---
+
     public void ResetGate()
     {
         isOpen = false;
