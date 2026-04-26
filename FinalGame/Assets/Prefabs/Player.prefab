@@ -103,7 +103,7 @@ MonoBehaviour:
   interactRange: 2.5
   interactableLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   interactKey: 323
   hasKey: 0
 --- !u!114 &-5593878283776263921
