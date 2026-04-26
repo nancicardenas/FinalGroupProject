@@ -2046,6 +2046,13 @@ MonoBehaviour:
   - {fileID: 1094517121171430410, guid: 5e1f3c06f15ab94468fd395602fa573d, type: 3}
   - {fileID: 3754992682611283691, guid: 7a4f8130b0a191647957f01cf71578b7, type: 3}
   - {fileID: 3544774888470519738, guid: 816ed7f6b70fc7148988007ff191729e, type: 3}
+  animatorControllers:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 9100000, guid: 2e64e300b70b5b9458e78c49dd9bdf03, type: 2}
   selectedCatIndex: 0
 --- !u!4 &1305237060
 Transform:
