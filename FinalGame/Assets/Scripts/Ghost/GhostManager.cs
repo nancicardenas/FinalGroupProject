@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.Events;
 
 /// <summary>
 /// Manages ghost recording and spawning.
@@ -11,11 +12,15 @@ public class GhostManager : MonoBehaviour
     public GameObject ghostPrefab;
     public GhostRecorder playerRecorder;
     public PlayerLife playerLife;
+    public GhostDetection ghostDetection;
 
     // Store all completed run recordings
     private List<List<GhostRecorder.GhostFrame>> savedRuns = new List<List<GhostRecorder.GhostFrame>>();
     // Currently active ghost objects
-    private List<GameObject> activeGhosts = new List<GameObject>();
+    public List<GameObject> activeGhosts = new List<GameObject>();
+
+    //Event used to tell all dogs in the scene to select a new target
+    public UnityEvent SelectNewDogTarget;
 
     void Start()
     {
@@ -62,6 +67,9 @@ public class GhostManager : MonoBehaviour
         {
             SpawnGhost(savedRuns[i]);
         }
+        
+        //Make dogs select new target
+        SelectNewDogTarget.Invoke();
 
         // Start recording the new run
         if (playerRecorder != null)
