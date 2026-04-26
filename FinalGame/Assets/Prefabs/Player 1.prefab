@@ -11,9 +11,12 @@ GameObject:
   - component: {fileID: 5290447341900946066}
   - component: {fileID: 6027942007967782075}
   - component: {fileID: 1000937608070364823}
+  - component: {fileID: 7241268855032500560}
   - component: {fileID: 5682964219693700819}
   - component: {fileID: 4021492776768615591}
   - component: {fileID: 857314530204642084}
+  - component: {fileID: 3392130266133069640}
+  - component: {fileID: 2102660651958736882}
   m_Layer: 6
   m_Name: Player 1
   m_TagString: Player
@@ -89,6 +92,24 @@ MonoBehaviour:
   isGrounded: 0
   isJumping: 0
   cameraTransform: {fileID: 0}
+--- !u!114 &7241268855032500560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2680855473009447781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5727d18df26826d4b9b8bc6770f55da5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactRange: 2.5
+  interactableLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  interactKey: 323
+  hasKey: 0
 --- !u!114 &5682964219693700819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -136,6 +157,35 @@ MonoBehaviour:
     m_Bits: 256
   interactKey: 323
   hasKey: 0
+--- !u!114 &3392130266133069640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2680855473009447781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d95e26224c5f184dac5c882f014ebd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxLives: 9
+  currentLives: 0
+  spawnPoint: {fileID: 0}
+  resetKey: 324
+--- !u!114 &2102660651958736882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2680855473009447781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23731b3d4a9a9b94eb3fb0fb82369477, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentRecording: []
 --- !u!1 &5671003185191586296
 GameObject:
   m_ObjectHideFlags: 0
