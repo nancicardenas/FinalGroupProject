@@ -2324,7 +2324,7 @@ MonoBehaviour:
   ghostManager: {fileID: 1781565108}
   livesUI: {fileID: 198876620}
   fallbackCatPrefab: {fileID: 3544774888470519738, guid: 816ed7f6b70fc7148988007ff191729e, type: 3}
-  fallbackAnimController: {fileID: 9100000, guid: 2e64e300b70b5b9458e78c49dd9bdf03, type: 2}
+  fallbackAnimController: {fileID: 9100000, guid: 4145e025cfd949b49a45f8008319e87a, type: 2}
 --- !u!4 &1701538378
 Transform:
   m_ObjectHideFlags: 0
