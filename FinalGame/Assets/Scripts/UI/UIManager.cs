@@ -29,7 +29,7 @@ public class UIManager : MonoBehaviour
     // --- Title Screen Button Handlers ---
     public void OnPlayClicked()
     {
-        SceneManager.LoadScene("CatSelection");
+        SceneManager.LoadScene("IntroCutscene");
     }
 
     public void OnOptionsClicked()
