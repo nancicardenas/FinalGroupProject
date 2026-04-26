@@ -2482,7 +2482,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 9100000, guid: 2e64e300b70b5b9458e78c49dd9bdf03, type: 2}
+  - {fileID: 9100000, guid: 4145e025cfd949b49a45f8008319e87a, type: 2}
   catNames:
   - American Curl
   - Bobtail
