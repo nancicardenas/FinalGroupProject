@@ -27,14 +27,12 @@ public class GhostManager : MonoBehaviour
 
     void Start()
     {
-        if (playerLife != null)
+        // If playerLife and playerRecorder are already assigned (e.g., manually in Inspector),
+        // subscribe and start recording. Otherwise, PlayerSpawner handles this.
+        if (playerLife != null && playerRecorder != null)
         {
             playerLife.OnPlayerDied += OnRunEnded;
             playerLife.OnPlayerReset += OnNewRunStarting;
-        }
-
-        if (playerRecorder != null)
-        {
             playerRecorder.StartRecording();
         }
     }
@@ -88,7 +86,10 @@ public class GhostManager : MonoBehaviour
         GameObject ghost = Instantiate(ghostPrefab, startPos, startRot);
         ghost.name = "Ghost_Run" + (ghostIndex + 1);
 
-        // Assign unique material
+        // Add the cat model to the ghost
+        AddCatModelToGhost(ghost);
+
+        // Apply unique ghost material
         ApplyGhostMaterial(ghost, ghostIndex);
 
         // Initialize replay
@@ -100,6 +101,43 @@ public class GhostManager : MonoBehaviour
         }
 
         activeGhosts.Add(ghost);
+    }
+
+    void AddCatModelToGhost(GameObject ghost)
+    {
+        // Get the same cat prefab the player is using
+        GameObject catPrefab = null;
+        RuntimeAnimatorController animController = null;
+
+        if (GameManager.Instance != null)
+        {
+            catPrefab = GameManager.Instance.GetSelectedCatPrefab();
+            animController = GameManager.Instance.GetSelectedAnimatorController();
+        }
+
+        if (catPrefab == null) return;
+
+        // Spawn cat model as child of ghost
+        GameObject model = Instantiate(catPrefab, ghost.transform);
+        model.name = "GhostModel";
+        model.transform.localPosition = Vector3.zero;
+        model.transform.localRotation = Quaternion.identity;
+
+        // Assign animator controller
+        Animator anim = model.GetComponent<Animator>();
+        if (anim == null) anim = model.GetComponentInChildren<Animator>();
+        if (anim != null && animController != null)
+        {
+            anim.runtimeAnimatorController = animController;
+            anim.applyRootMotion = false;
+        }
+
+        // Remove any colliders from the ghost model (ghosts are non-physical)
+        Collider[] colliders = model.GetComponentsInChildren<Collider>();
+        foreach (Collider col in colliders)
+        {
+            Destroy(col);
+        }
     }
 
     void ApplyGhostMaterial(GameObject ghost, int index)
@@ -133,5 +171,15 @@ public class GhostManager : MonoBehaviour
             playerLife.OnPlayerDied -= OnRunEnded;
             playerLife.OnPlayerReset -= OnNewRunStarting;
         }
+    }
+
+    // --- Public wrappers for PlayerSpawner event subscription ---
+    public void OnRunEndedPublic()
+    {
+        OnRunEnded();
+    }
+    public void OnNewRunStartingPublic()
+    {
+        OnNewRunStarting();
     }
 }

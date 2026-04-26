@@ -1,7 +1,8 @@
 using UnityEngine;
 
 /// <summary>
-/// Persists across scenes. Holds the selected cat prefab reference.
+/// Persists across scenes via DontDestroyOnLoad.
+/// Stores the selected cat data for spawning in gameplay scenes.
 /// </summary>
 public class GameManager : MonoBehaviour
 {
@@ -9,6 +10,9 @@ public class GameManager : MonoBehaviour
 
     [Header("All Cat Prefabs (same order as CatSelector)")]
     public GameObject[] catPrefabs;
+
+    [Header("All Animator Controllers (same order as CatSelector)")]
+    public RuntimeAnimatorController[] animatorControllers;
 
     [HideInInspector] public int selectedCatIndex = 0;
 
@@ -23,7 +27,6 @@ public class GameManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
-        // Read saved selection
         selectedCatIndex = PlayerPrefs.GetInt("SelectedCatIndex", 0);
     }
 
@@ -32,5 +35,12 @@ public class GameManager : MonoBehaviour
         if (catPrefabs == null || catPrefabs.Length == 0) return null;
         int index = Mathf.Clamp(selectedCatIndex, 0, catPrefabs.Length - 1);
         return catPrefabs[index];
+    }
+
+    public RuntimeAnimatorController GetSelectedAnimatorController()
+    {
+        if (animatorControllers == null || animatorControllers.Length == 0) return null;
+        int index = Mathf.Clamp(selectedCatIndex, 0, animatorControllers.Length - 1);
+        return animatorControllers[index];
     }
 }
