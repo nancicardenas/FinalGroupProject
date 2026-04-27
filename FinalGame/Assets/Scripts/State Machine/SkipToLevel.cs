@@ -14,5 +14,9 @@ public class SkipToLevels : MonoBehaviour
             PlayerPrefs.Save();
             SceneManager.LoadScene("AncientGreekIsland");
         }
+        else
+        {
+            PlayerPrefs.SetInt("SelectedCatIndex", 0);
+        }
     }
 }

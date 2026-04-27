@@ -18,7 +18,9 @@ public class GhostDetection : MonoBehaviour
 
     private void SelectNewTarget()
     {
-        dogAIScript.target = ghostManager.activeGhosts.Count > 0 ? ghostManager.activeGhosts[Random.Range(0, ghostManager.activeGhosts.Count)].transform : player;
+        bool ghostsActive = ghostManager.activeGhosts.Count > 0;
+        dogAIScript.target = ghostsActive ? ghostManager.activeGhosts[Random.Range(0, ghostManager.activeGhosts.Count)].transform : player;
+        dogAIScript.isTargetPlayer = dogAIScript.target.gameObject.CompareTag("Player");
         print(dogAIScript.target.name);
     }
 }

@@ -34,18 +34,21 @@ public class DogAI : MonoBehaviour
     //Change These when resizing cat/dog objects
     private float dogHeight = 0.75f;
     private float catHeight = 0.5f;
+    private float ghostHeight = 0.3f;
+    private float targetHeight;
+
+    public bool isTargetPlayer = true;
 
     private float patrolSpeed = 2f;
 
     private float chaseSpeed = 5f;
 
     public PlayerLife playerLife;
-    public GhostManager ghostManager;
+
     private void Start()
     {
-        
+        targetHeight = catHeight;
     }
-
 
     // Update is called once per frame
     void Update()
@@ -162,9 +165,11 @@ public class DogAI : MonoBehaviour
     
     bool CanSeePlayer()
     {
+        targetHeight = isTargetPlayer ? catHeight : ghostHeight;
+        
         //Ray setup
         Vector3 origin = transform.position + Vector3.up * dogHeight;
-        Vector3 targetPosition = this.target.position + Vector3.up * catHeight;
+        Vector3 targetPosition = this.target.position + Vector3.up * targetHeight;
         Vector3 dir = (targetPosition - origin).normalized;
         
         float dist = Vector3.Distance(origin, targetPosition);
@@ -228,7 +233,7 @@ public class DogAI : MonoBehaviour
         if (this.target == null) return;
 
         Vector3 origin = transform.position + Vector3.up * dogHeight;
-        Vector3 target = this.target.position + Vector3.up * catHeight;
+        Vector3 target = this.target.position + Vector3.up * targetHeight;
         Vector3 dir = (target - origin).normalized;
         float dist = Vector3.Distance(origin, target);
 

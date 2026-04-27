@@ -98,6 +98,7 @@ public class PlayerSpawner : MonoBehaviour
 
             // GhostManager subscribes to events in its own Start(),
             // but player was just created, so we need to subscribe manually
+            Debug.Log("Subscribing GhostManager from SpawnPlayer");
             life.OnPlayerDied += ghostManager.OnRunEndedPublic;
             life.OnPlayerReset += ghostManager.OnNewRunStartingPublic;
 
@@ -116,7 +117,7 @@ public class PlayerSpawner : MonoBehaviour
         if (dogAI != null)
         {
             dogAI.playerLife = spawnedPlayer.gameObject.GetComponent<PlayerLife>();
-            dogAI.ghostManager = ghostManager;
+            //dogAI.ghostManager = ghostManager;
             dogAI.target = spawnedPlayer.transform;
         }
         
