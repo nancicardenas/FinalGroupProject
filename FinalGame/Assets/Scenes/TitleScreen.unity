@@ -2048,7 +2048,7 @@ MonoBehaviour:
   - {fileID: 3544774888470519738, guid: 816ed7f6b70fc7148988007ff191729e, type: 3}
   animatorControllers:
   - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 9100000, guid: 8be12e1696689c244b27007c7479c1dd, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}

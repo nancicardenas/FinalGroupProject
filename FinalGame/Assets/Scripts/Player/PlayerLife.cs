@@ -46,31 +46,46 @@ public class PlayerLife : MonoBehaviour
         if (isDead) return;
         isDead = true;
 
+        StartCoroutine(DeathSequence());
+    }
+
+    private System.Collections.IEnumerator DeathSequence()
+    {
         currentLives--;
         Debug.Log("Died! Lives remaining: " + currentLives);
 
         if (AudioManager.Instance != null) AudioManager.Instance.PlayDeath();
 
-        // Save the ghost recording before anything resets
+        PlayerAnimator playerAnimator = GetComponentInChildren<PlayerAnimator>();
+        if (playerAnimator != null)
+        {
+            playerAnimator.TriggerDeath();
+        }
+
         OnPlayerDied?.Invoke();
+
+        yield return new WaitForSeconds(1f);
 
         if (currentLives <= 0)
         {
             Debug.Log("All lives gone! Full level reset.");
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-            return;
+            yield break;
         }
 
-        // Spawn ghosts from saved recordings
         OnPlayerReset?.Invoke();
-
-        // Reset everything for the new life
         ResetForNewLife();
     }
 
     void ResetForNewLife()
     {
         isDead = false;
+
+        PlayerAnimator playerAnimator = GetComponentInChildren<PlayerAnimator>();
+        if (playerAnimator != null)
+        {
+            playerAnimator.TriggerRespawn();
+        }
 
         // Teleport player to spawn
         CharacterController cc = GetComponent<CharacterController>();

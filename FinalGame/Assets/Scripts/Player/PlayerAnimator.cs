@@ -6,6 +6,7 @@ public class PlayerAnimator : MonoBehaviour
     private Animator animator;
     private PlayerController playerController;
     private bool wasGrounded;
+    private bool wasJumping;
     private float idleTimer = 0f;
 
     void Start()
@@ -18,7 +19,13 @@ public class PlayerAnimator : MonoBehaviour
         if(playerController != null)
         {
             wasGrounded = playerController.isGrounded;
+            wasJumping = playerController.isJumping;
         }
+    }
+
+    public void TriggerDeath()
+    {
+        animator.SetTrigger("Death");
     }
 
     void Update()
@@ -41,7 +48,7 @@ public class PlayerAnimator : MonoBehaviour
         }
         animator.SetFloat("IdleTimer", idleTimer);
 
-        if (wasGrounded && !playerController.isGrounded)
+        if (!wasJumping && playerController.isJumping)
         {
             animator.SetTrigger("Jump");
             idleTimer = 0f;
@@ -49,5 +56,27 @@ public class PlayerAnimator : MonoBehaviour
         }
 
         wasGrounded = playerController.isGrounded;
+        wasJumping = playerController.isJumping;
+    }
+
+    public void TriggerRespawn()
+    {
+        if (animator != null)
+        {
+            animator.ResetTrigger("Death");
+            animator.SetTrigger("Respawn");
+            idleTimer = 0f;
+            animator.SetFloat("IdleTimer", idleTimer);
+        }
+    }
+
+    public void TriggerSearch()
+    {
+        if (animator != null)
+        {
+            animator.SetTrigger("Search");
+            idleTimer = 0f;
+            animator.SetFloat("IdleTimer", idleTimer);
+        }
     }
 }

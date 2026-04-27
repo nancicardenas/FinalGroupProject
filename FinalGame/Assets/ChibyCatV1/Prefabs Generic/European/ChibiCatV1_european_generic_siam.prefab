@@ -14,7 +14,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2814395085449831357, guid: 3b808d467dddd5342a8753d9bdf97151, type: 3}
       propertyPath: m_Name
-      value: ChibiCatV1_european_Siam
+      value: ChibiCatV1_european_generic_siam
       objectReference: {fileID: 0}
     - target: {fileID: 3190076615336392967, guid: 3b808d467dddd5342a8753d9bdf97151, type: 3}
       propertyPath: m_RootOrder
@@ -67,5 +67,35 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2814395085449831357, guid: 3b808d467dddd5342a8753d9bdf97151, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -8850238847471022289}
   m_SourcePrefab: {fileID: 100100000, guid: 3b808d467dddd5342a8753d9bdf97151, type: 3}
+--- !u!1 &2784440516651541439 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2814395085449831357, guid: 3b808d467dddd5342a8753d9bdf97151, type: 3}
+  m_PrefabInstance: {fileID: 120168437005664258}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &-8850238847471022289
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2784440516651541439}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

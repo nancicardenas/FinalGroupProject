@@ -58,7 +58,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6574283116752022591, guid: 475cf6352f1f51342aa0520eb118ceb5, type: 3}
       propertyPath: m_Name
-      value: ChibiCatV1_european_Orange
+      value: ChibiCatV1_european_generic_orange
       objectReference: {fileID: 0}
     - target: {fileID: 8256643319116162724, guid: 475cf6352f1f51342aa0520eb118ceb5, type: 3}
       propertyPath: m_Name
@@ -67,5 +67,35 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6574283116752022591, guid: 475cf6352f1f51342aa0520eb118ceb5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3530449538715099237}
   m_SourcePrefab: {fileID: 100100000, guid: 475cf6352f1f51342aa0520eb118ceb5, type: 3}
+--- !u!1 &2814395085449831357 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6574283116752022591, guid: 475cf6352f1f51342aa0520eb118ceb5, type: 3}
+  m_PrefabInstance: {fileID: 8949275619058618242}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &3530449538715099237
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2814395085449831357}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

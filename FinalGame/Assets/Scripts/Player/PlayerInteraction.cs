@@ -42,6 +42,13 @@ public class PlayerInteraction : MonoBehaviour
         if (key != null && !key.isPickedUp)
         {
             key.Pickup(this);
+
+            PlayerAnimator playerAnimator = GetComponentInChildren<PlayerAnimator>();
+            if (playerAnimator != null)
+            {
+                playerAnimator.TriggerSearch();
+            }
+            
             return;
         }
 
