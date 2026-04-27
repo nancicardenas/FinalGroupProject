@@ -70,14 +70,14 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6574283116752022591, guid: 475cf6352f1f51342aa0520eb118ceb5, type: 3}
       insertIndex: -1
-      addedObject: {fileID: -474675283211037383}
+      addedObject: {fileID: 3530449538715099237}
   m_SourcePrefab: {fileID: 100100000, guid: 475cf6352f1f51342aa0520eb118ceb5, type: 3}
 --- !u!1 &2814395085449831357 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6574283116752022591, guid: 475cf6352f1f51342aa0520eb118ceb5, type: 3}
   m_PrefabInstance: {fileID: 8949275619058618242}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &-474675283211037383
+--- !u!95 &3530449538715099237
 Animator:
   serializedVersion: 7
   m_ObjectHideFlags: 0

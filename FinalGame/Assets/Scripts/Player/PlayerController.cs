@@ -15,6 +15,11 @@ public class PlayerController : MonoBehaviour
     public float groundDistance = 0.3f;
     public LayerMask groundMask;
 
+    [Header("Jump Timing")]
+    public float jumpStartDelay = 0.25f;
+    private bool jumpQueued;
+    private float jumpQueueTimer;
+
     // State — readable by other scripts
     [HideInInspector] public bool isMoving;
     [HideInInspector] public bool isRunning;
@@ -80,10 +85,22 @@ public class PlayerController : MonoBehaviour
         }
 
         // Jump
-        if (Input.GetButtonDown("Jump") && isGrounded)
+        if (Input.GetButtonDown("Jump") && isGrounded && !jumpQueued)
         {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            jumpQueued = true;
+            jumpQueueTimer = jumpStartDelay;
             isJumping = true;
+        }
+
+        if (jumpQueued)
+        {
+            jumpQueueTimer -= Time.deltaTime;
+
+            if (jumpQueueTimer <= 0f)
+            {
+                velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+                jumpQueued = false;
+            }
         }
         else if (isGrounded)
         {
