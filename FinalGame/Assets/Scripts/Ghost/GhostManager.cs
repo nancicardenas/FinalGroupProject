@@ -27,14 +27,18 @@ public class GhostManager : MonoBehaviour
 
     void Start()
     {
+        //TODO Delete or Keep later
+        //This was a duplicate subscription to the UnityEvents, same functionality in PlayerSpawner since the player is spawned at start anyways
+        
         // If playerLife and playerRecorder are already assigned (e.g., manually in Inspector),
         // subscribe and start recording. Otherwise, PlayerSpawner handles this.
-        if (playerLife != null && playerRecorder != null)
+        /*if (playerLife != null && playerRecorder != null)
         {
+            Debug.Log("Subscribing GhostManager from GhostManager.Start");
             playerLife.OnPlayerDied += OnRunEnded;
             playerLife.OnPlayerReset += OnNewRunStarting;
             playerRecorder.StartRecording();
-        }
+        }*/
     }
 
     void OnRunEnded()
@@ -176,6 +180,7 @@ public class GhostManager : MonoBehaviour
     // --- Public wrappers for PlayerSpawner event subscription ---
     public void OnRunEndedPublic()
     {
+        Debug.Log("OnRunEndedPublic called");
         OnRunEnded();
     }
     public void OnNewRunStartingPublic()
