@@ -1,14 +1,9 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 /// <summary>
 /// Manages lives, death, and per-life reset of all interactables.
-/// At the start of each new life:
-///   - Player teleports to spawn, loses key
-///   - Key respawns (no one holds it)
-///   - Gate respawns closed
-///   - Trap respawns active
-///   - Door resets
 /// </summary>
 public class PlayerLife : MonoBehaviour
 {
@@ -20,17 +15,28 @@ public class PlayerLife : MonoBehaviour
     public Transform spawnPoint;
 
     [Header("Manual Reset")]
-    public KeyCode resetKey = KeyCode.Mouse1; // Right Click
+    public KeyCode resetKey = KeyCode.Mouse1;
 
-    // Events for GhostManager
     public System.Action OnPlayerDied;
     public System.Action OnPlayerReset;
 
     private bool isDead = false;
 
+    // Cached references — found once, used every reset
+    private KeyPickup[] allKeys;
+    private Gate[] allGates;
+    private TrapZone[] allTraps;
+    private ExitDoor[] allDoors;
+
     void Start()
     {
         currentLives = maxLives;
+
+        // Cache ALL interactables at scene start, including inactive
+        allKeys = Object.FindObjectsByType<KeyPickup>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        allGates = Object.FindObjectsByType<Gate>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        allTraps = Object.FindObjectsByType<TrapZone>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        allDoors = Object.FindObjectsByType<ExitDoor>(FindObjectsInactive.Include, FindObjectsSortMode.None);
     }
 
     void Update()
@@ -49,21 +55,24 @@ public class PlayerLife : MonoBehaviour
         StartCoroutine(DeathSequence());
     }
 
-    private System.Collections.IEnumerator DeathSequence()
+    private IEnumerator DeathSequence()
     {
         currentLives--;
         Debug.Log("Died! Lives remaining: " + currentLives);
 
         if (AudioManager.Instance != null) AudioManager.Instance.PlayDeath();
 
+        // Play death animation
         PlayerAnimator playerAnimator = GetComponentInChildren<PlayerAnimator>();
         if (playerAnimator != null)
         {
             playerAnimator.TriggerDeath();
         }
 
+        // Save ghost recording
         OnPlayerDied?.Invoke();
 
+        // Wait for death animation to play
         yield return new WaitForSeconds(1f);
 
         if (currentLives <= 0)
@@ -73,7 +82,10 @@ public class PlayerLife : MonoBehaviour
             yield break;
         }
 
+        // Spawn ghosts
         OnPlayerReset?.Invoke();
+
+        // Reset everything for new life
         ResetForNewLife();
     }
 
@@ -81,6 +93,7 @@ public class PlayerLife : MonoBehaviour
     {
         isDead = false;
 
+        // Play respawn animation
         PlayerAnimator playerAnimator = GetComponentInChildren<PlayerAnimator>();
         if (playerAnimator != null)
         {
@@ -103,34 +116,30 @@ public class PlayerLife : MonoBehaviour
             interaction.hasKey = false;
         }
 
-        // Reset all world objects
+        // Reset all interactables using cached references
         ResetAllInteractables();
     }
 
     void ResetAllInteractables()
     {
-        KeyPickup[] keys = FindObjectsByType<KeyPickup>(FindObjectsSortMode.None);
-        foreach (var key in keys)
+        foreach (var key in allKeys)
         {
-            key.ResetKey();
+            if (key != null) key.ResetKey();
         }
 
-        Gate[] gates = FindObjectsByType<Gate>(FindObjectsSortMode.None);
-        foreach (var gate in gates)
+        foreach (var gate in allGates)
         {
-            gate.ResetGate();
+            if (gate != null) gate.ResetGate();
         }
 
-        TrapZone[] traps = FindObjectsByType<TrapZone>(FindObjectsSortMode.None);
-        foreach (var trap in traps)
+        foreach (var trap in allTraps)
         {
-            trap.ResetTrap();
+            if (trap != null) trap.ResetTrap();
         }
 
-        ExitDoor[] doors = FindObjectsByType<ExitDoor>(FindObjectsSortMode.None);
-        foreach (var door in doors)
+        foreach (var door in allDoors)
         {
-            door.ResetDoor();
+            if (door != null) door.ResetDoor();
         }
     }
 }
