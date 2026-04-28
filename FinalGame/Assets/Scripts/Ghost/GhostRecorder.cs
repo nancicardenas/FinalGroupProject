@@ -23,6 +23,9 @@ public class GhostRecorder : MonoBehaviour
         public Quaternion rotation;
         public float speed;
         public bool isRunning;
+        public bool isGrounded;
+        public bool isJumping;
+        public float idleTimer;
         public InteractionType interaction;
     }
 
@@ -31,6 +34,7 @@ public class GhostRecorder : MonoBehaviour
 
     private PlayerController playerController;
     private bool isRecording = false;
+    private float currentIdleTimer = 0f;
 
     // Queue interactions to be stamped on the next fixed frame
     private InteractionType pendingInteraction = InteractionType.None;
@@ -44,6 +48,7 @@ public class GhostRecorder : MonoBehaviour
     {
         currentRecording.Clear();
         isRecording = true;
+        currentIdleTimer = 0f;
     }
 
     public void StopRecording()
@@ -69,19 +74,31 @@ public class GhostRecorder : MonoBehaviour
     {
         if (!isRecording) return;
 
+        bool moving = playerController != null && playerController.isMoving;
+        bool grounded = playerController != null && playerController.isGrounded;
+
+        if (!moving && grounded)
+        {
+            currentIdleTimer += Time.fixedDeltaTime;
+        }
+        else
+        {
+            currentIdleTimer = 0f;
+        }
+
         GhostFrame frame = new GhostFrame
         {
             position = transform.position,
             rotation = transform.rotation,
-            speed = playerController != null && playerController.isMoving
-                ? (playerController.isRunning ? 1f : 0.5f) : 0f,
+            speed = moving ? (playerController.isRunning ? 1f : 0.5f) : 0f,
             isRunning = playerController != null && playerController.isRunning,
+            isGrounded = grounded,
+            isJumping = playerController != null && playerController.isJumping,
+            idleTimer = currentIdleTimer,
             interaction = pendingInteraction
         };
 
         currentRecording.Add(frame);
-
-        // Clear pending interaction after recording it
         pendingInteraction = InteractionType.None;
     }
 }

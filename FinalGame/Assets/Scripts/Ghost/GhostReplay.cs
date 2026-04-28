@@ -71,8 +71,15 @@ public class GhostReplay : MonoBehaviour
         if (animator != null)
         {
             animator.SetFloat("Speed", frame.speed);
+            animator.SetFloat("IdleTimer", frame.idleTimer);
             animator.SetBool("IsRunning", frame.isRunning);
-            animator.SetBool("IsGrounded", true); // ghosts are always "grounded" for animation purposes
+            animator.SetBool("IsGrounded", frame.isGrounded);
+
+            // Detect jump start: previous frame grounded, this frame jumping
+            if (frame.isJumping && (currentFrame == 0 || !frames[currentFrame - 1].isJumping))
+            {
+                animator.SetTrigger("Jump");
+            }
         }
 
         // Replay interactions
