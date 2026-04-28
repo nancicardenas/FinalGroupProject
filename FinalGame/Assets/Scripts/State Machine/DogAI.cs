@@ -25,6 +25,7 @@ public class DogAI : MonoBehaviour
 
     public Transform[] destinationPoints;
     public Vector3 destinationPos;
+    private Vector3 startPosition;
     private float detectionRadius = 10f;
     private float idleTimer = 0f;
     private float idleDuration = 1f;
@@ -54,6 +55,7 @@ public class DogAI : MonoBehaviour
     {
         targetHeight = catHeight;
         ghostManager = GameObject.FindGameObjectWithTag("GhostManager").GetComponent<GhostManager>();
+        startPosition = transform.position;
         //player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
@@ -231,6 +233,7 @@ public class DogAI : MonoBehaviour
         if (target.root.CompareTag("Player"))
         {
             playerLife.Die();
+            StartCoroutine(ResetDog());
         }
         
     }
@@ -245,6 +248,14 @@ public class DogAI : MonoBehaviour
             ghostManager.SelectNewDogTarget.Invoke();
             EnterPatrol();
         }
+    }
+
+    //Reset dog to starting position to prevent spawn camping
+    IEnumerator ResetDog()
+    {
+        yield return new WaitForSeconds(1f);
+        transform.position = startPosition;
+        EnterPatrol();
     }
     
     //Helper used to draw gizmos in the editor for detection
