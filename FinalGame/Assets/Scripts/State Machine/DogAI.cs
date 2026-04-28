@@ -47,17 +47,24 @@ public class DogAI : MonoBehaviour
 
     public PlayerLife playerLife;
     private GhostManager ghostManager;
-    private Transform player;
+    public Transform player;
+    public Transform ghostTarget;
 
     private void Start()
     {
         targetHeight = catHeight;
         ghostManager = GameObject.FindGameObjectWithTag("GhostManager").GetComponent<GhostManager>();
+        //player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (player == null)
+        {
+            return;
+        }
+        
         switch (state)
         {
             case dogState.idle:
@@ -134,15 +141,24 @@ public class DogAI : MonoBehaviour
             EnterIdle();
         }
 
-        if (DistanceDifferencePlayerToGhost() < 0)
+        //If the target is a ghost, only target the ghost if it is closer to the dog, otherwise target player
+        if (!isTargetPlayer)
         {
-            target = player;
+            if (DistanceDifferencePlayerToGhost() < -1.5f)
+            {
+                target = player;
+                isTargetPlayer = true;
+            }
+            else
+            {
+                target = ghostTarget;
+            }
         }
     }
 
     float DistanceDifferencePlayerToGhost()
     {
-        return Vector3.Distance(player.position, transform.position) - Vector3.Distance(target.position, transform.position);
+        return Vector3.Distance(player.position, transform.position) - Vector3.Distance(ghostTarget.position, transform.position);
     }
 
     void EnterChase()
@@ -218,22 +234,9 @@ public class DogAI : MonoBehaviour
         }
         
     }
-
-    //TODO: Mayble delete function later, only used for testing purposes. State would need to be reset if game over.
+    
     void UpdatePlayerCaught()
     {
-        /*if (!ReachedPlayer())
-        {
-            dogAgent.isStopped = false;
-            if (CanSeePlayer())
-            {
-                state = dogState.chase;
-            }
-            else
-            {
-                state = dogState.patrol;
-            }
-        }*/
         caughtTimer += Time.deltaTime;
         dogAgent.isStopped = true;
         if (caughtTimer >= caughtDuration)
