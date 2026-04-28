@@ -127,7 +127,7 @@ public class Rabbit : MonoBehaviour
     }
 
 
-    void OnTriggerStay(Collider2D collision)
+    void OnTriggerStay(Collider collision)
     {
         // Check if this is the player (in this situation it should be!)
         if (collision.gameObject == GameObject.Find("Player"))
