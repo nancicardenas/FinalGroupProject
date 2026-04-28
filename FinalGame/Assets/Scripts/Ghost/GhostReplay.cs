@@ -20,8 +20,15 @@ public class GhostReplay : MonoBehaviour
     [Header("Fade Settings")]
     public float fadeDuration = 1.0f;
 
+    [Header("Interaction Range")]
+    public float interactRange = 5f; // generous range since ghost positions may drift slightly
+
     // Ghost index (0-7), assigned by GhostManager for shader selection
     [HideInInspector] public int ghostIndex = 0;
+
+    // Cached references — found once at start, works even when objects are deactivated
+    private KeyPickup[] allKeys;
+    private Gate[] allGates;
 
     public void Initialize(List<GhostRecorder.GhostFrame> recordedFrames)
     {
@@ -35,6 +42,10 @@ public class GhostReplay : MonoBehaviour
     {
         animator = GetComponentInChildren<Animator>();
         renderers = GetComponentsInChildren<Renderer>();
+
+        // Cache all interactables including inactive ones
+        allKeys = Object.FindObjectsByType<KeyPickup>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        allGates = Object.FindObjectsByType<Gate>(FindObjectsInactive.Include, FindObjectsSortMode.None);
     }
 
     void FixedUpdate()
@@ -47,6 +58,7 @@ public class GhostReplay : MonoBehaviour
             if (animator != null)
             {
                 animator.SetFloat("Speed", 0f);
+                animator.SetBool("IsRunning", false);
             }
             return;
         }
@@ -60,6 +72,7 @@ public class GhostReplay : MonoBehaviour
         {
             animator.SetFloat("Speed", frame.speed);
             animator.SetBool("IsRunning", frame.isRunning);
+            animator.SetBool("IsGrounded", true); // ghosts are always "grounded" for animation purposes
         }
 
         // Replay interactions
@@ -86,58 +99,82 @@ public class GhostReplay : MonoBehaviour
 
     void TryGhostPickupKey()
     {
-        // Find the nearest key within range
-        KeyPickup[] keys = FindObjectsByType<KeyPickup>(FindObjectsSortMode.None);
-        foreach (KeyPickup key in keys)
+        float closestDist = float.MaxValue;
+        KeyPickup closestKey = null;
+
+        foreach (KeyPickup key in allKeys)
         {
-            if (!key.isPickedUp && key.gameObject.activeInHierarchy)
+            if (key == null) continue;
+            if (key.isPickedUp) continue;
+            if (!key.gameObject.activeInHierarchy) continue;
+
+            float dist = Vector3.Distance(transform.position, key.transform.position);
+            if (dist < interactRange && dist < closestDist)
             {
-                float dist = Vector3.Distance(transform.position, key.transform.position);
-                if (dist < 3f) // generous range for ghost
+                closestDist = dist;
+                closestKey = key;
+            }
+        }
+
+        if (closestKey != null)
+        {
+            if (closestKey.GhostPickup())
+            {
+                ghostHasKey = true;
+                Debug.Log("Ghost " + ghostIndex + " picked up key successfully.");
+
+                // Play interact animation on ghost
+                if (animator != null)
                 {
-                    if (key.GhostPickup())
-                    {
-                        ghostHasKey = true;
-                        Debug.Log("Ghost picked up key successfully.");
-                    }
-                    return;
+                    animator.SetTrigger("Interact");
                 }
             }
         }
-        // Key was already picked up by player or another ghost
-        Debug.Log("Ghost tried to pick up key but it was already taken.");
+        else
+        {
+            Debug.Log("Ghost " + ghostIndex + " tried to pick up key but it was already taken.");
+        }
     }
 
     void TryGhostOpenGate()
     {
-        Gate[] gates = FindObjectsByType<Gate>(FindObjectsSortMode.None);
-        foreach (Gate gate in gates)
+        float closestDist = float.MaxValue;
+        Gate closestGate = null;
+
+        foreach (Gate gate in allGates)
         {
-            if (!gate.isOpen && gate.gameObject.activeInHierarchy)
+            if (gate == null) continue;
+            if (gate.isOpen) continue;
+            if (!gate.gameObject.activeInHierarchy) continue;
+
+            float dist = Vector3.Distance(transform.position, gate.transform.position);
+            if (dist < interactRange && dist < closestDist)
             {
-                float dist = Vector3.Distance(transform.position, gate.transform.position);
-                if (dist < 3f)
-                {
-                    if (ghostHasKey)
-                    {
-                        gate.GhostOpen(true);
-                        Debug.Log("Ghost opened the gate.");
-                    }
-                    else
-                    {
-                        Debug.Log("Ghost has no key — cannot open gate.");
-                        // Ghost didn't have the key. It will despawn on gate contact.
-                        // (handled by GhostGateDespawn trigger on the gate)
-                    }
-                    return;
-                }
+                closestDist = dist;
+                closestGate = gate;
             }
+        }
+
+        if (closestGate != null)
+        {
+            if (ghostHasKey)
+            {
+                closestGate.GhostOpen(true);
+                Debug.Log("Ghost " + ghostIndex + " opened the gate.");
+            }
+            else
+            {
+                Debug.Log("Ghost " + ghostIndex + " has no key — cannot open gate.");
+            }
+        }
+        else
+        {
+            Debug.Log("Ghost " + ghostIndex + " tried to open gate but no gate found in range. Closest gate distance check failed.");
         }
     }
 
     /// <summary>
     /// Called when ghost touches a closed gate without a key.
-    /// Fades out and destroys itself.
     /// </summary>
     public void DespawnAtGate()
     {
@@ -148,7 +185,7 @@ public class GhostReplay : MonoBehaviour
     }
 
     /// <summary>
-    /// Called when ghost triggers a trap. Fades out and destroys itself.
+    /// Called when ghost triggers a trap.
     /// </summary>
     public void DespawnAtTrap()
     {
@@ -166,10 +203,10 @@ public class GhostReplay : MonoBehaviour
         }
 
         float elapsed = 0f;
-        // Store original colors
         Dictionary<Renderer, Color[]> originalColors = new Dictionary<Renderer, Color[]>();
         foreach (Renderer rend in renderers)
         {
+            if (rend == null) continue;
             Color[] colors = new Color[rend.materials.Length];
             for (int i = 0; i < rend.materials.Length; i++)
             {
@@ -185,6 +222,7 @@ public class GhostReplay : MonoBehaviour
 
             foreach (Renderer rend in renderers)
             {
+                if (rend == null) continue;
                 if (originalColors.ContainsKey(rend))
                 {
                     Color[] origColors = originalColors[rend];
