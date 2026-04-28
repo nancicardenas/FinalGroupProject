@@ -10,7 +10,9 @@ public class GhostReplay : MonoBehaviour
 {
     private List<GhostRecorder.GhostFrame> frames;
     private int currentFrame = 0;
-    private bool isPlaying = false;
+    
+    //isPlaying used by ghostDetection to select a new ghost target
+    public bool isPlaying = false;
     private bool ghostHasKey = false;
     private bool isDespawning = false;
 

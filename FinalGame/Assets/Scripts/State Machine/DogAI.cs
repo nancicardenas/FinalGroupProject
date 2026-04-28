@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
@@ -44,10 +46,13 @@ public class DogAI : MonoBehaviour
     private float chaseSpeed = 5f;
 
     public PlayerLife playerLife;
+    private GhostManager ghostManager;
+    private Transform player;
 
     private void Start()
     {
         targetHeight = catHeight;
+        ghostManager = GameObject.FindGameObjectWithTag("GhostManager").GetComponent<GhostManager>();
     }
 
     // Update is called once per frame
@@ -128,6 +133,16 @@ public class DogAI : MonoBehaviour
         {
             EnterIdle();
         }
+
+        if (DistanceDifferencePlayerToGhost() < 0)
+        {
+            target = player;
+        }
+    }
+
+    float DistanceDifferencePlayerToGhost()
+    {
+        return Vector3.Distance(player.position, transform.position) - Vector3.Distance(target.position, transform.position);
     }
 
     void EnterChase()
@@ -193,7 +208,7 @@ public class DogAI : MonoBehaviour
         dogAgent.isStopped = true;
         dogAgent.ResetPath();
         caughtTimer = 0f;
-        caughtDuration =  target.root.CompareTag("Player") ? 1f : 4f; //Set the caughtDuration to 4 seconds if it is a ghost
+        caughtDuration =  isTargetPlayer ? 1f : 4f; //Set the caughtDuration to 4 seconds if it is a ghost
         state = dogState.playerCaught;
 
         //Kill player if the dog reaches them, don't kill if the target is a ghost
@@ -223,6 +238,8 @@ public class DogAI : MonoBehaviour
         dogAgent.isStopped = true;
         if (caughtTimer >= caughtDuration)
         {
+            Debug.Log("Back to patrol");
+            ghostManager.SelectNewDogTarget.Invoke();
             EnterPatrol();
         }
     }
