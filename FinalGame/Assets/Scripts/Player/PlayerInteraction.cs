@@ -19,7 +19,6 @@ public class PlayerInteraction : MonoBehaviour
 
     void TryInteract()
     {
-        // Find nearest interactable within range
         Collider[] hits = Physics.OverlapSphere(transform.position, interactRange, interactableLayer);
 
         float closestDist = float.MaxValue;
@@ -37,35 +36,42 @@ public class PlayerInteraction : MonoBehaviour
 
         if (closest == null) return;
 
-        // Check for Key
-        KeyPickup key = closest.GetComponent<KeyPickup>();
-        if (key != null && !key.isPickedUp)
+        // Check object and its parent for interactable components
+        // (handles cases where collider is on a child mesh)
+        GameObject[] toCheck = new GameObject[] { closest, closest.transform.root.gameObject };
+        if (closest.transform.parent != null)
         {
-            key.Pickup(this);
+            toCheck = new GameObject[] { closest, closest.transform.parent.gameObject, closest.transform.root.gameObject };
+        }
 
-            PlayerAnimator playerAnimator = GetComponentInChildren<PlayerAnimator>();
-            if (playerAnimator != null)
+        foreach (GameObject obj in toCheck)
+        {
+            KeyPickup key = obj.GetComponent<KeyPickup>();
+            if (key != null && !key.isPickedUp)
             {
-                playerAnimator.TriggerSearch();
+                key.Pickup(this);
+
+                PlayerAnimator playerAnimator = GetComponentInChildren<PlayerAnimator>();
+                if (playerAnimator != null)
+                {
+                    playerAnimator.TriggerSearch();
+                }
+                return;
             }
-            
-            return;
-        }
 
-        // Check for Gate
-        Gate gate = closest.GetComponent<Gate>();
-        if (gate != null && !gate.isOpen)
-        {
-            gate.TryOpen(this);
-            return;
-        }
+            Gate gate = obj.GetComponent<Gate>();
+            if (gate != null && !gate.isOpen)
+            {
+                gate.TryOpen(this);
+                return;
+            }
 
-        // Check for Exit Door
-        ExitDoor door = closest.GetComponent<ExitDoor>();
-        if (door != null)
-        {
-            door.Use();
-            return;
+            ExitDoor door = obj.GetComponent<ExitDoor>();
+            if (door != null)
+            {
+                door.Use();
+                return;
+            }
         }
     }
 }

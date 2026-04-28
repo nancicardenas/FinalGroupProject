@@ -169,6 +169,7 @@ public class GhostReplay : MonoBehaviour
             if (ghostHasKey)
             {
                 closestGate.GhostOpen(true);
+                ghostHasKey = false;
                 Debug.Log("Ghost " + ghostIndex + " opened the gate.");
             }
             else

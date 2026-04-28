@@ -19,6 +19,8 @@ public class Gate : MonoBehaviour
         {
             Open();
 
+            player.hasKey = false; // consume the key
+
             // Record interaction so ghosts replay it
             GhostRecorder recorder = player.GetComponent<GhostRecorder>();
             if (recorder != null)
