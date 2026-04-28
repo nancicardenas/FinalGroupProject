@@ -14,7 +14,6 @@ public class PlayerSpawner : MonoBehaviour
     public CameraFollow cameraFollow;
     public GhostManager ghostManager;
     public LivesUI livesUI;
-    public PlayerController playerController;
 
     [Header("Fallback (if GameManager not found — for testing)")]
     public GameObject fallbackCatPrefab;
