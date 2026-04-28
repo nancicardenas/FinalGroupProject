@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -8,6 +9,8 @@ public class GhostDetection : MonoBehaviour
     public GhostManager ghostManager;
 
     public Transform player;
+
+    //public List<int> usedGhostIndexes = new List<int>();
     
     private void Start()
     {
@@ -19,7 +22,10 @@ public class GhostDetection : MonoBehaviour
     private void SelectNewTarget()
     {
         bool ghostsActive = ghostManager.activeGhosts.Count > 0;
-        dogAIScript.target = ghostsActive ? ghostManager.activeGhosts[Random.Range(0, ghostManager.activeGhosts.Count)].transform : player;
+        int selectedIndex = Random.Range(0, ghostManager.activeGhosts.Count);
+        GhostReplay selectedGhostReplay = ghostManager.activeGhosts[selectedIndex].GetComponent<GhostReplay>();
+        
+        dogAIScript.target = ghostsActive && selectedGhostReplay.isPlaying ? ghostManager.activeGhosts[selectedIndex].transform : player;
         dogAIScript.isTargetPlayer = dogAIScript.target.gameObject.CompareTag("Player");
         print(dogAIScript.target.name);
     }
