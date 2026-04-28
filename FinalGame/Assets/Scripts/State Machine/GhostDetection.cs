@@ -27,6 +27,12 @@ public class GhostDetection : MonoBehaviour
         
         dogAIScript.target = ghostsActive && selectedGhostReplay.isPlaying ? ghostManager.activeGhosts[selectedIndex].transform : player;
         dogAIScript.isTargetPlayer = dogAIScript.target.gameObject.CompareTag("Player");
+
+        //Set the ghostTarget to the current ghost target
+        if (!dogAIScript.isTargetPlayer)
+        {
+            dogAIScript.ghostTarget = dogAIScript.target;
+        }
         print(dogAIScript.target.name);
     }
 }

@@ -116,8 +116,8 @@ public class PlayerSpawner : MonoBehaviour
         if (dogAI != null)
         {
             dogAI.playerLife = spawnedPlayer.gameObject.GetComponent<PlayerLife>();
-            //dogAI.ghostManager = ghostManager;
             dogAI.target = spawnedPlayer.transform;
+            dogAI.player = spawnedPlayer.transform;
         }
         
         GhostDetection ghostDetection = FindFirstObjectByType<GhostDetection>();
