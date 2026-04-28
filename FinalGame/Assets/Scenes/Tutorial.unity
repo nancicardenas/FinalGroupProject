@@ -623,6 +623,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   livesText: {fileID: 1204105428}
+  keyText: {fileID: 2125522617}
+  ghostManager: {fileID: 1781565108}
   playerLife: {fileID: 0}
 --- !u!1 &264219716
 GameObject:
@@ -2323,7 +2325,6 @@ MonoBehaviour:
   cameraFollow: {fileID: 1366650825}
   ghostManager: {fileID: 1781565108}
   livesUI: {fileID: 198876620}
-  playerController: {fileID: 0}
   fallbackCatPrefab: {fileID: 6728559335881195497, guid: 626c5ae9d1f4eeb42805b89c75702c40, type: 3}
   fallbackAnimController: {fileID: 9100000, guid: 8be12e1696689c244b27007c7479c1dd, type: 2}
 --- !u!4 &1701538378
@@ -2975,7 +2976,6 @@ GameObject:
   - component: {fileID: 2125522615}
   - component: {fileID: 2125522618}
   - component: {fileID: 2125522617}
-  - component: {fileID: 2125522616}
   m_Layer: 5
   m_Name: KeyText
   m_TagString: Untagged
@@ -3002,18 +3002,6 @@ RectTransform:
   m_AnchoredPosition: {x: 20, y: -60}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2125522616
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2125522614}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66127a876e1be4a4780b860f4475f67d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2125522617
 MonoBehaviour:
   m_ObjectHideFlags: 0

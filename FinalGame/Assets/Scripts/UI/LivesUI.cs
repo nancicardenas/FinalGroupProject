@@ -12,6 +12,7 @@ public class LivesUI : MonoBehaviour
 
     [Header("Keys")]
     public TextMeshProUGUI keyText;
+    public GhostManager ghostManager;
 
     [HideInInspector] public PlayerLife playerLife;
 
@@ -19,7 +20,6 @@ public class LivesUI : MonoBehaviour
 
     void Update()
     {
-        // Wire playerInteraction once playerLife is available
         if (playerInteraction == null && playerLife != null)
         {
             playerInteraction = playerLife.GetComponent<PlayerInteraction>();
@@ -30,9 +30,36 @@ public class LivesUI : MonoBehaviour
             livesText.text = playerLife.currentLives.ToString();
         }
 
-        if (playerInteraction != null && keyText != null)
+        if (keyText != null)
         {
-            keyText.text = playerInteraction.hasKey ? "1" : "0";
+            keyText.text = GetTotalKeys().ToString();
         }
+    }
+
+    int GetTotalKeys()
+    {
+        int keys = 0;
+
+        // Check player
+        if (playerInteraction != null && playerInteraction.hasKey)
+        {
+            keys++;
+        }
+
+        // Check all active ghosts
+        if (ghostManager != null)
+        {
+            foreach (GameObject ghostObj in ghostManager.activeGhosts)
+            {
+                if (ghostObj == null) continue;
+                GhostReplay replay = ghostObj.GetComponent<GhostReplay>();
+                if (replay != null && replay.HasKey())
+                {
+                    keys++;
+                }
+            }
+        }
+
+        return keys;
     }
 }
