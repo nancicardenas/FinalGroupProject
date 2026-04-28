@@ -57907,6 +57907,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   livesText: {fileID: 507833249}
+  keyText: {fileID: 1413423611}
+  ghostManager: {fileID: 393440947}
   playerLife: {fileID: 0}
 --- !u!4 &1864989290 stripped
 Transform:
