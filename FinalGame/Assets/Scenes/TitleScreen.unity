@@ -2047,11 +2047,11 @@ MonoBehaviour:
   - {fileID: 3864348823462699083, guid: 332f9f1496076bb4bbaa41c8aa68d86d, type: 3}
   - {fileID: 3544774888470519738, guid: 816ed7f6b70fc7148988007ff191729e, type: 3}
   animatorControllers:
-  - {fileID: 0}
-  - {fileID: 9100000, guid: 8be12e1696689c244b27007c7479c1dd, type: 2}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 9100000, guid: 0d9310e3e787f8844a62f4befb384bcd, type: 2}
+  - {fileID: 9100000, guid: dc6c1d660d2a6b54b83205d1b18ed64a, type: 2}
+  - {fileID: 9100000, guid: 914c979a46ce2e14bad6a9be55e4469a, type: 2}
+  - {fileID: 9100000, guid: add3c380af9eedd46a143c04bf1e2f70, type: 2}
+  - {fileID: 9100000, guid: 423ea97c9367cc9409ebbf28e3a76afc, type: 2}
   - {fileID: 9100000, guid: 4145e025cfd949b49a45f8008319e87a, type: 2}
   selectedCatIndex: 0
 --- !u!4 &1305237060
