@@ -58,7 +58,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -7438254511491804473, guid: 551e7251a6922c84cac310e5fb5574dd, type: 3}
+  m_Motion: {fileID: -8486549992288433946, guid: c88014dd999169d4eb13111bcd0ac147, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -87,7 +87,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -3117866281219379620, guid: 551e7251a6922c84cac310e5fb5574dd, type: 3}
+  m_Motion: {fileID: 4795178285444164602, guid: c88014dd999169d4eb13111bcd0ac147, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -240,7 +240,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -3298344461109146428, guid: 551e7251a6922c84cac310e5fb5574dd, type: 3}
+  m_Motion: {fileID: 2115616046266415909, guid: c88014dd999169d4eb13111bcd0ac147, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -311,7 +311,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 1737325441170214644, guid: 551e7251a6922c84cac310e5fb5574dd, type: 3}
+  m_Motion: {fileID: -8004002520118270296, guid: c88014dd999169d4eb13111bcd0ac147, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -422,7 +422,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 4152823706441985618, guid: 551e7251a6922c84cac310e5fb5574dd, type: 3}
+  m_Motion: {fileID: 4845517412012948031, guid: c88014dd999169d4eb13111bcd0ac147, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -473,7 +473,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -7573382564578100497, guid: 551e7251a6922c84cac310e5fb5574dd, type: 3}
+  m_Motion: {fileID: 2588108528546670892, guid: c88014dd999169d4eb13111bcd0ac147, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -513,7 +513,7 @@ BlendTree:
   m_Name: Blend Tree
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: 2782405605176355974, guid: 551e7251a6922c84cac310e5fb5574dd, type: 3}
+    m_Motion: {fileID: 3023976486411165753, guid: c88014dd999169d4eb13111bcd0ac147, type: 3}
     m_Threshold: 0
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
@@ -521,7 +521,7 @@ BlendTree:
     m_DirectBlendParameter: Speed
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: -2091794552407347195, guid: 551e7251a6922c84cac310e5fb5574dd, type: 3}
+    m_Motion: {fileID: -8661323732349374519, guid: c88014dd999169d4eb13111bcd0ac147, type: 3}
     m_Threshold: 0.5
     m_Position: {x: 0, y: 0.5}
     m_TimeScale: 1
@@ -529,7 +529,7 @@ BlendTree:
     m_DirectBlendParameter: Speed
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7993861337611887637, guid: 551e7251a6922c84cac310e5fb5574dd, type: 3}
+    m_Motion: {fileID: 7258387472194066658, guid: c88014dd999169d4eb13111bcd0ac147, type: 3}
     m_Threshold: 1
     m_Position: {x: -0.5, y: 0.5}
     m_TimeScale: 1
@@ -537,7 +537,7 @@ BlendTree:
     m_DirectBlendParameter: Speed
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 4177011478522495714, guid: 551e7251a6922c84cac310e5fb5574dd, type: 3}
+    m_Motion: {fileID: 3262501920854424342, guid: c88014dd999169d4eb13111bcd0ac147, type: 3}
     m_Threshold: 1.5
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
@@ -599,7 +599,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 9213769576359598121, guid: 551e7251a6922c84cac310e5fb5574dd, type: 3}
+  m_Motion: {fileID: -7387019982455635909, guid: c88014dd999169d4eb13111bcd0ac147, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -611,7 +611,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: PA_sphinx
+  m_Name: PA_ScottishFold
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: Speed
@@ -786,7 +786,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 425990891088905845, guid: 551e7251a6922c84cac310e5fb5574dd, type: 3}
+  m_Motion: {fileID: -4176015294596324212, guid: c88014dd999169d4eb13111bcd0ac147, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -890,7 +890,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -9056702070306921110, guid: 551e7251a6922c84cac310e5fb5574dd, type: 3}
+  m_Motion: {fileID: 9101195090302910665, guid: c88014dd999169d4eb13111bcd0ac147, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -1067,7 +1067,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -3295171230436490566, guid: 551e7251a6922c84cac310e5fb5574dd, type: 3}
+  m_Motion: {fileID: -7305116369569862383, guid: c88014dd999169d4eb13111bcd0ac147, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -1094,7 +1094,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -8607998462157621717, guid: 551e7251a6922c84cac310e5fb5574dd, type: 3}
+  m_Motion: {fileID: -7718207700517285730, guid: c88014dd999169d4eb13111bcd0ac147, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -1218,7 +1218,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -7691889103666584168, guid: 551e7251a6922c84cac310e5fb5574dd, type: 3}
+  m_Motion: {fileID: -6336390339671395634, guid: c88014dd999169d4eb13111bcd0ac147, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

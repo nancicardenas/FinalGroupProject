@@ -8,6 +8,8 @@ public class PlayerAnimator : MonoBehaviour
     private bool wasGrounded;
     private bool wasJumping;
     private float idleTimer = 0f;
+    private float sprintTimer = 0f;
+    [SerializeField] private float gallopDelay = 0.5f;
 
     void Start()
     {
@@ -33,8 +35,35 @@ public class PlayerAnimator : MonoBehaviour
         if (playerController == null || animator == null) return;
 
         // Speed: 0 when idle, varies when moving
-        float speed = playerController.isMoving ? (playerController.isRunning ? 1f : 0.5f) : 0f;
+        float speed = 0f;
+        float moveBlend = 0f;
+
+        if (!playerController.isMoving)
+        {
+            sprintTimer = 0f;
+            speed = 0f;
+            moveBlend = 0f;
+        }
+        else if (!playerController.isRunning)
+        {
+            sprintTimer = 0f;
+            speed = 0.5f;
+            moveBlend = 0.5f;
+        }
+        else
+        {
+            sprintTimer += Time.deltaTime;
+
+            speed = 1f;
+
+            if (sprintTimer < gallopDelay)
+                moveBlend = 1f;     // trot
+            else
+                moveBlend = 1.5f;   // gallop
+        }
+
         animator.SetFloat("Speed", speed);
+        animator.SetFloat("MoveBlend", moveBlend);
         animator.SetBool("IsRunning", playerController.isRunning);
         animator.SetBool("IsGrounded", playerController.isGrounded);
 
@@ -70,11 +99,11 @@ public class PlayerAnimator : MonoBehaviour
         }
     }
 
-    public void TriggerSearch()
+    public void TriggerPickup()
     {
         if (animator != null)
         {
-            animator.SetTrigger("Search");
+            animator.SetTrigger("KeyPickup");
             idleTimer = 0f;
             animator.SetFloat("IdleTimer", idleTimer);
         }

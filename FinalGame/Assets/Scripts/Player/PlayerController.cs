@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public bool isRunning;
     [HideInInspector] public bool isGrounded;
     [HideInInspector] public bool isJumping;
+    [HideInInspector] public bool movementLocked = false;
 
     private CharacterController controller;
     private Vector3 velocity;
@@ -48,6 +49,18 @@ public class PlayerController : MonoBehaviour
         if (isGrounded && velocity.y < 0)
         {
             velocity.y = -2f;
+        }
+        
+        if (movementLocked)
+        {
+            isMoving = false;
+            isRunning = false;
+            isJumping = false;
+
+            // Still apply gravity so the character does not freeze unnaturally
+            velocity.y += gravity * Time.deltaTime;
+            controller.Move(velocity * Time.deltaTime);
+            return;
         }
 
         // Raw input

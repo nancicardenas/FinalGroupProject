@@ -2482,8 +2482,8 @@ MonoBehaviour:
   cameraFollow: {fileID: 1366650825}
   ghostManager: {fileID: 1781565108}
   livesUI: {fileID: 198876620}
-  fallbackCatPrefab: {fileID: 6728559335881195497, guid: 626c5ae9d1f4eeb42805b89c75702c40, type: 3}
-  fallbackAnimController: {fileID: 9100000, guid: 8be12e1696689c244b27007c7479c1dd, type: 2}
+  fallbackCatPrefab: {fileID: 6574283116752022591, guid: 475cf6352f1f51342aa0520eb118ceb5, type: 3}
+  fallbackAnimController: {fileID: 9100000, guid: 914c979a46ce2e14bad6a9be55e4469a, type: 2}
 --- !u!4 &1701538378
 Transform:
   m_ObjectHideFlags: 0
