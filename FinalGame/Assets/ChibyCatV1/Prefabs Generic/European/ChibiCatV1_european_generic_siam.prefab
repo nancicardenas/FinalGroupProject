@@ -16,6 +16,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ChibiCatV1_european_generic_siam
       objectReference: {fileID: 0}
+    - target: {fileID: 2814395085449831357, guid: 3b808d467dddd5342a8753d9bdf97151, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 3190076615336392967, guid: 3b808d467dddd5342a8753d9bdf97151, type: 3}
       propertyPath: m_RootOrder
       value: 0

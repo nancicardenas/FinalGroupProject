@@ -20,6 +20,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ChibiCatV1_persian_generic_orange
       objectReference: {fileID: 0}
+    - target: {fileID: 5856447205623683383, guid: 46a9381e38df0a6458ceecc4804f1138, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 6489008771534619533, guid: 46a9381e38df0a6458ceecc4804f1138, type: 3}
       propertyPath: m_RootOrder
       value: 0
