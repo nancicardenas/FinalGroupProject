@@ -64,6 +64,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ChibiCatV1_bobtail_generic_carey
       objectReference: {fileID: 0}
+    - target: {fileID: 6436501692720735234, guid: 749389e59791adf4db153328ac99cbdd, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

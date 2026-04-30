@@ -16,6 +16,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ChibiCatV1_americanCurl_generic_grey
       objectReference: {fileID: 0}
+    - target: {fileID: 2387072850109167130, guid: 73a42130ce9e1ff43a97e87dec127e8a, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 3056614496933784736, guid: 73a42130ce9e1ff43a97e87dec127e8a, type: 3}
       propertyPath: m_RootOrder
       value: 0

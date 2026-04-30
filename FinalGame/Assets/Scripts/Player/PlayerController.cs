@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
 
     //external tunables used for mips
     public float m_fDiveTime = 0.3f;
-    public float m_fDiveRecoveryTime = 0.5f;
+    public float m_fDiveRecoveryTime = 1f;
     public float m_fDiveDistance = 3.0f;
 
     //internal variables used for mips
