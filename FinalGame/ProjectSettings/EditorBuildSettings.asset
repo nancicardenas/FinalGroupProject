@@ -26,6 +26,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/AlpineWoodland.unity
     guid: 44004d143d27cd84299593592c4f9a29
+  - enabled: 0
+    path: Assets/Scenes/AI Testing/CatSelectionAITest.unity
+    guid: a8157c1079980664ab86b0b3b869f391
+  - enabled: 1
+    path: Assets/Scenes/AI Testing/Human AI Test.unity
+    guid: 5ab28438d430c5a4d9be5e6328ca2255
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
