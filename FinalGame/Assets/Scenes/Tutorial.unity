@@ -3068,6 +3068,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ExitDoor
       objectReference: {fileID: 0}
+    - target: {fileID: 8145215901419402024, guid: 1559e56579cff4cfe9035ecff6b8af80, type: 3}
+      propertyPath: nextSceneName
+      value: GreekCutscene
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
