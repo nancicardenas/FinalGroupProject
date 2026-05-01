@@ -56,8 +56,6 @@ public class Rabbit : MonoBehaviour
     {
         GetComponentInChildren<Renderer>().material.color = stateColors[(int)m_nState];
 
-        Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position);
-
         //looks for player until its found 
         if (m_player == null)
         {
