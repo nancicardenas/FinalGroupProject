@@ -20045,6 +20045,51 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 158881c58225891418d7721496d9c83a, type: 3}
+--- !u!1 &615535195
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 615535197}
+  - component: {fileID: 615535196}
+  m_Layer: 0
+  m_Name: SceneMusic
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &615535196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 615535195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61cdd34babf236b42924a64118af3a8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  musicTrack: {fileID: 0}
+--- !u!4 &615535197
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 615535195}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 25.499487, y: 26.990458, z: -297.08716}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &624829422
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -37389,7 +37434,6 @@ GameObject:
   m_Component:
   - component: {fileID: 967342408}
   - component: {fileID: 967342407}
-  - component: {fileID: 967342409}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -37429,19 +37473,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &967342409
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 967342406}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61cdd34babf236b42924a64118af3a8a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  musicTrack: {fileID: 0}
 --- !u!1 &969558173
 GameObject:
   m_ObjectHideFlags: 0
@@ -60666,11 +60697,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 50862353309024024, guid: 52ff8313cf6ffd047a8a64787af0caf4, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 50862353309024024, guid: 52ff8313cf6ffd047a8a64787af0caf4, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1226735400609487089, guid: 52ff8313cf6ffd047a8a64787af0caf4, type: 3}
       propertyPath: m_Pivot.x
@@ -60754,58 +60785,66 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1638059059203617578, guid: 52ff8313cf6ffd047a8a64787af0caf4, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 1638059059203617578, guid: 52ff8313cf6ffd047a8a64787af0caf4, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1966228088414992812, guid: 52ff8313cf6ffd047a8a64787af0caf4, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1966228088414992812, guid: 52ff8313cf6ffd047a8a64787af0caf4, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2246221644832928544, guid: 52ff8313cf6ffd047a8a64787af0caf4, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 2246221644832928544, guid: 52ff8313cf6ffd047a8a64787af0caf4, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2246221644832928544, guid: 52ff8313cf6ffd047a8a64787af0caf4, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 4824083592568747057, guid: 52ff8313cf6ffd047a8a64787af0caf4, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4824083592568747057, guid: 52ff8313cf6ffd047a8a64787af0caf4, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4824083592568747057, guid: 52ff8313cf6ffd047a8a64787af0caf4, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4995544141245779461, guid: 52ff8313cf6ffd047a8a64787af0caf4, type: 3}
       propertyPath: m_Name
       value: PauseCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 4995544141245779461, guid: 52ff8313cf6ffd047a8a64787af0caf4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7701006528806159507, guid: 52ff8313cf6ffd047a8a64787af0caf4, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 7701006528806159507, guid: 52ff8313cf6ffd047a8a64787af0caf4, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7701006528806159507, guid: 52ff8313cf6ffd047a8a64787af0caf4, type: 3}
       propertyPath: m_AnchorMin.x
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8158231114725405961, guid: 52ff8313cf6ffd047a8a64787af0caf4, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -73986,3 +74025,4 @@ SceneRoots:
   - {fileID: 1604276669}
   - {fileID: 967342408}
   - {fileID: 1776026056}
+  - {fileID: 615535197}
