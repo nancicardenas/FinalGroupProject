@@ -13,6 +13,7 @@ public class HumanAI : MonoBehaviour
         walking,
         search,
         alert,
+        distracted,
         playerCaught
     }
 
@@ -51,15 +52,25 @@ public class HumanAI : MonoBehaviour
     private float searchDuration = 7f;
     private float searchTimer = 0f;
     private float searchRadius = 5f;
+
+    private float distractionTimer;
+    private bool distractedOnce = false;
+    private int lastNumGhosts = 0;
     
     public bool isTargetPlayer = true;
 
     //TODO: delete later (for testing in AI scene)
     private CameraFollow cameraFollow;
     
+    private GhostManager ghostManager;
+    
+    private PlayerLife playerLife;
+    
     private void Start()
     {
         target = GameObject.FindGameObjectWithTag("Player").transform;
+        ghostManager = GameObject.FindGameObjectWithTag("GhostManager").GetComponent<GhostManager>();
+        playerLife = target.root.GetComponent<PlayerLife>();
         
         //TODO: delete later (for testing in AI scene)
         if (SceneManager.GetActiveScene().name == "Human AI Test")
@@ -86,6 +97,9 @@ public class HumanAI : MonoBehaviour
             case humanState.alert:
                 UpdateAlert();
                 break;
+            case humanState.distracted:
+                UpdateDistracted();
+                break;
             case humanState.playerCaught:
                 UpdatePlayerCaught();
                 break;
@@ -104,9 +118,10 @@ public class HumanAI : MonoBehaviour
     private void UpdateIdle()
     {
         idleTimer += Time.deltaTime;
+        
+        //Turn left and right to scan for player
         float angle = Mathf.Sin(Time.time * scanSpeed) * idleScanAngle;
         float newYAngle = baseRotationY + angle;
-        
         transform.rotation = Quaternion.Euler(0f, newYAngle, 0f);
         
         //After waiting, pick new patrolling point
@@ -114,17 +129,24 @@ public class HumanAI : MonoBehaviour
         {
             EnterWalking();
         }
+        
+        //Try to enter distracted, will depend on number of ghosts in scene
+        TryEnterDistracted();
     }
     
+    //Enter the walking state
     private void EnterWalking()
     {
         humanAgent.isStopped = false;
         humanAgent.speed = 2f;
+        
+        //Pick random points in a certain area, TODO can change later to predetermined points like the dog
         destinationPos = new Vector3(Random.Range(-9, 9), humanYPosition, Random.Range(-9, 9));
         humanAgent.SetDestination(destinationPos);
         state = humanState.walking;
     }
     
+    //Helper used to check if the AI has reached its navigation point
     bool HasReachedDestination()
     {
         return !humanAgent.pathPending &&
@@ -134,20 +156,27 @@ public class HumanAI : MonoBehaviour
 
     private void UpdateWalking()
     {
+        //Try to enter distracted, will depend on number of ghosts in scene
+        TryEnterDistracted();
+        
+        //If player has been scene start running after them
         if (CanSeePlayer())
         {
             EnterAlert();
         }
+        
+        //Enter idle scanning when reaching the walking point
         if (HasReachedDestination())
         {
             EnterIdle();
         }
     }
 
+    //Enter the search state
     private void EnterSearch()
     {
-        print("enter search");
         state = humanState.search;
+        humanAgent.isStopped = false;
         searchTimer = searchDuration;
 
         humanAgent.speed = walkSpeed;
@@ -157,6 +186,8 @@ public class HumanAI : MonoBehaviour
 
     private void UpdateSearch()
     {
+        TryEnterDistracted();
+        
         //If player is seen during search, enter alert state
         if (CanSeePlayer())
         {
@@ -178,12 +209,11 @@ public class HumanAI : MonoBehaviour
         
         //Decrement search timer until it times out, go back to walking state
         searchTimer -= Time.deltaTime;
-        print(searchTimer);
         if (searchTimer <= 0f)
         {
             EnterWalking();
         }
-
+        
         if (HasReachedDestination())
         {
             ChooseNextSearchPoint();
@@ -233,6 +263,64 @@ public class HumanAI : MonoBehaviour
     {
         return Vector3.Distance(target.position, transform.position) <= catchRadius;
     }
+
+    //Try to enter the distracted state by checking how many ghosts are in the scene
+    //5 ghosts = 3 seconds of distraction
+    //6 ghosts = 4 seconds
+    //7 ghosts = 5 seconds
+    //and so on...
+    private void TryEnterDistracted()
+    {
+        int numGhosts = ghostManager.activeGhosts.Count;
+        
+        if (numGhosts < 5)
+        {
+            lastNumGhosts = numGhosts;
+            return;
+        }
+        
+        //If on a new ghost run set distractedOnce to false
+        if (lastNumGhosts < numGhosts)
+        {
+            distractedOnce = false;
+        }
+        
+        //Don't enter distracted state if already distracted once on the current ghost run
+        if (distractedOnce)
+        {
+            lastNumGhosts = numGhosts;
+            return;
+        }
+        
+        lastNumGhosts = numGhosts;
+        distractionTimer = numGhosts - 2;
+        EnterDistracted();
+    }
+
+    //Enter the distracted state, stop the agent
+    void EnterDistracted()
+    {
+        state = humanState.distracted;
+        humanAgent.ResetPath();
+        humanAgent.isStopped = true;
+        distractedOnce = true;
+    }
+
+    //Stay distracted for the specified amount of time in distractionTimer, rotate to show confusion
+    //Enter the search state if the timer is over
+    void UpdateDistracted()
+    {
+        distractionTimer -= Time.deltaTime;
+        baseRotationY = transform.eulerAngles.y;
+        float angle = Mathf.LerpAngle(baseRotationY, -target.eulerAngles.y, Time.deltaTime * scanSpeed);
+        
+        transform.rotation = Quaternion.Euler(0f, angle, 0f);
+        if (distractionTimer <= 0f)
+        {
+            EnterSearch();
+        }
+    }
+    
     private void EnterPlayerCaught()
     {
         print("playerCaught");
