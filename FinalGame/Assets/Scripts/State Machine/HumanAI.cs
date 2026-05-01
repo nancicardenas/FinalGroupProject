@@ -47,8 +47,10 @@ public class HumanAI : MonoBehaviour
     private float runSpeed = 6f;
 
     private Vector3 lastKnownPlayerPosition;
-    private float searchDuration;
+    private bool hasReachedLastKnownPlayerPosition;
+    private float searchDuration = 7f;
     private float searchTimer = 0f;
+    private float searchRadius = 5f;
     
     public bool isTargetPlayer = true;
 
@@ -144,37 +146,61 @@ public class HumanAI : MonoBehaviour
 
     private void EnterSearch()
     {
+        print("enter search");
         state = humanState.search;
         searchTimer = searchDuration;
 
         humanAgent.speed = walkSpeed;
+        hasReachedLastKnownPlayerPosition = false;
         humanAgent.SetDestination(lastKnownPlayerPosition);
     }
 
     private void UpdateSearch()
     {
-        searchTimer -= Time.deltaTime;
+        //If player is seen during search, enter alert state
         if (CanSeePlayer())
         {
             EnterAlert();
             return;
         }
 
-        if (HasReachedDestination())
+        //Only start search timer when the AI has reached the last known player location
+        if (!hasReachedLastKnownPlayerPosition)
         {
-            Vector3 offset = Random.insideUnitSphere * 3f;
-            offset.y = 0;
-            humanAgent.SetDestination(lastKnownPlayerPosition + offset);
+            //Check if AI reached last known player location then set 
+            if (HasReachedDestination())
+            {
+                hasReachedLastKnownPlayerPosition = true;
+                ChooseNextSearchPoint();
+            }
+            return;
         }
         
+        //Decrement search timer until it times out, go back to walking state
+        searchTimer -= Time.deltaTime;
+        print(searchTimer);
         if (searchTimer <= 0f)
         {
             EnterWalking();
         }
+
+        if (HasReachedDestination())
+        {
+            ChooseNextSearchPoint();
+        }
+    }
+    
+    //Choose the next search point
+    void ChooseNextSearchPoint()
+    {
+        Vector3 offset = Random.insideUnitSphere * searchRadius;
+        offset.y = 0;
+        humanAgent.SetDestination(lastKnownPlayerPosition + offset);
     }
     
     private void EnterAlert()
     {
+        print("alert");
         humanAgent.isStopped = false;
         humanAgent.speed = runSpeed;
         state = humanState.alert;
@@ -182,24 +208,25 @@ public class HumanAI : MonoBehaviour
 
     private void UpdateAlert()
     {
+        print("update");
         if (CanSeePlayer())
         {
+            lastKnownPlayerPosition = target.position;
             humanAgent.SetDestination(target.position);
         }
         else
         {
-            lastKnownPlayerPosition = target.position;
             EnterSearch();
+            print("search");
             return;
         }
 
         if (ReachedTarget())
         {
             EnterPlayerCaught();
-            return;
         }
-        humanAgent.ResetPath();
-        EnterIdle();
+        /*humanAgent.ResetPath();
+        EnterIdle();*/
     }
 
     bool ReachedTarget()
@@ -209,7 +236,7 @@ public class HumanAI : MonoBehaviour
     private void EnterPlayerCaught()
     {
         print("playerCaught");
-        state = humanState.playerCaught;
+        //state = humanState.playerCaught;
     }
 
     private void UpdatePlayerCaught()
