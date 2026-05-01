@@ -11,6 +11,7 @@ public class HumanAI : MonoBehaviour
     {
         idle,
         walking,
+        search,
         alert,
         playerCaught
     }
@@ -41,6 +42,13 @@ public class HumanAI : MonoBehaviour
     private float idleScanAngle = 90f;
     private float scanSpeed = 2f;
     private float baseRotationY;
+
+    private float walkSpeed = 2f;
+    private float runSpeed = 6f;
+
+    private Vector3 lastKnownPlayerPosition;
+    private float searchDuration;
+    private float searchTimer = 0f;
     
     public bool isTargetPlayer = true;
 
@@ -69,6 +77,9 @@ public class HumanAI : MonoBehaviour
                 break;
             case humanState.walking:
                 UpdateWalking();
+                break;
+            case humanState.search:
+                UpdateSearch();
                 break;
             case humanState.alert:
                 UpdateAlert();
@@ -130,11 +141,42 @@ public class HumanAI : MonoBehaviour
             EnterIdle();
         }
     }
+
+    private void EnterSearch()
+    {
+        state = humanState.search;
+        searchTimer = searchDuration;
+
+        humanAgent.speed = walkSpeed;
+        humanAgent.SetDestination(lastKnownPlayerPosition);
+    }
+
+    private void UpdateSearch()
+    {
+        searchTimer -= Time.deltaTime;
+        if (CanSeePlayer())
+        {
+            EnterAlert();
+            return;
+        }
+
+        if (HasReachedDestination())
+        {
+            Vector3 offset = Random.insideUnitSphere * 3f;
+            offset.y = 0;
+            humanAgent.SetDestination(lastKnownPlayerPosition + offset);
+        }
+        
+        if (searchTimer <= 0f)
+        {
+            EnterWalking();
+        }
+    }
     
     private void EnterAlert()
     {
         humanAgent.isStopped = false;
-        humanAgent.speed = 6f;
+        humanAgent.speed = runSpeed;
         state = humanState.alert;
     }
 
@@ -143,6 +185,11 @@ public class HumanAI : MonoBehaviour
         if (CanSeePlayer())
         {
             humanAgent.SetDestination(target.position);
+        }
+        else
+        {
+            lastKnownPlayerPosition = target.position;
+            EnterSearch();
             return;
         }
 
