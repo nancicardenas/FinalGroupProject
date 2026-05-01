@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class Rabbit : MonoBehaviour
 {
     public PlayerController m_player;
+    public GameObject keyPrefab;
 
     public enum eState: int
     {
@@ -29,12 +30,16 @@ public class Rabbit : MonoBehaviour
     public float m_fHopSpeed = 6.5f;
     public float m_fScaredDistance = 3.0f;
     public int m_nMaxMoveAttemps = 50;
+    public float m_fRandAngle = 70f;
 
     //Internal variables
     public eState m_nState;
     public float m_fHopStart;
     public Vector3 m_vHopStartPos;
-    public Vector2 m_vHopEndPos;
+    public Vector3 m_vHopEndPos;
+
+    public int attempts = 0;
+    public bool validDirection = false;
 
     public Vector3 playerPos;
     Vector3 hopDirection;
@@ -44,20 +49,27 @@ public class Rabbit : MonoBehaviour
     {
         //Setup initial state
         m_nState = eState.kIdle;
-        m_player = GameObject.FindFirstObjectByType(typeof(PlayerController)) as PlayerController;
+      
     }
 
     private void FixedUpdate()
     {
-        GetComponent<Renderer>().material.color = stateColors[(int)m_nState];
+        GetComponentInChildren<Renderer>().material.color = stateColors[(int)m_nState];
 
         Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position);
 
+        //looks for player until its found 
+        if (m_player == null)
+        {
+            m_player = FindFirstObjectByType<PlayerController>();
+            if (m_player == null) return;
+        }
+
         //In idle state stay in the same place until player gets too close
-        if(m_nState == eState.kIdle)
+        if (m_nState == eState.kIdle)
         {
             //change to hop start state if player gets too close
-            if(Vector2.Distance(transform.position, m_player.transform.position) <= m_fScaredDistance)
+            if(Vector3.Distance(transform.position, m_player.transform.position) <= m_fScaredDistance)
             {
                 m_nState = eState.kHopStart;
             }
@@ -66,40 +78,48 @@ public class Rabbit : MonoBehaviour
         //Hop start gives the start and the ending positions of the hop
         else if(m_nState == eState.kHopStart)
         {
+            //resets before while loop 
+            validDirection = false;
+            attempts = 0;
+
             //gets player and target position
             playerPos = m_player.transform.position;
+
             //keep movement flat
             playerPos.y = transform.position.y;
             m_vHopStartPos = transform.position;
 
-            hopDirection = (transform.position - playerPos).normalized;
-            //prevent vertical movement 
-            hopDirection.y = 0f;
+            Vector3 baseDirection = (transform.position - playerPos).normalized;
+
+            //continues until it finds a valid direction rabbit can move towards 
+            while (!validDirection && attempts < m_nMaxMoveAttemps)
+            {
+                //add randomess to direction 
+                float randAngle = Random.Range(-m_fRandAngle, m_fRandAngle);
+                Quaternion rotation = Quaternion.Euler(0f, randAngle -45f, 0f);
+
+                hopDirection = rotation * baseDirection;
+
+                //prevent vertical movement 
+                hopDirection.y = 0f;
+                hopDirection.Normalize();
+
+                //if something is in front -> choose new direction
+                if (!Physics.Raycast(transform.position, hopDirection, m_fHopSpeed * m_fHopTime))
+                {
+                    validDirection = true;
+                }
+
+                attempts++;
+            }
+
+            //if still not valid after while loop guarantee to move away from player 
+            if (!validDirection)
+            {
+                hopDirection = -baseDirection;
+            }
+
             float hopDist = m_fHopSpeed * m_fHopTime;
-
-            Vector3 desiredEnd = m_vHopStartPos + hopDirection * hopDist;
-            Vector3 screenEnd = Camera.main.WorldToScreenPoint(desiredEnd);
-
-            Vector3 vScreenPos = Camera.main.WorldToScreenPoint(transform.position);
-
-            float edgeBuffer = 5f;
-
-            if(vScreenPos.y > Screen.height - edgeBuffer)
-            {
-                hopDirection.z = -Mathf.Abs(hopDirection.z);
-            }
-
-            else if(vScreenPos.y < edgeBuffer)
-            {
-                hopDirection.z = Mathf.Abs(hopDirection.z);
-            }
-
-            else if(vScreenPos.x > Screen.width - edgeBuffer)
-            {
-                hopDirection.x = -Mathf.Abs(hopDirection.x);
-            }
-
-            hopDirection = hopDirection.normalized;
 
             //desired end based on direction
             m_vHopEndPos = m_vHopStartPos + hopDirection * hopDist;
@@ -115,7 +135,7 @@ public class Rabbit : MonoBehaviour
             float t = (Time.time - m_fHopStart) / m_fHopTime;
 
             float targetAngle = Mathf.Atan2(hopDirection.z, hopDirection.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(0f, -targetAngle, 0f);
+            transform.rotation = Quaternion.Euler(0f, targetAngle, 0f);
             transform.position = Vector3.Lerp(m_vHopStartPos, m_vHopEndPos, t);
 
             if(t >= 1.0f)
@@ -126,19 +146,27 @@ public class Rabbit : MonoBehaviour
         }
     }
 
-
-    void OnTriggerStay(Collider collision)
+    void OnTriggerEnter(Collider collision)
     {
         // Check if this is the player (in this situation it should be!)
         if (collision.gameObject == GameObject.Find("Player"))
         {
+
             //If the player is diving, it's a catch!
-            //if (m_player.IsDiving())
-            //{
-            //    m_nState = eState.kCaught;
-            //    transform.parent = m_player.transform;
-            //    transform.localPosition = new Vector3(0.0f, -0.5f, 0.0f);
-            //}
+            if (m_player.isDiving)
+            {
+                Debug.Log("rabbit caught!");
+
+                m_nState = eState.kCaught;
+
+                //spawn position for key 
+                Vector3 spawnPos = transform.position + Vector3.up *  1f;
+
+                //remove rabbit and spawn key 
+                Destroy(gameObject);
+                Instantiate(keyPrefab, spawnPos, Quaternion.identity);
+
+            }
         }
     }
 

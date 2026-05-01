@@ -22,10 +22,20 @@ public class GhostDetection : MonoBehaviour
     private void SelectNewTarget()
     {
         bool ghostsActive = ghostManager.activeGhosts.Count > 0;
-        int selectedIndex = Random.Range(0, ghostManager.activeGhosts.Count);
-        GhostReplay selectedGhostReplay = ghostManager.activeGhosts[selectedIndex].GetComponent<GhostReplay>();
+        Debug.Log("Number of Active Ghosts: " + ghostManager.activeGhosts.Count);
+
+        if (!ghostsActive)
+        {
+            dogAIScript.target = player;
+        }
+        else
+        {
+            int selectedIndex = Random.Range(0, ghostManager.activeGhosts.Count);
+            GhostReplay selectedGhostReplay = ghostManager.activeGhosts[selectedIndex].GetComponent<GhostReplay>();
         
-        dogAIScript.target = ghostsActive && selectedGhostReplay.isPlaying ? ghostManager.activeGhosts[selectedIndex].transform : player;
+            dogAIScript.target = selectedGhostReplay.isPlaying ? ghostManager.activeGhosts[selectedIndex].transform : player;
+        }
+        
         dogAIScript.isTargetPlayer = dogAIScript.target.gameObject.CompareTag("Player");
 
         //Set the ghostTarget to the current ghost target

@@ -84,10 +84,20 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 512
+  jumpStartDelay: 0.25
   isMoving: 0
   isRunning: 0
   isGrounded: 0
   isJumping: 0
+  movementLocked: 0
+  isDiving: 0
+  isRecovering: 0
+  m_fDiveTime: 0.3
+  m_fDiveRecoveryTime: 1
+  m_fDiveDistance: 3
+  m_vDiveStartPos: {x: 0, y: 0, z: 0}
+  m_vDiveEndPos: {x: 0, y: 0, z: 0}
+  m_fDiveStartTime: 0
 --- !u!114 &-7779623366477355102
 MonoBehaviour:
   m_ObjectHideFlags: 0

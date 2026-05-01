@@ -6,12 +6,13 @@ public class PlayerInteraction : MonoBehaviour
     public float interactRange = 2.5f;
     public LayerMask interactableLayer;
     public KeyCode interactKey = KeyCode.Mouse0; // Left Click
+    private bool interactionLocked = false;
 
     [HideInInspector] public bool hasKey = false;
 
     void Update()
     {
-        if (Input.GetKeyDown(interactKey))
+        if (Input.GetKeyDown(interactKey) && !interactionLocked)
         {
             TryInteract();
         }
@@ -49,13 +50,7 @@ public class PlayerInteraction : MonoBehaviour
             KeyPickup key = obj.GetComponent<KeyPickup>();
             if (key != null && !key.isPickedUp)
             {
-                key.Pickup(this);
-
-                PlayerAnimator playerAnimator = GetComponentInChildren<PlayerAnimator>();
-                if (playerAnimator != null)
-                {
-                    playerAnimator.TriggerSearch();
-                }
+                StartCoroutine(PickupSequence(key));
                 return;
             }
 
@@ -74,4 +69,37 @@ public class PlayerInteraction : MonoBehaviour
             }
         }
     }
+
+    private System.Collections.IEnumerator PickupSequence(KeyPickup key)
+{
+    interactionLocked = true;
+
+    PlayerController playerController = GetComponent<PlayerController>();
+    if (playerController != null)
+    {
+        playerController.movementLocked = true;
+    }
+
+    PlayerAnimator playerAnimator = GetComponentInChildren<PlayerAnimator>();
+    if (playerAnimator != null)
+    {
+        playerAnimator.TriggerPickup();
+    }
+
+    // Wait for most of the pickup animation to finish
+    yield return new WaitForSeconds(0.4f);
+
+    // Now actually pick up the key so it disappears after the animation
+    if (key != null && !key.isPickedUp)
+    {
+        key.Pickup(this);
+    }
+
+    if (playerController != null)
+    {
+        playerController.movementLocked = false;
+    }
+
+    interactionLocked = false;
+}
 }

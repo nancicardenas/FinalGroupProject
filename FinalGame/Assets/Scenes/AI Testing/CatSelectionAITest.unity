@@ -2466,39 +2466,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 1795821387}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67cb9057a8226b24ab36931b2a641ad6, type: 3}
+  m_Script: {fileID: 11500000, guid: b66f7d192a3115f49ac795407d25417d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   catPrefabs:
   - {fileID: 4930271278161335457, guid: d008ada932cae1246a261321b2033007, type: 3}
-  - {fileID: 6728559335881195497, guid: 626c5ae9d1f4eeb42805b89c75702c40, type: 3}
-  - {fileID: 2784440516651541439, guid: a50af6e908cd2d44e8df25fbbdf24364, type: 3}
-  - {fileID: 1094517121171430410, guid: 5e1f3c06f15ab94468fd395602fa573d, type: 3}
-  - {fileID: 3864348823462699083, guid: 332f9f1496076bb4bbaa41c8aa68d86d, type: 3}
-  - {fileID: 3544774888470519738, guid: 816ed7f6b70fc7148988007ff191729e, type: 3}
   animatorControllers:
   - {fileID: 9100000, guid: 0d9310e3e787f8844a62f4befb384bcd, type: 2}
-  - {fileID: 9100000, guid: dc6c1d660d2a6b54b83205d1b18ed64a, type: 2}
-  - {fileID: 9100000, guid: 914c979a46ce2e14bad6a9be55e4469a, type: 2}
-  - {fileID: 9100000, guid: add3c380af9eedd46a143c04bf1e2f70, type: 2}
-  - {fileID: 9100000, guid: 423ea97c9367cc9409ebbf28e3a76afc, type: 2}
-  - {fileID: 9100000, guid: 4145e025cfd949b49a45f8008319e87a, type: 2}
   catNames:
-  - American Curl
-  - Bobtail
-  - European
-  - Persian
-  - Scottish Fold
-  - Sphinx
+  - curl
   confirmButton: {fileID: 2080940903}
   selectedText: {fileID: 562697636}
   catButtons:
   - {fileID: 1988517371}
-  - {fileID: 575805784}
-  - {fileID: 629708614}
-  - {fileID: 1211720868}
-  - {fileID: 150845913}
-  - {fileID: 915775929}
 --- !u!1 &1988517369
 GameObject:
   m_ObjectHideFlags: 0

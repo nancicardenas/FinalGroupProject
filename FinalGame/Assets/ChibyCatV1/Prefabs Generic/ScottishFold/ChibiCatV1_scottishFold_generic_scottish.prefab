@@ -36,6 +36,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ChibiCatV1_scottishFold_generic_scottish
       objectReference: {fileID: 0}
+    - target: {fileID: 7093448610030731062, guid: 3c9d1ec870647d140b833db420071c87, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 7582704154870474124, guid: 3c9d1ec870647d140b833db420071c87, type: 3}
       propertyPath: m_RootOrder
       value: 0
