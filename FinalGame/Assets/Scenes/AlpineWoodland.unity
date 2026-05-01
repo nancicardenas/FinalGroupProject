@@ -22494,9 +22494,9 @@ GameObject:
   - component: {fileID: 741101219}
   - component: {fileID: 741101223}
   - component: {fileID: 741101224}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Camera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22640,7 +22640,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  offset: {x: 0, y: 8, z: -6}
+  offset: {x: 0, y: 2, z: -3}
   smoothSpeed: 5
   currentAngle: 0
   rotationSpeed: 120
@@ -40835,7 +40835,7 @@ GameObject:
   - component: {fileID: 1110808465}
   m_Layer: 0
   m_Name: GhostManager
-  m_TagString: Untagged
+  m_TagString: GhostManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -40856,7 +40856,15 @@ MonoBehaviour:
   playerRecorder: {fileID: 0}
   playerLife: {fileID: 0}
   ghostDetection: {fileID: 0}
-  ghostMaterials: []
+  ghostMaterials:
+  - {fileID: 2100000, guid: 90b6a9e7cdcdc7144bd97c238deac894, type: 2}
+  - {fileID: 2100000, guid: d065ea47328056a4f9fd6f67cc25bd54, type: 2}
+  - {fileID: 2100000, guid: 3f6052e00524a8941829d0c42a3180d0, type: 2}
+  - {fileID: 2100000, guid: a978a3ad49619cf4cb191218a98493d2, type: 2}
+  - {fileID: 2100000, guid: d22d30c829a04ca469d86a6026943887, type: 2}
+  - {fileID: 2100000, guid: ae4bf5229494f014ca10c4c0bf270af5, type: 2}
+  - {fileID: 2100000, guid: 598b41e17956f5b4c9513436452e16d1, type: 2}
+  - {fileID: 2100000, guid: f96aef658a635dd4b8ffdf422a58f785, type: 2}
   SelectNewDogTarget:
     m_PersistentCalls:
       m_Calls: []
@@ -57072,12 +57080,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 417105795}
-  playerShellPrefab: {fileID: 4943817313330540705, guid: d06845e4edb179b469f4415a2214eaeb, type: 3}
+  playerShellPrefab: {fileID: 2680855473009447781, guid: c308d239b243b4e5a87b7db5f04131a8, type: 3}
   cameraFollow: {fileID: 741101224}
   ghostManager: {fileID: 1110808465}
   livesUI: {fileID: 1896162480}
-  fallbackCatPrefab: {fileID: 0}
-  fallbackAnimController: {fileID: 0}
+  fallbackCatPrefab: {fileID: 6728559335881195497, guid: 626c5ae9d1f4eeb42805b89c75702c40, type: 3}
+  fallbackAnimController: {fileID: 9100000, guid: dc6c1d660d2a6b54b83205d1b18ed64a, type: 2}
 --- !u!4 &1604276669
 Transform:
   m_ObjectHideFlags: 0
