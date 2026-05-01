@@ -7,26 +7,36 @@ public class UIManager : MonoBehaviour
     [Header("Title Screen")]
     public GameObject optionsPanel;
 
-    [Header("Options")]
-    public Slider volumeSlider;
+    [Header("Options Sliders")]
+    public Slider masterSlider;
+    public Slider musicSlider;
+    public Slider sfxSlider;
 
     void Start()
     {
-        // Make sure options panel starts hidden
         if (optionsPanel != null)
             optionsPanel.SetActive(false);
 
-        // Load saved volume (default 1.0)
-        if (volumeSlider != null)
+        // Load saved volumes
+        if (masterSlider != null)
         {
-            float savedVolume = PlayerPrefs.GetFloat("MasterVolume", 1f);
-            volumeSlider.value = savedVolume;
-            AudioListener.volume = savedVolume;
-            volumeSlider.onValueChanged.AddListener(OnVolumeChanged);
+            masterSlider.value = PlayerPrefs.GetFloat("MasterVolume", 0.1f);
+            masterSlider.onValueChanged.AddListener(OnMasterChanged);
+        }
+
+        if (musicSlider != null)
+        {
+            musicSlider.value = PlayerPrefs.GetFloat("MusicVolume", 0.5f);
+            musicSlider.onValueChanged.AddListener(OnMusicChanged);
+        }
+
+        if (sfxSlider != null)
+        {
+            sfxSlider.value = PlayerPrefs.GetFloat("SFXVolume", 0.8f);
+            sfxSlider.onValueChanged.AddListener(OnSFXChanged);
         }
     }
 
-    // --- Title Screen Button Handlers ---
     public void OnPlayClicked()
     {
         SceneManager.LoadScene("IntroCutscene");
@@ -53,10 +63,21 @@ public class UIManager : MonoBehaviour
             optionsPanel.SetActive(false);
     }
 
-    // --- Options ---
-    void OnVolumeChanged(float value)
+    void OnMasterChanged(float value)
     {
-        AudioListener.volume = value;
-        PlayerPrefs.SetFloat("MasterVolume", value);
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.SetMasterVolume(value);
+    }
+
+    void OnMusicChanged(float value)
+    {
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.SetMusicVolume(value);
+    }
+
+    void OnSFXChanged(float value)
+    {
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.SetSFXVolume(value);
     }
 }
