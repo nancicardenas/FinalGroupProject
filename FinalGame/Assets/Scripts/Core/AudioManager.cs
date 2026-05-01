@@ -38,7 +38,8 @@ public class AudioManager : MonoBehaviour
 
         // Load saved volumes
         SetMasterVolume(PlayerPrefs.GetFloat("MasterVolume", 0.1f));
-        SetMusicVolume(PlayerPrefs.GetFloat("MusicVolume", 0.5f));
+        PlayerPrefs.DeleteKey("MusicVolume");
+        SetMusicVolume(PlayerPrefs.GetFloat("MusicVolume", 0.0f));
         SetSFXVolume(PlayerPrefs.GetFloat("SFXVolume", 0.8f));
     }
 
