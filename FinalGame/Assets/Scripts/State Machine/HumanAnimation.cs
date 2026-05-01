@@ -25,6 +25,11 @@ public class HumanAnimation : MonoBehaviour
                 humanAnimator.SetBool("IsWalking", false);
                 humanAnimator.SetBool("IsRunning",true);
                 break;
+            case HumanAI.humanState.playerCaught:
+                humanAnimator.SetBool("IsIdle", true);
+                humanAnimator.SetBool("IsWalking", false);
+                humanAnimator.SetBool("IsRunning",false);
+                break;
         }
     }
 }

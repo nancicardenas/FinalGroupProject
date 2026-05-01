@@ -36,7 +36,11 @@ public class HumanAI : MonoBehaviour
 
     private float viewDistance = 15f;
     private float viewAngle = 100f;
-    private float catchRadius = 1f;
+    private float catchRadius = 3f;
+
+    private float idleScanAngle = 90f;
+    private float scanSpeed = 2f;
+    private float baseRotationY;
     
     public bool isTargetPlayer = true;
 
@@ -52,6 +56,7 @@ public class HumanAI : MonoBehaviour
         {
             GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraFollow>().target = target.transform;
         }
+        baseRotationY = transform.eulerAngles.y;
     }
 
     // Update is called once per frame
@@ -79,13 +84,18 @@ public class HumanAI : MonoBehaviour
         state = humanState.idle;
         humanAgent.isStopped = true;
         idleTimer = 0f;
+        baseRotationY = transform.eulerAngles.y;
         idleDuration = Random.Range(1f, 3f); //Wait for a random amount of time from 1 to 3 seconds
     }
 
     private void UpdateIdle()
     {
         idleTimer += Time.deltaTime;
-
+        float angle = Mathf.Sin(Time.time * scanSpeed) * idleScanAngle;
+        float newYAngle = baseRotationY + angle;
+        
+        transform.rotation = Quaternion.Euler(0f, newYAngle, 0f);
+        
         //After waiting, pick new patrolling point
         if (idleTimer >= idleDuration)
         {
