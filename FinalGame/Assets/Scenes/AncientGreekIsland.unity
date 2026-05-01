@@ -11829,7 +11829,15 @@ MonoBehaviour:
   playerRecorder: {fileID: 0}
   playerLife: {fileID: 0}
   ghostDetection: {fileID: 0}
-  ghostMaterials: []
+  ghostMaterials:
+  - {fileID: 2100000, guid: 90b6a9e7cdcdc7144bd97c238deac894, type: 2}
+  - {fileID: 2100000, guid: d065ea47328056a4f9fd6f67cc25bd54, type: 2}
+  - {fileID: 2100000, guid: 3f6052e00524a8941829d0c42a3180d0, type: 2}
+  - {fileID: 2100000, guid: a978a3ad49619cf4cb191218a98493d2, type: 2}
+  - {fileID: 2100000, guid: d22d30c829a04ca469d86a6026943887, type: 2}
+  - {fileID: 2100000, guid: ae4bf5229494f014ca10c4c0bf270af5, type: 2}
+  - {fileID: 2100000, guid: 598b41e17956f5b4c9513436452e16d1, type: 2}
+  - {fileID: 2100000, guid: f96aef658a635dd4b8ffdf422a58f785, type: 2}
   SelectNewDogTarget:
     m_PersistentCalls:
       m_Calls: []
