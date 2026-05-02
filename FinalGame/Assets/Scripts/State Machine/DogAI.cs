@@ -62,8 +62,9 @@ public class DogAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (player == null)
+        if (target == null)
         {
+            EnterPatrol();
             return;
         }
         
@@ -193,11 +194,14 @@ public class DogAI : MonoBehaviour
     //If the player is within the catchRadius return true
     bool ReachedPlayer()
     {
+        if (target == null) return false;
         return Vector3.Distance(target.position, transform.position) <= catchRadius;
     }
     
     bool CanSeePlayer()
     {
+        if (target == null) return false;
+
         targetHeight = isTargetPlayer ? catHeight : ghostHeight;
         
         //Ray setup
