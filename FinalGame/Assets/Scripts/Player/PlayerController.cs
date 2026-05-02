@@ -69,10 +69,28 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    bool CheckGroundBelow()
+    {
+        // SphereCast downward — like a thick raycast that won't miss uneven ground
+        // Start slightly above the ground check to avoid starting inside geometry
+        Vector3 origin = groundCheck.position + Vector3.up * 0.2f;
+        float radius = 0.15f;
+        float maxDistance = 0.4f;
+
+        if (Physics.SphereCast(origin, radius, Vector3.down, out RaycastHit hit, maxDistance, groundMask))
+        {
+            // Only count as ground if surface is less than 50 degrees from flat
+            float angle = Vector3.Angle(hit.normal, Vector3.up);
+            return angle < 50f;
+        }
+
+        return false;
+    }
+
     void Update()
     {
         // Ground check
-        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+        isGrounded = CheckGroundBelow();
 
         if (isGrounded && velocity.y < 0)
         {
@@ -178,6 +196,16 @@ public class PlayerController : MonoBehaviour
             if(t >= 1f)
             {
                 isRecovering = false;
+            }
+        }
+
+        // Prevent wall clinging — if not grounded and touching a wall, slide down
+        if (!isGrounded)
+        {
+            // Push player away from walls slightly
+            if (controller.collisionFlags == CollisionFlags.Sides)
+            {
+                velocity.y -= 5f * Time.deltaTime; // extra downward force against walls
             }
         }
 
