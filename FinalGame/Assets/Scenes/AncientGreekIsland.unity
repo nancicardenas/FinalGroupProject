@@ -8894,7 +8894,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 158522995}
-  playerShellPrefab: {fileID: 2680855473009447781, guid: c308d239b243b4e5a87b7db5f04131a8, type: 3}
+  playerShellPrefab: {fileID: 4943817313330540705, guid: d06845e4edb179b469f4415a2214eaeb, type: 3}
   cameraFollow: {fileID: 1501231907}
   ghostManager: {fileID: 393440947}
   livesUI: {fileID: 1864104080}
