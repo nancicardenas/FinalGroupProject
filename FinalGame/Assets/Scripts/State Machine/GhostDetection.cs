@@ -10,39 +10,57 @@ public class GhostDetection : MonoBehaviour
 
     public Transform player;
 
-    //public List<int> usedGhostIndexes = new List<int>();
-    
     private void Start()
     {
-        //Assign instance of DogAI on current object, and add listener SelectNewTarget to SelectNewDogTarget Event
         dogAIScript = GetComponent<DogAI>();
         ghostManager.SelectNewDogTarget.AddListener(SelectNewTarget);
     }
 
     private void SelectNewTarget()
     {
-        bool ghostsActive = ghostManager.activeGhosts.Count > 0;
-        Debug.Log("Number of Active Ghosts: " + ghostManager.activeGhosts.Count);
+        if (dogAIScript == null) return;
 
-        if (!ghostsActive)
+        // Remove destroyed ghosts from the list
+        ghostManager.activeGhosts.RemoveAll(g => g == null);
+
+        bool ghostsActive = ghostManager.activeGhosts.Count > 0;
+
+        if (ghostsActive)
         {
-            dogAIScript.target = player;
+            // Pick a random ghost
+            GameObject ghostObj = ghostManager.activeGhosts[Random.Range(0, ghostManager.activeGhosts.Count)];
+
+            // Safety check — ghost might have been destroyed between RemoveAll and now
+            if (ghostObj != null)
+            {
+                dogAIScript.target = ghostObj.transform;
+                dogAIScript.ghostTarget = ghostObj.transform;
+                dogAIScript.isTargetPlayer = false;
+            }
+            else
+            {
+                // Fall back to player
+                FallbackToPlayer();
+            }
         }
         else
         {
-            int selectedIndex = Random.Range(0, ghostManager.activeGhosts.Count);
-            GhostReplay selectedGhostReplay = ghostManager.activeGhosts[selectedIndex].GetComponent<GhostReplay>();
-        
-            dogAIScript.target = selectedGhostReplay.isPlaying ? ghostManager.activeGhosts[selectedIndex].transform : player;
+            FallbackToPlayer();
         }
-        
-        dogAIScript.isTargetPlayer = dogAIScript.target.gameObject.CompareTag("Player");
 
-        //Set the ghostTarget to the current ghost target
-        if (!dogAIScript.isTargetPlayer)
+        if (dogAIScript.target != null)
         {
-            dogAIScript.ghostTarget = dogAIScript.target;
+            Debug.Log("Dog target: " + dogAIScript.target.name);
         }
-        print(dogAIScript.target.name);
+    }
+
+    void FallbackToPlayer()
+    {
+        if (player != null)
+        {
+            dogAIScript.target = player;
+            dogAIScript.isTargetPlayer = true;
+            dogAIScript.ghostTarget = null;
+        }
     }
 }

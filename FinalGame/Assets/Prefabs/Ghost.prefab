@@ -46,7 +46,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02cddcc8917e10341a618cf3883be616, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPlaying: 0
   fadeDuration: 1
+  interactRange: 5
   ghostIndex: 0
 --- !u!135 &2221585178392089223
 SphereCollider:

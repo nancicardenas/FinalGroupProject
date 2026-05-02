@@ -1,13 +1,15 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
 public class DogAI : MonoBehaviour
 {
+    [Header("Detection")]
+    public LayerMask detectionMask;
+    public float detectionRadius = 10f;
 
     public enum dogState : int
     {
@@ -15,59 +17,124 @@ public class DogAI : MonoBehaviour
         patrol,
         chase,
         playerCaught,
+        resetting, // new state to prevent Update from interfering during warp
         numStates
     }
 
     public dogState state = dogState.patrol;
-    
+
     public Transform target;
     public NavMeshAgent dogAgent;
 
     public Transform[] destinationPoints;
     public Vector3 destinationPos;
     private Vector3 startPosition;
-    private float detectionRadius = 10f;
     private float idleTimer = 0f;
     private float idleDuration = 1f;
 
-    private float catchRadius = 2f;
+    private float catchRadius = 1f;
     private float caughtTimer = 0f;
     private float caughtDuration = 4f;
-    
+
     //Change These when resizing cat/dog objects
     private float dogHeight = 0.75f;
-    private float catHeight = 0.5f;
+    private float catHeight = 1.0f;
     private float ghostHeight = 0.3f;
     private float targetHeight;
 
     public bool isTargetPlayer = true;
 
-    private float patrolSpeed = 2f;
-
-    private float chaseSpeed = 5f;
+    public float patrolSpeed = 2f;
+    public float chaseSpeed = 5f;
 
     public PlayerLife playerLife;
-    private GhostManager ghostManager;
+    public GhostManager ghostManager;
     public Transform player;
     public Transform ghostTarget;
 
     private void Start()
     {
         targetHeight = catHeight;
-        ghostManager = GameObject.FindGameObjectWithTag("GhostManager").GetComponent<GhostManager>();
         startPosition = transform.position;
-        //player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// Called by PlayerSpawner via OnPlayerReset event.
+    /// Resets the dog to spawn immediately.
+    /// </summary>
+    public void OnPlayerDied()
+    {
+        StopAllCoroutines();
+        target = player;
+        isTargetPlayer = true;
+        ghostTarget = null;
+        state = dogState.resetting;
+        StartCoroutine(WarpAndPatrolDelayed(startPosition));
+    }
+
+    bool TryDetectGhost()
+    {
+        if (ghostManager == null) return false;
+
+        ghostManager.activeGhosts.RemoveAll(g => g == null);
+
+        float closestDist = float.MaxValue;
+        Transform closestGhost = null;
+
+        foreach (GameObject ghostObj in ghostManager.activeGhosts)
+        {
+            if (ghostObj == null) continue;
+
+            float dist = Vector3.Distance(transform.position, ghostObj.transform.position);
+            if (dist > detectionRadius) continue;
+            if (dist >= closestDist) continue;
+
+            // Check line of sight to this ghost
+            Vector3 origin = transform.position + Vector3.up * dogHeight;
+            Vector3 targetPos = ghostObj.transform.position + Vector3.up * ghostHeight;
+            Vector3 dir = (targetPos - origin).normalized;
+            float rayDist = Vector3.Distance(origin, targetPos);
+
+            if (Physics.Raycast(origin, dir, out RaycastHit hit, rayDist, detectionMask, QueryTriggerInteraction.Collide))
+            {
+                if (hit.transform.root == ghostObj.transform.root)
+                {
+                    closestDist = dist;
+                    closestGhost = ghostObj.transform;
+                }
+            }
+        }
+
+        if (closestGhost != null)
+        {
+            target = closestGhost;
+            ghostTarget = closestGhost;
+            isTargetPlayer = false;
+            return true;
+        }
+
+        return false;
+    }
+
     void Update()
     {
+        // Don't do anything while resetting
+        if (state == dogState.resetting) return;
+
         if (target == null)
         {
-            EnterPatrol();
-            return;
+            // Try to fall back to player
+            if (player != null)
+            {
+                target = player;
+                isTargetPlayer = true;
+            }
+            else
+            {
+                return;
+            }
         }
-        
+
         switch (state)
         {
             case dogState.idle:
@@ -85,7 +152,6 @@ public class DogAI : MonoBehaviour
         }
     }
 
-    //Enter the Idle state, stop the agent's movement
     void EnterIdle()
     {
         state = dogState.idle;
@@ -95,8 +161,14 @@ public class DogAI : MonoBehaviour
 
     void UpdateIdle()
     {
-        //If player is in range and visible start chasing
-        if (CanSeePlayer())
+        // Prioritize ghosts over player
+        if (TryDetectGhost())
+        {
+            EnterChase();
+            return;
+        }
+
+        if (CanSeeTarget())
         {
             EnterChase();
             return;
@@ -104,14 +176,12 @@ public class DogAI : MonoBehaviour
 
         idleTimer += Time.deltaTime;
 
-        //After waiting, pick new patrolling point
         if (idleTimer >= idleDuration)
         {
             EnterPatrol();
         }
     }
 
-    //Helper for readability
     bool HasReachedDestination()
     {
         return !dogAgent.pathPending &&
@@ -121,148 +191,209 @@ public class DogAI : MonoBehaviour
 
     void EnterPatrol()
     {
+        if (!dogAgent.isOnNavMesh) return;
+
         dogAgent.isStopped = false;
         dogAgent.speed = patrolSpeed;
-        
+        dogAgent.angularSpeed = 120f; // smooth turning
+        dogAgent.acceleration = 8f;
+
         destinationPos = destinationPoints[Random.Range(0, destinationPoints.Length)].position;
         dogAgent.SetDestination(destinationPos);
 
         state = dogState.patrol;
     }
+
+
     void UpdatePatrol()
     {
-        //If the player is within distance and is visible set state to chase
-        if (CanSeePlayer())
+        // Prioritize ghosts over player
+        if (TryDetectGhost())
         {
             EnterChase();
             return;
         }
-        
-        //Once dog reaches destination enter the idle state
+
+        if (CanSeeTarget())
+        {
+            EnterChase();
+            return;
+        }
+
         if (HasReachedDestination())
         {
             EnterIdle();
-        }
-
-        //If the target is a ghost, only target the ghost if it is closer to the dog, otherwise target player
-        if (!isTargetPlayer)
-        {
-            if (DistanceDifferencePlayerToGhost() < -1.5f)
-            {
-                target = player;
-                isTargetPlayer = true;
-            }
-            else
-            {
-                target = ghostTarget;
-            }
         }
     }
 
     float DistanceDifferencePlayerToGhost()
     {
+        if (player == null || ghostTarget == null) return 0f;
         return Vector3.Distance(player.position, transform.position) - Vector3.Distance(ghostTarget.position, transform.position);
     }
 
     void EnterChase()
     {
+        if (!dogAgent.isOnNavMesh) return;
+
         dogAgent.isStopped = false;
         dogAgent.speed = chaseSpeed;
+        dogAgent.angularSpeed = 360f; // faster turning during chase
+        dogAgent.acceleration = 12f;
+
         state = dogState.chase;
     }
 
     void UpdateChase()
     {
-        //If the player has been caught enter player caught state, don't enter if going after ghost
-        if (ReachedPlayer())
+        if (target == null)
+        {
+            EnterIdle();
+            return;
+        }
+
+        if (ReachedTarget())
         {
             EnterPlayerCaught();
             return;
         }
-        
-        //Move towards the player if the player is in sight and is within distance
-        if (CanSeePlayer())
+
+        if (CanSeeTarget())
         {
             dogAgent.SetDestination(target.position);
             return;
         }
-        
+
         dogAgent.ResetPath();
         EnterIdle();
     }
 
-    //If the player is within the catchRadius return true
-    bool ReachedPlayer()
+    bool ReachedTarget()
     {
         if (target == null) return false;
         return Vector3.Distance(target.position, transform.position) <= catchRadius;
     }
-    
-    bool CanSeePlayer()
+
+    bool CanSeeTarget()
     {
         if (target == null) return false;
 
         targetHeight = isTargetPlayer ? catHeight : ghostHeight;
-        
-        //Ray setup
+
         Vector3 origin = transform.position + Vector3.up * dogHeight;
-        Vector3 targetPosition = this.target.position + Vector3.up * targetHeight;
+        Vector3 targetPosition = target.position + Vector3.up * targetHeight;
         Vector3 dir = (targetPosition - origin).normalized;
-        
+
         float dist = Vector3.Distance(origin, targetPosition);
 
-        //The distance between the player and the dog has to be less than the detection radius to return true
         if (dist > detectionRadius) return false;
 
-        //Cast a ray toward the player to see if there is an obstacle in the way
-        if (Physics.Raycast(origin, dir, out RaycastHit hit, dist))
+        if (Physics.Raycast(origin, dir, out RaycastHit hit, dist, detectionMask, QueryTriggerInteraction.Collide))
         {
-            print("chase");
-            return hit.transform == this.target;
+            return hit.transform.root == target.root;
         }
 
         return false;
     }
 
-    //Enter the playerCaught state
     void EnterPlayerCaught()
     {
         dogAgent.isStopped = true;
         dogAgent.ResetPath();
         caughtTimer = 0f;
-        caughtDuration =  isTargetPlayer ? 1f : 4f; //Set the caughtDuration to 4 seconds if it is a ghost
         state = dogState.playerCaught;
 
-        //Kill player if the dog reaches them, don't kill if the target is a ghost
-        if (target.root.CompareTag("Player"))
+        if (target != null && target.root.CompareTag("Player"))
         {
+            caughtDuration = 1f;
             playerLife.Die();
-            StartCoroutine(ResetDog());
+            // Dog reset handled by OnPlayerDied event
         }
-        
+        else if (target != null && target.root.CompareTag("Ghost"))
+        {
+            caughtDuration = 1f;
+            // Destroy the ghost
+            GhostReplay ghost = target.GetComponent<GhostReplay>();
+            if (ghost == null) ghost = target.GetComponentInParent<GhostReplay>();
+            if (ghost != null)
+            {
+                Destroy(ghost.gameObject);
+            }
+            target = null;
+        }
     }
-    
+
     void UpdatePlayerCaught()
     {
         caughtTimer += Time.deltaTime;
         dogAgent.isStopped = true;
+
         if (caughtTimer >= caughtDuration)
         {
-            Debug.Log("Back to patrol");
-            ghostManager.SelectNewDogTarget.Invoke();
-            EnterPatrol();
+            // Pick new target then patrol
+            if (ghostManager != null)
+            {
+                ghostManager.SelectNewDogTarget.Invoke();
+            }
+            state = dogState.resetting;
+            StartCoroutine(WarpAndPatrolDelayed(transform.position));
         }
     }
 
-    //Reset dog to starting position to prevent spawn camping
-    IEnumerator ResetDog()
+    IEnumerator WarpAndPatrolDelayed(Vector3 position)
     {
-        yield return new WaitForSeconds(1f);
-        transform.position = startPosition;
-        EnterPatrol();
+        state = dogState.resetting;
+
+        if (dogAgent.isOnNavMesh)
+        {
+            dogAgent.isStopped = true;
+            dogAgent.ResetPath();
+        }
+
+        dogAgent.enabled = false;
+        transform.position = position;
+
+        yield return null;
+        yield return null;
+
+        dogAgent.enabled = true;
+
+        yield return null;
+
+        if (dogAgent.isOnNavMesh)
+        {
+            dogAgent.Warp(position);
+        }
+
+        // Only reset target to player if target is null (ghost was destroyed)
+        if (target == null && player != null)
+        {
+            target = player;
+            isTargetPlayer = true;
+        }
+
+        int maxWaitFrames = 10;
+        int waited = 0;
+        while (!dogAgent.isOnNavMesh && waited < maxWaitFrames)
+        {
+            yield return null;
+            waited++;
+        }
+
+        if (dogAgent.isOnNavMesh)
+        {
+            dogAgent.isStopped = false;
+            dogAgent.speed = patrolSpeed;
+            destinationPos = destinationPoints[Random.Range(0, destinationPoints.Length)].position;
+            dogAgent.SetDestination(destinationPos);
+            state = dogState.patrol;
+        }
+        else
+        {
+            state = dogState.idle;
+        }
     }
-    
-    //Helper used to draw gizmos in the editor for detection
+
     void OnDrawGizmosSelected()
     {
         if (this.target == null) return;
@@ -272,32 +403,26 @@ public class DogAI : MonoBehaviour
         Vector3 dir = (target - origin).normalized;
         float dist = Vector3.Distance(origin, target);
 
-        // Draw detection radius
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(origin, detectionRadius);
 
-        // Draw line to player (full distance)
         Gizmos.color = Color.gray;
         Gizmos.DrawLine(origin, target);
 
-        // Draw raycast (actual vision check)
         if (dist <= detectionRadius)
         {
             if (Physics.Raycast(origin, dir, out RaycastHit hit, dist))
             {
-                // Green if player is visible
-                if (hit.transform == this.target)
+                if (hit.transform.root == this.target.root)
                 {
                     Gizmos.color = Color.green;
                 }
-                else // Red if something is blocking
+                else
                 {
                     Gizmos.color = Color.red;
                 }
 
                 Gizmos.DrawLine(origin, hit.point);
-
-                // Draw hit point
                 Gizmos.DrawSphere(hit.point, 0.1f);
             }
         }

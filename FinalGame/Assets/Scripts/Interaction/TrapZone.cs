@@ -15,7 +15,7 @@ public class TrapZone : MonoBehaviour
     private Renderer trapRenderer;
     private Color originalColor;
     private Collider trapCollider;
-    private bool isProcessing = false; // prevents re-entry during same death
+    private bool isProcessing = false;
 
     void Start()
     {
@@ -30,10 +30,7 @@ public class TrapZone : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        // Single-use traps only trigger once per life
         if (!persistent && isTriggered) return;
-
-        // Prevent re-entry while already processing a kill
         if (isProcessing) return;
 
         // --- Ghost triggers the trap ---
@@ -60,23 +57,22 @@ public class TrapZone : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             PlayerLife life = other.GetComponent<PlayerLife>();
-            if (life != null)
-            {
-                Debug.Log("Trap triggered by player!");
-                if (AudioManager.Instance != null) AudioManager.Instance.PlayDeath();
+            if (life == null) return;
+            if (life.IsDead) return; // don't kill during death sequence
 
-                if (persistent)
-                {
-                    isProcessing = true;
-                    life.Die();
-                    // isProcessing gets cleared by ResetTrap on new life
-                }
-                else
-                {
-                    isTriggered = true;
-                    isProcessing = true;
-                    StartCoroutine(FadeTrapThenKill(life));
-                }
+            Debug.Log("Trap triggered by player!");
+            if (AudioManager.Instance != null) AudioManager.Instance.PlayDeath();
+
+            if (persistent)
+            {
+                isProcessing = true;
+                life.Die();
+            }
+            else
+            {
+                isTriggered = true;
+                isProcessing = true;
+                StartCoroutine(FadeTrapThenKill(life));
             }
         }
     }
@@ -122,7 +118,6 @@ public class TrapZone : MonoBehaviour
 
         if (persistent)
         {
-            // Persistent traps never changed — nothing to restore
             return;
         }
 
