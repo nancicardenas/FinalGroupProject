@@ -823,8 +823,10 @@ MonoBehaviour:
   slideImages:
   - {fileID: 21300000, guid: a2ba5a309cb9c84479db40da0faf2ea7, type: 3}
   slideTexts:
-  - One more...if she could just find one more she would have one for each of her
-    kittens to enjoy!
+  - The forest gave way to a quiet eastern village lit by gentle lanterns. Wooden
+    homes lined narrow paths as petals drifted through the air. Strange scents surrounded
+    her, but she did not hesitate. With careful steps, she searched for the final
+    delicate treat.
   displayImage: {fileID: 1901634511}
   storyText: {fileID: 20024978}
   continuePrompt: {fileID: 2034067568}

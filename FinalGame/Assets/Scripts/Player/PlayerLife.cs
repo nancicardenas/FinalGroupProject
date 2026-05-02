@@ -21,6 +21,7 @@ public class PlayerLife : MonoBehaviour
     public System.Action OnPlayerReset;
 
     private bool isDead = false;
+    public bool IsDead { get { return isDead; } }
 
     // Cached references — found once, used every reset
     private KeyPickup[] allKeys;
