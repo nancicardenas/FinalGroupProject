@@ -771,8 +771,11 @@ MonoBehaviour:
   slideImages:
   - {fileID: 21300000, guid: 362f43a336f526748b09d48cc1a79ba6, type: 3}
   slideTexts:
-  - The cat knew it was time to begin the hunt. Scents lingered in the air. She knew
-    she was close.
+  - She followed the alleys until stone turned ancient beneath her paws, opening
+    into a vast Greek city. Columns towered overhead and silent statues watched as
+    she moved through sunlit paths. The air smelled of dust and olive, and every
+    shadow felt like a test. Somewhere within these ruins lay the first treat her
+    kittens deserved.
   displayImage: {fileID: 1901634511}
   storyText: {fileID: 20024978}
   continuePrompt: {fileID: 2034067568}
