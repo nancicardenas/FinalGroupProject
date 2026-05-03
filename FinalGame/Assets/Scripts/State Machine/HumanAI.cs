@@ -56,8 +56,6 @@ public class HumanAI : MonoBehaviour
     private float distractionTimer;
     private bool distractedOnce = false;
     private int lastNumGhosts = 0;
-    
-    public bool isTargetPlayer = true;
 
     //TODO: delete later (for testing in AI scene)
     private CameraFollow cameraFollow;
@@ -65,12 +63,16 @@ public class HumanAI : MonoBehaviour
     private GhostManager ghostManager;
     
     private PlayerLife playerLife;
+
+    private GameObject questionMarkOverlay;
     
     private void Start()
     {
         target = GameObject.FindGameObjectWithTag("Player").transform;
         ghostManager = GameObject.FindGameObjectWithTag("GhostManager").GetComponent<GhostManager>();
         playerLife = target.root.GetComponent<PlayerLife>();
+        
+        questionMarkOverlay = transform.Find("QuestionMarkOverlay").gameObject;
         
         //TODO: delete later (for testing in AI scene)
         if (SceneManager.GetActiveScene().name == "Human AI Test")
@@ -304,6 +306,7 @@ public class HumanAI : MonoBehaviour
         humanAgent.ResetPath();
         humanAgent.isStopped = true;
         distractedOnce = true;
+        questionMarkOverlay.SetActive(true);
     }
 
     //Stay distracted for the specified amount of time in distractionTimer, rotate to show confusion
@@ -317,12 +320,17 @@ public class HumanAI : MonoBehaviour
         transform.rotation = Quaternion.Euler(0f, angle, 0f);
         if (distractionTimer <= 0f)
         {
+            questionMarkOverlay.SetActive(false);
             EnterSearch();
         }
     }
     
     private void EnterPlayerCaught()
     {
+        /*humanAgent.isStopped = true;
+        humanAgent.ResetPath();
+        state = humanState.playerCaught;
+        playerLife.Die();*/
         print("playerCaught");
         //state = humanState.playerCaught;
     }
@@ -334,7 +342,7 @@ public class HumanAI : MonoBehaviour
     
     bool CanSeePlayer()
     {
-        targetHeight = isTargetPlayer ? catHeight : ghostHeight;
+        targetHeight = catHeight;
         
         //Ray setup
         Vector3 origin = transform.position + Vector3.up * humanHeight;
