@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
@@ -14,7 +15,8 @@ public class HumanAI : MonoBehaviour
         search,
         alert,
         distracted,
-        playerCaught
+        playerCaught,
+        resetting,
     }
 
     public humanState state = humanState.idle;
@@ -38,7 +40,7 @@ public class HumanAI : MonoBehaviour
 
     private float viewDistance = 15f;
     private float viewAngle = 100f;
-    private float catchRadius = 3f;
+    private float catchRadius = 2f;
 
     private float idleScanAngle = 90f;
     private float scanSpeed = 2f;
@@ -48,6 +50,7 @@ public class HumanAI : MonoBehaviour
     private float runSpeed = 6f;
 
     private Vector3 lastKnownPlayerPosition;
+    private Vector3 startPosition;
     private bool hasReachedLastKnownPlayerPosition;
     private float searchDuration = 7f;
     private float searchTimer = 0f;
@@ -56,21 +59,25 @@ public class HumanAI : MonoBehaviour
     private float distractionTimer;
     private bool distractedOnce = false;
     private int lastNumGhosts = 0;
-    
-    public bool isTargetPlayer = true;
 
+    private float caughtDuration = 1f;
+    private float caughtTimer = 0f;
     //TODO: delete later (for testing in AI scene)
     private CameraFollow cameraFollow;
     
-    private GhostManager ghostManager;
+    public GhostManager ghostManager;
     
-    private PlayerLife playerLife;
+    public PlayerLife playerLife;
+
+    private GameObject questionMarkOverlay;
     
     private void Start()
     {
-        target = GameObject.FindGameObjectWithTag("Player").transform;
-        ghostManager = GameObject.FindGameObjectWithTag("GhostManager").GetComponent<GhostManager>();
-        playerLife = target.root.GetComponent<PlayerLife>();
+        //target = GameObject.FindGameObjectWithTag("Player").transform;
+        //ghostManager = GameObject.FindGameObjectWithTag("GhostManager").GetComponent<GhostManager>();
+        //playerLife = target.root.GetComponent<PlayerLife>();
+        
+        questionMarkOverlay = transform.Find("QuestionMarkOverlay").gameObject;
         
         //TODO: delete later (for testing in AI scene)
         if (SceneManager.GetActiveScene().name == "Human AI Test")
@@ -78,11 +85,30 @@ public class HumanAI : MonoBehaviour
             GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraFollow>().target = target.transform;
         }
         baseRotationY = transform.eulerAngles.y;
+        startPosition = transform.position;
+    }
+    
+    public void OnPlayerDied()
+    {
+        StopAllCoroutines();
+        //target = player;
+        //isTargetPlayer = true;
+        //ghostTarget = null;
+        state = humanState.resetting;
+        StartCoroutine(WarpAndPatrolDelayed(startPosition));
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (state == humanState.resetting) return;
+
+        if (target == null)
+        {
+            print("target null");
+            return;
+        }
+        
         switch (state)
         {
             case humanState.idle:
@@ -117,6 +143,12 @@ public class HumanAI : MonoBehaviour
 
     private void UpdateIdle()
     {
+        //Try to enter distracted, will depend on number of ghosts in scene
+        if (TryEnterDistracted())
+        {
+            return;
+        }
+        
         idleTimer += Time.deltaTime;
         
         //Turn left and right to scan for player
@@ -129,9 +161,6 @@ public class HumanAI : MonoBehaviour
         {
             EnterWalking();
         }
-        
-        //Try to enter distracted, will depend on number of ghosts in scene
-        TryEnterDistracted();
     }
     
     //Enter the walking state
@@ -157,7 +186,10 @@ public class HumanAI : MonoBehaviour
     private void UpdateWalking()
     {
         //Try to enter distracted, will depend on number of ghosts in scene
-        TryEnterDistracted();
+        if (TryEnterDistracted())
+        {
+            return;
+        }
         
         //If player has been scene start running after them
         if (CanSeePlayer())
@@ -186,7 +218,10 @@ public class HumanAI : MonoBehaviour
 
     private void UpdateSearch()
     {
-        TryEnterDistracted();
+        if (TryEnterDistracted())
+        {
+            return;
+        }
         
         //If player is seen during search, enter alert state
         if (CanSeePlayer())
@@ -269,14 +304,14 @@ public class HumanAI : MonoBehaviour
     //6 ghosts = 4 seconds
     //7 ghosts = 5 seconds
     //and so on...
-    private void TryEnterDistracted()
+    private bool TryEnterDistracted()
     {
         int numGhosts = ghostManager.activeGhosts.Count;
         
         if (numGhosts < 5)
         {
             lastNumGhosts = numGhosts;
-            return;
+            return false;
         }
         
         //If on a new ghost run set distractedOnce to false
@@ -289,12 +324,13 @@ public class HumanAI : MonoBehaviour
         if (distractedOnce)
         {
             lastNumGhosts = numGhosts;
-            return;
+            return false;
         }
         
         lastNumGhosts = numGhosts;
         distractionTimer = numGhosts - 2;
         EnterDistracted();
+        return true;
     }
 
     //Enter the distracted state, stop the agent
@@ -304,6 +340,7 @@ public class HumanAI : MonoBehaviour
         humanAgent.ResetPath();
         humanAgent.isStopped = true;
         distractedOnce = true;
+        questionMarkOverlay.SetActive(true);
     }
 
     //Stay distracted for the specified amount of time in distractionTimer, rotate to show confusion
@@ -317,24 +354,84 @@ public class HumanAI : MonoBehaviour
         transform.rotation = Quaternion.Euler(0f, angle, 0f);
         if (distractionTimer <= 0f)
         {
+            questionMarkOverlay.SetActive(false);
             EnterSearch();
         }
     }
     
     private void EnterPlayerCaught()
     {
+        humanAgent.isStopped = true;
+        caughtTimer = 0f;
+        humanAgent.ResetPath();
+        state = humanState.playerCaught;
+        playerLife.Die();
         print("playerCaught");
         //state = humanState.playerCaught;
     }
 
     private void UpdatePlayerCaught()
     {
-        print("done");
+        //caughtTimer += Time.deltaTime;
+        humanAgent.isStopped = true;
+    }
+    
+    IEnumerator WarpAndPatrolDelayed(Vector3 position)
+    {
+        state = humanState.resetting;
+
+        if (humanAgent.isOnNavMesh)
+        {
+            humanAgent.isStopped = true;
+            humanAgent.ResetPath();
+        }
+
+        humanAgent.enabled = false;
+        transform.position = position;
+
+        yield return null;
+        yield return null;
+
+        humanAgent.enabled = true;
+
+        yield return null;
+
+        if (humanAgent.isOnNavMesh)
+        {
+            humanAgent.Warp(position);
+        }
+        int maxWaitFrames = 10;
+        int waited = 0;
+        while (!humanAgent.isOnNavMesh && waited < maxWaitFrames)
+        {
+            yield return null;
+            waited++;
+        }
+
+        if (humanAgent.isOnNavMesh)
+        {
+            humanAgent.isStopped = false;
+            humanAgent.speed = walkSpeed;
+            
+            //destinationPos = destinationPoints[Random.Range(0, destinationPoints.Length)].position;
+            humanAgent.SetDestination(destinationPos);
+
+            if (TryEnterDistracted())
+            {
+                yield break;
+            }
+            
+            EnterWalking();
+        }
+        else
+        {
+            EnterIdle();
+        }
     }
     
     bool CanSeePlayer()
     {
-        targetHeight = isTargetPlayer ? catHeight : ghostHeight;
+        targetHeight = catHeight;
         
         //Ray setup
         Vector3 origin = transform.position + Vector3.up * humanHeight;

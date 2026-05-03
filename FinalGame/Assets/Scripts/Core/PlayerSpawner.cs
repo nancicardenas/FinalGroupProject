@@ -112,6 +112,20 @@ public class PlayerSpawner : MonoBehaviour
                 life.OnPlayerReset += dogAI.OnPlayerDied;
             }
         }
+        
+        // Wire all humans in the scene
+        HumanAI[] allHumans = FindObjectsByType<HumanAI>(FindObjectsSortMode.None);
+        foreach (HumanAI humanAI in allHumans)
+        {
+            humanAI.target = spawnedPlayer.transform;
+            humanAI.ghostManager = ghostManager;
+            humanAI.playerLife = life;
+
+            if (life != null)
+            {
+                life.OnPlayerReset += humanAI.OnPlayerDied;
+            }
+        }
 
         // Wire all ghost detections in the scene
         GhostDetection[] allDetections = FindObjectsByType<GhostDetection>(FindObjectsSortMode.None);
