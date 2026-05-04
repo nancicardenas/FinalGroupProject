@@ -28,6 +28,7 @@ public class HumanAI : MonoBehaviour
     //Change this to align with floor in scene
     private float humanYPosition = 0.6f;
 
+    public Transform[] destinationPoints;
     private Vector3 destinationPos;
 
     //Will always target player, wired in PlayerSpawner
@@ -170,7 +171,7 @@ public class HumanAI : MonoBehaviour
         humanAgent.speed = 2f;
         
         //Pick random points in a certain area, TODO can change later to predetermined points like the dog
-        destinationPos = new Vector3(Random.Range(-9, 9), humanYPosition, Random.Range(-9, 9));
+        destinationPos = destinationPoints[Random.Range(0, destinationPoints.Length)].position;
         humanAgent.SetDestination(destinationPos);
         state = humanState.walking;
     }
@@ -451,7 +452,7 @@ public class HumanAI : MonoBehaviour
             humanAgent.isStopped = false;
             humanAgent.speed = walkSpeed;
             
-            //destinationPos = destinationPoints[Random.Range(0, destinationPoints.Length)].position;
+            destinationPos = destinationPoints[Random.Range(0, destinationPoints.Length)].position;
             humanAgent.SetDestination(destinationPos);
 
             if (TryEnterDistracted())
