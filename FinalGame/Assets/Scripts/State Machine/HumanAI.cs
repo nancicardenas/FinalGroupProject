@@ -19,36 +19,43 @@ public class HumanAI : MonoBehaviour
         resetting,
     }
 
+    //Used for handling behavior and animations
     public humanState state = humanState.idle;
-    public NavMeshAgent humanAgent;
     
-    private float idleTimer = 0f;
-    private float idleDuration = 1f;
+    //Used for basic wayfinding and movement
+    public NavMeshAgent humanAgent;
     
     //Change this to align with floor in scene
     private float humanYPosition = 0.6f;
 
+    public Transform[] destinationPoints;
     private Vector3 destinationPos;
 
+    //Will always target player, wired in PlayerSpawner
     public Transform target;
     
     //Change These when resizing cat/human objects
     private float humanHeight = 2.3f;
     private float catHeight = 0.5f;
-    private float ghostHeight = 0.3f;
     private float targetHeight;
-
+    
+    //Alert state variables
     private float viewDistance = 15f;
     private float viewAngle = 100f;
     private float catchRadius = 2f;
 
+    //Idle state variables
+    private float idleTimer = 0f;
+    private float idleDuration = 1f;
     private float idleScanAngle = 90f;
     private float scanSpeed = 2f;
     private float baseRotationY;
 
+    //Speed variables
     private float walkSpeed = 2f;
     private float runSpeed = 6f;
 
+    //Search state variables
     private Vector3 lastKnownPlayerPosition;
     private Vector3 startPosition;
     private bool hasReachedLastKnownPlayerPosition;
@@ -56,51 +63,43 @@ public class HumanAI : MonoBehaviour
     private float searchTimer = 0f;
     private float searchRadius = 5f;
 
+    //Radius to alert other humans if player is seen
+    private float alertNearbyHumansRadius = 25f;
+
+    //Distracted state variables
     private float distractionTimer;
     private bool distractedOnce = false;
     private int lastNumGhosts = 0;
-
-    private float caughtDuration = 1f;
-    private float caughtTimer = 0f;
-    //TODO: delete later (for testing in AI scene)
-    private CameraFollow cameraFollow;
     
+    //Script references wired in PlayerSpawner
     public GhostManager ghostManager;
-    
     public PlayerLife playerLife;
-
+    
+    //Overlays
     private GameObject questionMarkOverlay;
+    private GameObject alertSymbolOverlay;
     
     private void Start()
     {
-        //target = GameObject.FindGameObjectWithTag("Player").transform;
-        //ghostManager = GameObject.FindGameObjectWithTag("GhostManager").GetComponent<GhostManager>();
-        //playerLife = target.root.GetComponent<PlayerLife>();
+        //Assign references for the human sprite overlays
+        questionMarkOverlay = transform.Find("Question Mark Overlay").gameObject;
+        alertSymbolOverlay = transform.Find("Alert Symbol Overlay").gameObject;
         
-        questionMarkOverlay = transform.Find("QuestionMarkOverlay").gameObject;
-        
-        //TODO: delete later (for testing in AI scene)
-        if (SceneManager.GetActiveScene().name == "Human AI Test")
-        {
-            GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraFollow>().target = target.transform;
-        }
         baseRotationY = transform.eulerAngles.y;
         startPosition = transform.position;
     }
     
+    //Reset the Human agent
     public void OnPlayerDied()
     {
         StopAllCoroutines();
-        //target = player;
-        //isTargetPlayer = true;
-        //ghostTarget = null;
         state = humanState.resetting;
         StartCoroutine(WarpAndPatrolDelayed(startPosition));
     }
-
-    // Update is called once per frame
+    
     void Update()
     {
+        //Don't change states while resetting
         if (state == humanState.resetting) return;
 
         if (target == null)
@@ -109,6 +108,7 @@ public class HumanAI : MonoBehaviour
             return;
         }
         
+        //Update behavior based on current state
         switch (state)
         {
             case humanState.idle:
@@ -132,6 +132,7 @@ public class HumanAI : MonoBehaviour
         }
     }
 
+    //Enter the idle state, set up variables for scanning behavior
     private void EnterIdle()
     {
         state = humanState.idle;
@@ -170,7 +171,7 @@ public class HumanAI : MonoBehaviour
         humanAgent.speed = 2f;
         
         //Pick random points in a certain area, TODO can change later to predetermined points like the dog
-        destinationPos = new Vector3(Random.Range(-9, 9), humanYPosition, Random.Range(-9, 9));
+        destinationPos = destinationPoints[Random.Range(0, destinationPoints.Length)].position;
         humanAgent.SetDestination(destinationPos);
         state = humanState.walking;
     }
@@ -218,6 +219,7 @@ public class HumanAI : MonoBehaviour
 
     private void UpdateSearch()
     {
+        //Try to enter distracted state if there are 5 or more ghosts
         if (TryEnterDistracted())
         {
             return;
@@ -249,13 +251,14 @@ public class HumanAI : MonoBehaviour
             EnterWalking();
         }
         
+        //Check next search point
         if (HasReachedDestination())
         {
             ChooseNextSearchPoint();
         }
     }
     
-    //Choose the next search point
+    //Choose the next search point, will search random areas around the last known location
     void ChooseNextSearchPoint()
     {
         Vector3 offset = Random.insideUnitSphere * searchRadius;
@@ -263,16 +266,20 @@ public class HumanAI : MonoBehaviour
         humanAgent.SetDestination(lastKnownPlayerPosition + offset);
     }
     
+    //Enter the alert state, alert other humans that are nearby
     private void EnterAlert()
     {
         print("alert");
         humanAgent.isStopped = false;
         humanAgent.speed = runSpeed;
+        alertSymbolOverlay.SetActive(true);
         state = humanState.alert;
+        AlertNearbyHumans(target.position);
     }
 
     private void UpdateAlert()
     {
+        //Only chase after player if it can see it, otherwise start searching
         print("update");
         if (CanSeePlayer())
         {
@@ -281,19 +288,50 @@ public class HumanAI : MonoBehaviour
         }
         else
         {
+            alertSymbolOverlay.SetActive(false);
             EnterSearch();
             print("search");
             return;
         }
-
+        
+        //Player has been reached, enter player caught to kill player and reset agent
         if (ReachedTarget())
         {
+            alertSymbolOverlay.SetActive(false);
             EnterPlayerCaught();
         }
-        /*humanAgent.ResetPath();
-        EnterIdle();*/
     }
 
+    //Used to alert humans to the position of the player
+    private void AlertNearbyHumans(Vector3 playerLocation)
+    {
+        Collider[] hits = Physics.OverlapSphere(transform.position, alertNearbyHumansRadius);
+
+        foreach (Collider hit in hits)
+        {
+            print("number of hits: " + hits.Length);
+            print("hit name: " +  hit.name);
+            HumanAI otherHuman = hit.GetComponentInParent<HumanAI>();
+            if(otherHuman != null && otherHuman != this)
+            {
+                otherHuman.ReceiveAlert(playerLocation);
+            }
+        }
+    }
+
+    //Will enter search state when received alert
+    public void ReceiveAlert(Vector3 playerLocation)
+    {
+        print("received by " + gameObject.name);
+        if (state == humanState.playerCaught) 
+            return;
+
+        alertSymbolOverlay.gameObject.SetActive(false);
+        lastKnownPlayerPosition = playerLocation;
+        EnterSearch();
+    }
+
+    //Helper used to check if the agent has reached the destination
     bool ReachedTarget()
     {
         return Vector3.Distance(target.position, transform.position) <= catchRadius;
@@ -308,6 +346,7 @@ public class HumanAI : MonoBehaviour
     {
         int numGhosts = ghostManager.activeGhosts.Count;
         
+        //Update the lastNumGhosts but do not enter distracted 
         if (numGhosts < 5)
         {
             lastNumGhosts = numGhosts;
@@ -359,23 +398,22 @@ public class HumanAI : MonoBehaviour
         }
     }
     
+    //Call playerLife.Die to kill the player and reset the scene
     private void EnterPlayerCaught()
     {
         humanAgent.isStopped = true;
-        caughtTimer = 0f;
         humanAgent.ResetPath();
         state = humanState.playerCaught;
         playerLife.Die();
         print("playerCaught");
-        //state = humanState.playerCaught;
     }
 
     private void UpdatePlayerCaught()
     {
-        //caughtTimer += Time.deltaTime;
         humanAgent.isStopped = true;
     }
     
+    //Used to properly reset the agent to prevent clipping and other unintended behavior
     IEnumerator WarpAndPatrolDelayed(Vector3 position)
     {
         state = humanState.resetting;
@@ -389,6 +427,7 @@ public class HumanAI : MonoBehaviour
         humanAgent.enabled = false;
         transform.position = position;
 
+        //wait a few frames
         yield return null;
         yield return null;
 
@@ -413,7 +452,7 @@ public class HumanAI : MonoBehaviour
             humanAgent.isStopped = false;
             humanAgent.speed = walkSpeed;
             
-            //destinationPos = destinationPoints[Random.Range(0, destinationPoints.Length)].position;
+            destinationPos = destinationPoints[Random.Range(0, destinationPoints.Length)].position;
             humanAgent.SetDestination(destinationPos);
 
             if (TryEnterDistracted())
@@ -468,6 +507,11 @@ public class HumanAI : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(origin, viewDistance);
 
+        
+        //Alert other humans radius
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(transform.position, alertNearbyHumansRadius);
+        
         // --- Draw FOV cone ---
         Gizmos.color = Color.blue;
 
