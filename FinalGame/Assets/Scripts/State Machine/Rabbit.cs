@@ -6,6 +6,7 @@ public class Rabbit : MonoBehaviour
 {
     public PlayerController m_player;
     public GameObject keyPrefab;
+    public LayerMask groundMask;
 
     public enum eState: int
     {
@@ -44,11 +45,14 @@ public class Rabbit : MonoBehaviour
     public Vector3 playerPos;
     Vector3 hopDirection;
 
+    private float m_fLastGroundY;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         //Setup initial state
         m_nState = eState.kIdle;
+        m_fLastGroundY = transform.position.y;
       
     }
 
@@ -132,9 +136,29 @@ public class Rabbit : MonoBehaviour
         {
             float t = (Time.time - m_fHopStart) / m_fHopTime;
 
-            float targetAngle = Mathf.Atan2(hopDirection.z, hopDirection.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(0f, targetAngle, 0f);
-            transform.position = Vector3.Lerp(m_vHopStartPos, m_vHopEndPos, t);
+            //float targetAngle = Mathf.Atan2(hopDirection.z, hopDirection.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.LookRotation(hopDirection);
+
+            Vector3 flatPosition = Vector3.Lerp(m_vHopStartPos, m_vHopEndPos, t);
+
+            float groundY;
+
+            if(CheckGroundBelow(flatPosition, out groundY))
+            {
+                m_fLastGroundY = groundY;
+            }
+
+            else
+            {
+                groundY = m_fLastGroundY;
+            }
+
+
+            float hopHeight = 0.5f;
+            float arc = Mathf.Sin(t * Mathf.PI) * hopHeight;
+
+            //apply final position
+            transform.position = new Vector3(flatPosition.x, groundY + arc, flatPosition.z);
 
             if(t >= 1.0f)
             {
@@ -142,6 +166,27 @@ public class Rabbit : MonoBehaviour
                 m_fHopStart = Time.time;
             }
         }
+    }
+
+    bool CheckGroundBelow(Vector3 position, out float groundY)
+    {
+        Vector3 origin = position + Vector3.up * 1.0f;
+        float radius = 0.15f;
+        float maxDist = 2.0f;
+
+        if(Physics.SphereCast(origin, radius, Vector3.down, out RaycastHit hit, maxDist, groundMask))
+        {
+            float angle = Vector3.Angle(hit.normal, Vector3.up);
+
+            if(angle < 50)
+            {
+                groundY = hit.point.y;
+                return true;
+            }
+        }
+
+        groundY = position.y;
+        return false;
     }
 
     void OnTriggerEnter(Collider collision)
