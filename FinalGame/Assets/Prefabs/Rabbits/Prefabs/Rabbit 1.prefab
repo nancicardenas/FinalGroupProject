@@ -790,9 +790,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_player: {fileID: 0}
   keyPrefab: {fileID: 374289202576707483, guid: 78df1db2fbc8ec64f949fac0c05bf693, type: 3}
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 512
   m_fHopTime: 0.2
-  m_fHopSpeed: 3
-  m_fScaredDistance: 3
+  m_fHopSpeed: 5
+  m_fScaredDistance: 5
   m_nMaxMoveAttemps: 50
   m_fRandAngle: 60
   m_nState: 0
