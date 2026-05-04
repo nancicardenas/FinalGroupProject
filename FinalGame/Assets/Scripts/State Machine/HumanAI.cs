@@ -35,9 +35,8 @@ public class HumanAI : MonoBehaviour
     //Change These when resizing cat/human objects
     private float humanHeight = 2.3f;
     private float catHeight = 0.5f;
-    private float ghostHeight = 0.3f;
     private float targetHeight;
-
+    
     private float viewDistance = 15f;
     private float viewAngle = 100f;
     private float catchRadius = 2f;
@@ -56,6 +55,8 @@ public class HumanAI : MonoBehaviour
     private float searchTimer = 0f;
     private float searchRadius = 5f;
 
+    private float alertNearbyHumansRadius = 25f;
+
     private float distractionTimer;
     private bool distractedOnce = false;
     private int lastNumGhosts = 0;
@@ -70,6 +71,7 @@ public class HumanAI : MonoBehaviour
     public PlayerLife playerLife;
 
     private GameObject questionMarkOverlay;
+    private GameObject alertSymbolOverlay;
     
     private void Start()
     {
@@ -77,13 +79,13 @@ public class HumanAI : MonoBehaviour
         //ghostManager = GameObject.FindGameObjectWithTag("GhostManager").GetComponent<GhostManager>();
         //playerLife = target.root.GetComponent<PlayerLife>();
         
-        questionMarkOverlay = transform.Find("QuestionMarkOverlay").gameObject;
-        
+        questionMarkOverlay = transform.Find("Question Mark Overlay").gameObject;
+        alertSymbolOverlay = transform.Find("Alert Symbol Overlay").gameObject;
         //TODO: delete later (for testing in AI scene)
-        if (SceneManager.GetActiveScene().name == "Human AI Test")
+        /*if (SceneManager.GetActiveScene().name == "Human AI Test")
         {
             GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraFollow>().target = target.transform;
-        }
+        }*/
         baseRotationY = transform.eulerAngles.y;
         startPosition = transform.position;
     }
@@ -91,9 +93,6 @@ public class HumanAI : MonoBehaviour
     public void OnPlayerDied()
     {
         StopAllCoroutines();
-        //target = player;
-        //isTargetPlayer = true;
-        //ghostTarget = null;
         state = humanState.resetting;
         StartCoroutine(WarpAndPatrolDelayed(startPosition));
     }
@@ -268,7 +267,9 @@ public class HumanAI : MonoBehaviour
         print("alert");
         humanAgent.isStopped = false;
         humanAgent.speed = runSpeed;
+        alertSymbolOverlay.SetActive(true);
         state = humanState.alert;
+        AlertNearbyHumans(target.position);
     }
 
     private void UpdateAlert()
@@ -281,6 +282,7 @@ public class HumanAI : MonoBehaviour
         }
         else
         {
+            alertSymbolOverlay.SetActive(false);
             EnterSearch();
             print("search");
             return;
@@ -288,10 +290,38 @@ public class HumanAI : MonoBehaviour
 
         if (ReachedTarget())
         {
+            alertSymbolOverlay.SetActive(false);
             EnterPlayerCaught();
         }
         /*humanAgent.ResetPath();
         EnterIdle();*/
+    }
+
+    private void AlertNearbyHumans(Vector3 playerLocation)
+    {
+        Collider[] hits = Physics.OverlapSphere(transform.position, alertNearbyHumansRadius);
+
+        foreach (Collider hit in hits)
+        {
+            print("number of hits: " + hits.Length);
+            print("hit name: " +  hit.name);
+            HumanAI otherHuman = hit.GetComponentInParent<HumanAI>();
+            if(otherHuman != null && otherHuman != this)
+            {
+                otherHuman.ReceiveAlert(playerLocation);
+            }
+        }
+    }
+
+    public void ReceiveAlert(Vector3 playerLocation)
+    {
+        print("received by " + gameObject.name);
+        if (state == humanState.playerCaught) 
+            return;
+
+        alertSymbolOverlay.gameObject.SetActive(false);
+        lastKnownPlayerPosition = playerLocation;
+        EnterSearch();
     }
 
     bool ReachedTarget()
@@ -468,6 +498,11 @@ public class HumanAI : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(origin, viewDistance);
 
+        
+        //Alert other humans radius
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(transform.position, alertNearbyHumansRadius);
+        
         // --- Draw FOV cone ---
         Gizmos.color = Color.blue;
 
