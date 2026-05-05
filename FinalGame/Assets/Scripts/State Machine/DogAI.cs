@@ -66,6 +66,7 @@ public class DogAI : MonoBehaviour
     {
         StopAllCoroutines();
         target = player;
+        print("target: " + target.name + " called by " + gameObject.name);
         isTargetPlayer = true;
         ghostTarget = null;
         state = dogState.resetting;
