@@ -1335,6 +1335,65 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!1 &801284408
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 801284410}
+  - component: {fileID: 801284409}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &801284409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 801284408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 699cf84367b1117499febcea6c431b99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupSound: {fileID: 8300000, guid: 63ac332a2cb1f45c5b01617d6e3297ab, type: 3}
+  gateOpenSound: {fileID: 0}
+  deathSound: {fileID: 8300000, guid: c69915a12c84c4374b68157d9c95a04b, type: 3}
+  jumpSound: {fileID: 8300000, guid: 71b69ff5587024a82bcbbb0844d833a5, type: 3}
+  interactSound: {fileID: 0}
+  dogBarkSound: {fileID: 0}
+  humanHeySound: {fileID: 8300000, guid: 270e0188346fd4d258de1fc654ce720c, type: 3}
+  humanStopHidingSound: {fileID: 8300000, guid: 1dd10317bfe8a4b62889f90c47f27914, type: 3}
+  humanFindYouSound: {fileID: 8300000, guid: 8814cddedb63742c8b121986f6268416, type: 3}
+  humanOutThereSound: {fileID: 8300000, guid: 0a957321e90804893bc9351e69adc87b, type: 3}
+  humanShowYourselfSound: {fileID: 8300000, guid: 9488eed86464549f3bf66952361567b1, type: 3}
+  humanWhosThereSound: {fileID: 8300000, guid: 4b49a6a08cdaf4e458af06d78db34d0e, type: 3}
+  humanIntruderSound: {fileID: 8300000, guid: 8d9552aaccfd0417b93a0f5037157eb8, type: 3}
+  humanHuhSound: {fileID: 8300000, guid: a35599c93c35a4b0390fbeba27e0b79f, type: 3}
+  humanWhatSound: {fileID: 8300000, guid: eaab7e4023e02497ca7c9ab602bbae32, type: 3}
+--- !u!4 &801284410
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 801284408}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 25.499487, y: 26.990458, z: -297.08716}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &813757698 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: -2596757657902316467, guid: d06845e4edb179b469f4415a2214eaeb, type: 3}
@@ -1692,6 +1751,10 @@ PrefabInstance:
     - target: {fileID: 8391741013771059204, guid: b2de8cedc4d6d994aaec741a548cc38b, type: 3}
       propertyPath: m_Name
       value: Human AI
+      objectReference: {fileID: 0}
+    - target: {fileID: 8391741013771059204, guid: b2de8cedc4d6d994aaec741a548cc38b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2810,7 +2873,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skipToLevels: 1
-  levels: 0
+  levels: 2
 --- !u!4 &1616248573
 Transform:
   m_ObjectHideFlags: 0
@@ -3747,3 +3810,4 @@ SceneRoots:
   - {fileID: 819149751}
   - {fileID: 1663245009}
   - {fileID: 1625931950}
+  - {fileID: 801284410}
