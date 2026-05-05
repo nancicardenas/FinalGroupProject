@@ -43,6 +43,7 @@ public class HumanAI : MonoBehaviour
     private float viewDistance = 20f;
     private float viewAngle = 140f;
     private float catchRadius = 2f;
+    //private bool alertAudioPlayedOnce = false;
 
     //Idle state variables
     private float idleTimer = 0f;
@@ -229,8 +230,6 @@ public class HumanAI : MonoBehaviour
                     break;
             }
         }
-       
-        
         
         humanAgent.isStopped = false;
         searchTimer = searchDuration;
@@ -292,9 +291,9 @@ public class HumanAI : MonoBehaviour
     //Enter the alert state, alert other humans that are nearby
     private void EnterAlert()
     {
-        print("alert");
         if (AudioManager.Instance != null)
         {
+            print(gameObject.name + "played audio");
             int soundIndex = Random.Range(0, 3);
             switch (soundIndex)
             {
@@ -320,7 +319,7 @@ public class HumanAI : MonoBehaviour
     private void UpdateAlert()
     {
         //Only chase after player if it can see it, otherwise start searching
-        print("update");
+       // print("update");
         if (CanSeePlayer())
         {
             lastKnownPlayerPosition = target.position;
@@ -330,7 +329,7 @@ public class HumanAI : MonoBehaviour
         {
             alertSymbolOverlay.SetActive(false);
             EnterSearch();
-            print("search");
+            //print("search");
             return;
         }
         
@@ -349,25 +348,38 @@ public class HumanAI : MonoBehaviour
 
         foreach (Collider hit in hits)
         {
-            print("number of hits: " + hits.Length);
-            print("hit name: " +  hit.name);
-            HumanAI otherHuman = hit.GetComponentInParent<HumanAI>();
-            if(otherHuman != null && otherHuman != this)
+            if (hit.gameObject.CompareTag("Player"))
             {
-                otherHuman.ReceiveAlert(playerLocation);
+                print("hit name: " +  hit.name);
             }
+            HumanAI otherHuman = hit.GetComponentInParent<HumanAI>();
+
+            if (otherHuman == null || otherHuman == this)
+            {
+                continue;
+            }
+
+            if (otherHuman.state == humanState.alert || otherHuman.state == humanState.search)
+            {
+                continue;
+            }
+            
+            otherHuman.ReceiveAlert(playerLocation);
         }
     }
 
     //Will enter search state when received alert
     public void ReceiveAlert(Vector3 playerLocation)
     {
-        print("received by " + gameObject.name);
-        if (state == humanState.playerCaught) 
+        //print("received by " + gameObject.name);
+        
+        //Don't enter search if player is caught or if already alert
+        if (state == humanState.playerCaught || state == humanState.alert) 
             return;
 
         alertSymbolOverlay.gameObject.SetActive(false);
         lastKnownPlayerPosition = playerLocation;
+        
         EnterSearch();
     }
 
