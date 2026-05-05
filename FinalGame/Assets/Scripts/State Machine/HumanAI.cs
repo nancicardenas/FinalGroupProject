@@ -40,8 +40,8 @@ public class HumanAI : MonoBehaviour
     private float targetHeight;
     
     //Alert state variables
-    private float viewDistance = 15f;
-    private float viewAngle = 100f;
+    private float viewDistance = 20f;
+    private float viewAngle = 140f;
     private float catchRadius = 2f;
 
     //Idle state variables
@@ -64,7 +64,7 @@ public class HumanAI : MonoBehaviour
     private float searchRadius = 5f;
 
     //Radius to alert other humans if player is seen
-    private float alertNearbyHumansRadius = 25f;
+    private float alertNearbyHumansRadius = 30f;
 
     //Distracted state variables
     private float distractionTimer;
