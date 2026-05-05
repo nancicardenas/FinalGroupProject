@@ -10,6 +10,18 @@ public class AudioManager : MonoBehaviour
     public AudioClip deathSound;
     public AudioClip jumpSound;
     public AudioClip interactSound;
+    public AudioClip dogBarkSound;
+    
+    [Header("Human AI Sounds")]
+    public AudioClip humanHeySound;
+    public AudioClip humanStopHidingSound;
+    public AudioClip humanFindYouSound;
+    public AudioClip humanOutThereSound;
+    public AudioClip humanShowYourselfSound;
+    public AudioClip humanWhosThereSound;
+    public AudioClip humanIntruderSound;
+    public AudioClip humanHuhSound;
+    public AudioClip humanWhatSound;
 
     private AudioSource sfxSource;
     private AudioSource musicSource;
@@ -83,6 +95,26 @@ public class AudioManager : MonoBehaviour
     public void PlayGateOpen() => PlaySFX(gateOpenSound);
     public void PlayDeath() => PlaySFX(deathSound);
     public void PlayJump() => PlaySFX(jumpSound);
+    
+    public void PlayDogBark() => PlaySFX(dogBarkSound);
+    
+    public void PlayHumanHey() => PlaySFX(humanHeySound);
+
+    public void PlayHumanStopHidingSound() => PlaySFX(humanStopHidingSound);
+    
+    public void PlayHumanFindYouSound() => PlaySFX(humanFindYouSound);
+    
+    public void PlayHumanOutThereSound() => PlaySFX(humanOutThereSound);
+    
+    public void PlayHumanShowYourselfSound() => PlaySFX(humanShowYourselfSound);
+
+    public void PlayHumanWhosThereSound() => PlaySFX(humanWhosThereSound);
+
+    public void PlayHumanIntruderSound() => PlaySFX(humanIntruderSound);
+    
+    public void PlayHumanHuhSound() => PlaySFX(humanHuhSound);
+    
+    public void PlayHumanWhatSound() => PlaySFX(humanWhatSound);
 
     // --- Music ---
 

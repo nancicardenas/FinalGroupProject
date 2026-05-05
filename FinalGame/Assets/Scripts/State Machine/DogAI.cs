@@ -236,6 +236,8 @@ public class DogAI : MonoBehaviour
     void EnterChase()
     {
         if (!dogAgent.isOnNavMesh) return;
+        
+        if(AudioManager.Instance != null) AudioManager.Instance.PlayDogBark();
 
         dogAgent.isStopped = false;
         dogAgent.speed = chaseSpeed;

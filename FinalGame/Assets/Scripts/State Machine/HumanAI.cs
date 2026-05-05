@@ -209,6 +209,29 @@ public class HumanAI : MonoBehaviour
     private void EnterSearch()
     {
         state = humanState.search;
+
+        if (AudioManager.Instance != null)
+        {
+            int soundIndex = Random.Range(0, 4);
+            switch (soundIndex)
+            {
+                case 0:
+                    AudioManager.Instance.PlayHumanStopHidingSound();
+                    break;
+                case 1:
+                    AudioManager.Instance.PlayHumanFindYouSound();
+                    break;
+                case 2:
+                    AudioManager.Instance.PlayHumanOutThereSound();
+                    break;
+                case 3:
+                    AudioManager.Instance.PlayHumanShowYourselfSound();
+                    break;
+            }
+        }
+       
+        
+        
         humanAgent.isStopped = false;
         searchTimer = searchDuration;
 
@@ -270,6 +293,23 @@ public class HumanAI : MonoBehaviour
     private void EnterAlert()
     {
         print("alert");
+        if (AudioManager.Instance != null)
+        {
+            int soundIndex = Random.Range(0, 3);
+            switch (soundIndex)
+            {
+                case 0:
+                    AudioManager.Instance.PlayHumanHey();
+                    break;
+                case 1:
+                    AudioManager.Instance.PlayHumanWhosThereSound();
+                    break;
+                case 2:
+                    AudioManager.Instance.PlayHumanIntruderSound();
+                    break;
+            }
+        }
+        
         humanAgent.isStopped = false;
         humanAgent.speed = runSpeed;
         alertSymbolOverlay.SetActive(true);
@@ -376,6 +416,20 @@ public class HumanAI : MonoBehaviour
     void EnterDistracted()
     {
         state = humanState.distracted;
+        
+        if (AudioManager.Instance != null)
+        {
+            bool result = Random.Range(0, 2) == 0;
+            if (result)
+            {
+                AudioManager.Instance.PlayHumanHuhSound();
+            }
+            else
+            {
+                AudioManager.Instance.PlayHumanWhatSound();
+            }
+        }
+        
         humanAgent.ResetPath();
         humanAgent.isStopped = true;
         distractedOnce = true;
