@@ -68,6 +68,8 @@ This project incorporates course concepts including **state machine AI behavior,
   - React to player, environment, and ghost echoes
   - Dog enemies will patrol certain points on the map
   - If the player is within a certain distance it will be alerted and start chasing player
+  - Human enemies patrol and are smarter than dog enemies
+  - Rabbits will run if you get too close, run and dive to catch and get a key! 
 
 - **Multi-Life Strategy System**
   - Failure becomes part of the solution  
@@ -83,10 +85,11 @@ This project incorporates course concepts including **state machine AI behavior,
 # Screenshots
 
 <div align="center"> 
-  <img src="Title.png" alt="Title" width="500" />
-  <img src="Tutorial.png" alt="Tutorial" width="500" />
+  <img src="MainMenuScreen.png" alt="Title" width="500" />
+  <img src="TutorialScene.png" alt="Tutorial" width="500" />
   <img src="DogAI.png" alt="DogAI" width="500" />
-  <img src="gate.png" alt="Gate" width="500" />
+  <img src="LevelOne.png" alt="Gate" width="500" />
+  <img src="Level2.png" alt="Gate" width="500" />
   
 </div>
 
@@ -112,7 +115,7 @@ Each member is responsible for their system and must understand how it integrate
 - [x] Multi-ghost support (8 max = death on 9th life)
 - [x] Reset clearing logic
 - [ ] Interaction replay
-- [ ] Differentiate ghosts with shaders
+- [x] Differentiate ghosts with shaders
 
 ---
 
@@ -146,11 +149,12 @@ Each member is responsible for their system and must understand how it integrate
 - [x] Title screen (Play, Options, Exit)
 - [ ] Options menu (sound slider)
 - [ ] Cat selection
-- [ ] Tutorial level
+- [x] Tutorial level
 - [x] Key, gate, trap placement
 - [ ] UI prompts
 - [ ] Scene transitions
 - [x] Sound effects (no music)
+- [ ] Rabbit chase 
 
 ---
 
@@ -168,15 +172,9 @@ Each member is responsible for their system and must understand how it integrate
 - [x] README
 
 ### In Progress
-- [ ] Level Design
-- [ ] Ghost Shaders
-- [ ] Key, gate, trap placement for level 1
-- [ ] Scene transition from tutorial to level 1
-- [ ] Game Ending
 - [ ] Human AI interaction
 - [ ] Level interactables
-- [ ] UI flow
-- [ ] Cat Selection
+- [ ] Rabbit animation 
 
 ---
 
