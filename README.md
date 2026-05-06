@@ -197,8 +197,8 @@ Each member is responsible for their system and must understand how it integrate
 
 - Jordan Spencer: https://github.com/jordan-nicholas-spencer
 
-- Dylan Rambo: https://github.com/[dylanrambo26]
+- Dylan Rambo: https://github.com/dylanrambo26
 
-- Nanci Cardenas: https://github.com/[nancicardenas]
+- Nanci Cardenas: https://github.com/nancicardenas
 
-- Noah: https://github.com/[NoamJ2004]
+- Noah: https://github.com/NoamJ2004
