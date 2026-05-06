@@ -2729,6 +2729,17 @@ MonoBehaviour:
   deathSound: {fileID: 8300000, guid: c69915a12c84c4374b68157d9c95a04b, type: 3}
   jumpSound: {fileID: 8300000, guid: 71b69ff5587024a82bcbbb0844d833a5, type: 3}
   interactSound: {fileID: 0}
+  dogBark1Sound: {fileID: 8300000, guid: 67d6858d2a4193541b8fce7fa027fdb3, type: 3}
+  dogBark2Sound: {fileID: 8300000, guid: 01cd810d52e0b934ea646bff4075d54e, type: 3}
+  humanHeySound: {fileID: 8300000, guid: 270e0188346fd4d258de1fc654ce720c, type: 3}
+  humanStopHidingSound: {fileID: 8300000, guid: 1dd10317bfe8a4b62889f90c47f27914, type: 3}
+  humanFindYouSound: {fileID: 8300000, guid: 8814cddedb63742c8b121986f6268416, type: 3}
+  humanOutThereSound: {fileID: 8300000, guid: 0a957321e90804893bc9351e69adc87b, type: 3}
+  humanShowYourselfSound: {fileID: 8300000, guid: 9488eed86464549f3bf66952361567b1, type: 3}
+  humanWhosThereSound: {fileID: 8300000, guid: 4b49a6a08cdaf4e458af06d78db34d0e, type: 3}
+  humanIntruderSound: {fileID: 8300000, guid: 8d9552aaccfd0417b93a0f5037157eb8, type: 3}
+  humanHuhSound: {fileID: 8300000, guid: a35599c93c35a4b0390fbeba27e0b79f, type: 3}
+  humanWhatSound: {fileID: 8300000, guid: eaab7e4023e02497ca7c9ab602bbae32, type: 3}
 --- !u!4 &1290056152
 Transform:
   m_ObjectHideFlags: 0
