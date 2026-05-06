@@ -2132,10 +2132,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7871805479071553650, guid: c737dd230724d61469e1c672cf47ed9e, type: 3}
-      propertyPath: m_fHopSpeed
-      value: 5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -38285,6 +38281,16 @@ MonoBehaviour:
   deathSound: {fileID: 8300000, guid: c69915a12c84c4374b68157d9c95a04b, type: 3}
   jumpSound: {fileID: 8300000, guid: 71b69ff5587024a82bcbbb0844d833a5, type: 3}
   interactSound: {fileID: 0}
+  dogBarkSound: {fileID: 0}
+  humanHeySound: {fileID: 0}
+  humanStopHidingSound: {fileID: 0}
+  humanFindYouSound: {fileID: 0}
+  humanOutThereSound: {fileID: 0}
+  humanShowYourselfSound: {fileID: 0}
+  humanWhosThereSound: {fileID: 0}
+  humanIntruderSound: {fileID: 0}
+  humanHuhSound: {fileID: 0}
+  humanWhatSound: {fileID: 0}
 --- !u!4 &967342408
 Transform:
   m_ObjectHideFlags: 0
