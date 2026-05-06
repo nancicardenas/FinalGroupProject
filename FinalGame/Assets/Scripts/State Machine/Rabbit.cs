@@ -7,6 +7,7 @@ public class Rabbit : MonoBehaviour
     public PlayerController m_player;
     public GameObject keyPrefab;
     public LayerMask groundMask;
+    private Animator animate;
 
     public enum eState: int
     {
@@ -27,7 +28,7 @@ public class Rabbit : MonoBehaviour
     };
 
     //External tunables
-    public float m_fHopTime = 0.2f;
+    public float m_fHopTime = 0.8f;
     public float m_fHopSpeed = 6.5f;
     public float m_fScaredDistance = 3.0f;
     public int m_nMaxMoveAttemps = 50;
@@ -53,11 +54,17 @@ public class Rabbit : MonoBehaviour
         //Setup initial state
         m_nState = eState.kIdle;
         m_fLastGroundY = transform.position.y;
+
+        animate = GetComponentInChildren<Animator>();
       
     }
 
     private void FixedUpdate()
     {
+        //set animation based on state 
+        animate.SetBool("IsJumping", m_nState == eState.kHop);
+        animate.SetBool("IsDead", m_nState == eState.kCaught);
+
         GetComponentInChildren<Renderer>().material.color = stateColors[(int)m_nState];
 
         //looks for player until its found 
@@ -69,7 +76,7 @@ public class Rabbit : MonoBehaviour
 
         //In idle state stay in the same place until player gets too close
         if (m_nState == eState.kIdle)
-        {
+        { 
             //change to hop start state if player gets too close
             if(Vector3.Distance(transform.position, m_player.transform.position) <= m_fScaredDistance)
             {
@@ -132,11 +139,11 @@ public class Rabbit : MonoBehaviour
             m_nState = eState.kHop;
         }
 
+        //hop state 
         else if(m_nState == eState.kHop)
         {
-            float t = (Time.time - m_fHopStart) / m_fHopTime;
 
-            //float targetAngle = Mathf.Atan2(hopDirection.z, hopDirection.x) * Mathf.Rad2Deg;
+            float t = (Time.time - m_fHopStart) / m_fHopTime;
             transform.rotation = Quaternion.LookRotation(hopDirection);
 
             Vector3 flatPosition = Vector3.Lerp(m_vHopStartPos, m_vHopEndPos, t);
@@ -153,7 +160,6 @@ public class Rabbit : MonoBehaviour
                 groundY = m_fLastGroundY;
             }
 
-
             float hopHeight = 0.5f;
             float arc = Mathf.Sin(t * Mathf.PI) * hopHeight;
 
@@ -162,12 +168,14 @@ public class Rabbit : MonoBehaviour
 
             if(t >= 1.0f)
             {
+                //animate.SetBool("IsJumping", false);
                 m_nState = eState.kIdle;
                 m_fHopStart = Time.time;
             }
         }
     }
 
+    //Sphere cast downward to check ground 
     bool CheckGroundBelow(Vector3 position, out float groundY)
     {
         Vector3 origin = position + Vector3.up * 1.0f;
@@ -202,15 +210,23 @@ public class Rabbit : MonoBehaviour
 
                 m_nState = eState.kCaught;
 
-                //spawn position for key 
-                Vector3 spawnPos = transform.position + Vector3.up *  1f;
-
-                //remove rabbit and spawn key 
-                Destroy(gameObject);
-                Instantiate(keyPrefab, spawnPos, Quaternion.identity);
+                StartCoroutine(DeathCoroutine());
 
             }
         }
     }
 
+    private IEnumerator DeathCoroutine()
+    {
+        //wait and play animation before spawning key 
+        animate.SetBool("IsDead", true);
+        yield return new WaitForSeconds(2f);
+
+        //spawn position for key 
+        Vector3 spawnPos = transform.position + Vector3.up * 1f;
+
+        //remove rabbit and spawn key 
+        Instantiate(keyPrefab, spawnPos, Quaternion.identity);
+        Destroy(gameObject);
+    }
 }
