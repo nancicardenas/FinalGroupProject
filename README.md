@@ -175,9 +175,7 @@ Each member is responsible for their system and must understand how it integrate
 - [x] README
 
 ### In Progress
-- [ ] Human AI interaction
-- [ ] Level interactables
-- [ ] Rabbit animation 
+- Can't spoil the surprise of the next update coming December 2050...
 
 ---
 
