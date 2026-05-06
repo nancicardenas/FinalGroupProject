@@ -195,7 +195,7 @@ Each member is responsible for their system and must understand how it integrate
 
 # Contact
 
-- Jordan Spencer: https://github.com/[jordan-nicholas-spencer]
+- Jordan Spencer: https://github.com/jordan-nicholas-spencer
 
 - Dylan Rambo: https://github.com/[dylanrambo26]
 
