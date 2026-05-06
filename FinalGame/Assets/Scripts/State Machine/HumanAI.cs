@@ -105,7 +105,6 @@ public class HumanAI : MonoBehaviour
 
         if (target == null)
         {
-            print("target null");
             return;
         }
         
@@ -126,9 +125,6 @@ public class HumanAI : MonoBehaviour
                 break;
             case humanState.distracted:
                 UpdateDistracted();
-                break;
-            case humanState.playerCaught:
-                UpdatePlayerCaught();
                 break;
         }
     }
@@ -171,7 +167,7 @@ public class HumanAI : MonoBehaviour
         humanAgent.isStopped = false;
         humanAgent.speed = 2f;
         
-        //Pick random points in a certain area, TODO can change later to predetermined points like the dog
+        //Pick random points in a certain area
         destinationPos = destinationPoints[Random.Range(0, destinationPoints.Length)].position;
         humanAgent.SetDestination(destinationPos);
         state = humanState.walking;
@@ -211,6 +207,7 @@ public class HumanAI : MonoBehaviour
     {
         state = humanState.search;
 
+        //Randomly play 1 of 4 sounds when search state is entered
         if (AudioManager.Instance != null)
         {
             int soundIndex = Random.Range(0, 4);
@@ -291,9 +288,9 @@ public class HumanAI : MonoBehaviour
     //Enter the alert state, alert other humans that are nearby
     private void EnterAlert()
     {
+        //Randomly play 1 of 3 sounds when the human is alerted
         if (AudioManager.Instance != null)
         {
-            print(gameObject.name + "played audio");
             int soundIndex = Random.Range(0, 3);
             switch (soundIndex)
             {
@@ -319,7 +316,6 @@ public class HumanAI : MonoBehaviour
     private void UpdateAlert()
     {
         //Only chase after player if it can see it, otherwise start searching
-       // print("update");
         if (CanSeePlayer())
         {
             lastKnownPlayerPosition = target.position;
@@ -329,7 +325,6 @@ public class HumanAI : MonoBehaviour
         {
             alertSymbolOverlay.SetActive(false);
             EnterSearch();
-            //print("search");
             return;
         }
         
@@ -346,12 +341,10 @@ public class HumanAI : MonoBehaviour
     {
         Collider[] hits = Physics.OverlapSphere(transform.position, alertNearbyHumansRadius);
 
+        //Iterate through each collider hit, only send alerts to other humans if they are walking, not alert or searching
+        //to prevent spamming audio and clean state transitions
         foreach (Collider hit in hits)
         {
-            if (hit.gameObject.CompareTag("Player"))
-            {
-                print("hit name: " +  hit.name);
-            }
             HumanAI otherHuman = hit.GetComponentInParent<HumanAI>();
 
             if (otherHuman == null || otherHuman == this)
@@ -371,8 +364,6 @@ public class HumanAI : MonoBehaviour
     //Will enter search state when received alert
     public void ReceiveAlert(Vector3 playerLocation)
     {
-        //print("received by " + gameObject.name);
-        
         //Don't enter search if player is caught or if already alert
         if (state == humanState.playerCaught || state == humanState.alert) 
             return;
@@ -429,6 +420,7 @@ public class HumanAI : MonoBehaviour
     {
         state = humanState.distracted;
         
+        //Randomly play 1 of 2 audio clips when distracted state is entered
         if (AudioManager.Instance != null)
         {
             bool result = Random.Range(0, 2) == 0;
@@ -471,12 +463,6 @@ public class HumanAI : MonoBehaviour
         humanAgent.ResetPath();
         state = humanState.playerCaught;
         playerLife.Die();
-        print("playerCaught");
-    }
-
-    private void UpdatePlayerCaught()
-    {
-        humanAgent.isStopped = true;
     }
     
     //Used to properly reset the agent to prevent clipping and other unintended behavior
@@ -505,6 +491,8 @@ public class HumanAI : MonoBehaviour
         {
             humanAgent.Warp(position);
         }
+        
+        //Wait to guarantee human is on the navMesh on reset
         int maxWaitFrames = 10;
         int waited = 0;
         while (!humanAgent.isOnNavMesh && waited < maxWaitFrames)
