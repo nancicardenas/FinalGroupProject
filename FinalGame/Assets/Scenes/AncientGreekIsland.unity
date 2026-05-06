@@ -8971,6 +8971,95 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4030757344299378, guid: 709cd74fa0e8cc14b871caa3e93a9790, type: 3}
   m_PrefabInstance: {fileID: 242007812}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &242052472
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1990111127728168193, guid: 43fa0f03ea19d6243831c062f7acb83a, type: 3}
+      propertyPath: m_Name
+      value: DogEnemy5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6122322019295772020, guid: 43fa0f03ea19d6243831c062f7acb83a, type: 3}
+      propertyPath: ghostManager
+      value: 
+      objectReference: {fileID: 393440947}
+    - target: {fileID: 7184984697487547412, guid: 43fa0f03ea19d6243831c062f7acb83a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 77.7276
+      objectReference: {fileID: 0}
+    - target: {fileID: 7184984697487547412, guid: 43fa0f03ea19d6243831c062f7acb83a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.5868444
+      objectReference: {fileID: 0}
+    - target: {fileID: 7184984697487547412, guid: 43fa0f03ea19d6243831c062f7acb83a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 82.47859
+      objectReference: {fileID: 0}
+    - target: {fileID: 7184984697487547412, guid: 43fa0f03ea19d6243831c062f7acb83a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7184984697487547412, guid: 43fa0f03ea19d6243831c062f7acb83a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7184984697487547412, guid: 43fa0f03ea19d6243831c062f7acb83a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7184984697487547412, guid: 43fa0f03ea19d6243831c062f7acb83a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7184984697487547412, guid: 43fa0f03ea19d6243831c062f7acb83a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7184984697487547412, guid: 43fa0f03ea19d6243831c062f7acb83a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7184984697487547412, guid: 43fa0f03ea19d6243831c062f7acb83a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7395555914532165207, guid: 43fa0f03ea19d6243831c062f7acb83a, type: 3}
+      propertyPath: detectionMask.m_Bits
+      value: 193
+      objectReference: {fileID: 0}
+    - target: {fileID: 7395555914532165207, guid: 43fa0f03ea19d6243831c062f7acb83a, type: 3}
+      propertyPath: destinationPoints.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7395555914532165207, guid: 43fa0f03ea19d6243831c062f7acb83a, type: 3}
+      propertyPath: 'destinationPoints.Array.data[0]'
+      value: 
+      objectReference: {fileID: 707901742}
+    - target: {fileID: 7395555914532165207, guid: 43fa0f03ea19d6243831c062f7acb83a, type: 3}
+      propertyPath: 'destinationPoints.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1875407349}
+    - target: {fileID: 7395555914532165207, guid: 43fa0f03ea19d6243831c062f7acb83a, type: 3}
+      propertyPath: 'destinationPoints.Array.data[2]'
+      value: 
+      objectReference: {fileID: 1498706043}
+    - target: {fileID: 7395555914532165207, guid: 43fa0f03ea19d6243831c062f7acb83a, type: 3}
+      propertyPath: 'destinationPoints.Array.data[3]'
+      value: 
+      objectReference: {fileID: 1018682426}
+    - target: {fileID: 7395555914532165207, guid: 43fa0f03ea19d6243831c062f7acb83a, type: 3}
+      propertyPath: 'destinationPoints.Array.data[4]'
+      value: 
+      objectReference: {fileID: 1882632538}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 43fa0f03ea19d6243831c062f7acb83a, type: 3}
 --- !u!1001 &244171240
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11424,7 +11513,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1990111127728168193, guid: 43fa0f03ea19d6243831c062f7acb83a, type: 3}
       propertyPath: m_Name
-      value: DogEnemy
+      value: DogEnemy4
       objectReference: {fileID: 0}
     - target: {fileID: 6122322019295772020, guid: 43fa0f03ea19d6243831c062f7acb83a, type: 3}
       propertyPath: ghostManager
@@ -13731,6 +13820,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4087705557347123263, guid: b0931bc4615b7ae499b0bea0d0e4bd93, type: 3}
   m_PrefabInstance: {fileID: 1349703002}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &358571968
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 358571969}
+  m_Layer: 0
+  m_Name: Dog 6 Destination Point (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &358571969
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 358571968}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 18.05, y: 0, z: 9.36}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1244803748}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &359378555 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4490223915907290, guid: 373b1ae86063aab4d805ee552e20aa6b, type: 3}
@@ -28637,6 +28757,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8748970722773440185, guid: 1fe766cc279b14543b3a49bf0cb13c8e, type: 3}
   m_PrefabInstance: {fileID: 2114801985}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &707901741
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 707901742}
+  m_Layer: 0
+  m_Name: Dog 5 Destination Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &707901742
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 707901741}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 7.61, y: 0, z: -3.38}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1118736533}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &712088315 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2309203471116230540, guid: 7c7bfbcc8118fdf438a27bdd607b668b, type: 3}
@@ -37484,6 +37635,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4030757344299378, guid: 709cd74fa0e8cc14b871caa3e93a9790, type: 3}
   m_PrefabInstance: {fileID: 912824621}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &914232930
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 914232931}
+  m_Layer: 0
+  m_Name: Dog 6 Destination Point (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &914232931
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 914232930}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.86, y: 0, z: 19.22}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1244803748}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &915278099
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -41590,6 +41772,37 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9805a7bf9dda8794c96db4b6a332635d, type: 3}
+--- !u!1 &1018682425
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1018682426}
+  m_Layer: 0
+  m_Name: Dog 5 Destination Point (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1018682426
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1018682425}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -26.44, y: 0, z: 23.46}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1118736533}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1018787045
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -45671,6 +45884,42 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1635559388289044797, guid: 06cb6a507baa50e488f146af08ae0394, type: 3}
   m_PrefabInstance: {fileID: 1117250573}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1118736532
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1118736533}
+  m_Layer: 0
+  m_Name: Dog 5 Destination Points
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1118736533
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1118736532}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 77.7276, y: 2.5868444, z: 82.47859}
+  m_LocalScale: {x: 0.5649096, y: 0.56491, z: 0.5649096}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 707901742}
+  - {fileID: 1875407349}
+  - {fileID: 1498706043}
+  - {fileID: 1018682426}
+  - {fileID: 1882632538}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1119323520
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -48099,6 +48348,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8572119383343515143, guid: 6221238a19573455fa0418930c818974, type: 3}
   m_PrefabInstance: {fileID: 1390322049}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1189785791
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1189785792}
+  m_Layer: 0
+  m_Name: Dog 6 Destination Point (4)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1189785792
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1189785791}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.87, y: -3.755, z: 28.33}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1244803748}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1194224626 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4209229505329099771, guid: e9992e997a37345cf87e4c577f7a1af0, type: 3}
@@ -50136,6 +50416,42 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8764099649829847069, guid: 982b76559d31f45aabd86d8ab47ae4b7, type: 3}
   m_PrefabInstance: {fileID: 2101521695}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1244803747
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1244803748}
+  m_Layer: 0
+  m_Name: Dog 6 Destination Points
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1244803748
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1244803747}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 67.12628, y: 4.454528, z: 36.476986}
+  m_LocalScale: {x: 0.5649096, y: 0.56491, z: 0.5649096}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1574960834}
+  - {fileID: 1319358691}
+  - {fileID: 358571969}
+  - {fileID: 914232931}
+  - {fileID: 1189785792}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1247674074 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 191299892972028272, guid: b744ff07a357ab44a9b71f2f71d30c0a, type: 3}
@@ -52608,6 +52924,37 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 829478928e13bbf42a6f9def260c0487, type: 3}
+--- !u!1 &1319358690
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1319358691}
+  m_Layer: 0
+  m_Name: Dog 6 Destination Point (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1319358691
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1319358690}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -15.72, y: 0, z: -17.81}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1244803748}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1320058633 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3724626248680190477, guid: bbb444d13c19ae547bf83ba82be269a0, type: 3}
@@ -59329,6 +59676,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4030757344299378, guid: 709cd74fa0e8cc14b871caa3e93a9790, type: 3}
   m_PrefabInstance: {fileID: 1498127344}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1498706042
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1498706043}
+  m_Layer: 0
+  m_Name: Dog 5 Destination Point (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1498706043
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1498706042}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -20.73, y: 0, z: 6.24}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1118736533}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1499111802
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -59601,6 +59979,95 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 06cb6a507baa50e488f146af08ae0394, type: 3}
+--- !u!1001 &1500470704
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1990111127728168193, guid: 43fa0f03ea19d6243831c062f7acb83a, type: 3}
+      propertyPath: m_Name
+      value: DogEnemy6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6122322019295772020, guid: 43fa0f03ea19d6243831c062f7acb83a, type: 3}
+      propertyPath: ghostManager
+      value: 
+      objectReference: {fileID: 393440947}
+    - target: {fileID: 7184984697487547412, guid: 43fa0f03ea19d6243831c062f7acb83a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 67.12628
+      objectReference: {fileID: 0}
+    - target: {fileID: 7184984697487547412, guid: 43fa0f03ea19d6243831c062f7acb83a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.454528
+      objectReference: {fileID: 0}
+    - target: {fileID: 7184984697487547412, guid: 43fa0f03ea19d6243831c062f7acb83a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 36.476986
+      objectReference: {fileID: 0}
+    - target: {fileID: 7184984697487547412, guid: 43fa0f03ea19d6243831c062f7acb83a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7184984697487547412, guid: 43fa0f03ea19d6243831c062f7acb83a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7184984697487547412, guid: 43fa0f03ea19d6243831c062f7acb83a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7184984697487547412, guid: 43fa0f03ea19d6243831c062f7acb83a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7184984697487547412, guid: 43fa0f03ea19d6243831c062f7acb83a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7184984697487547412, guid: 43fa0f03ea19d6243831c062f7acb83a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7184984697487547412, guid: 43fa0f03ea19d6243831c062f7acb83a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7395555914532165207, guid: 43fa0f03ea19d6243831c062f7acb83a, type: 3}
+      propertyPath: detectionMask.m_Bits
+      value: 193
+      objectReference: {fileID: 0}
+    - target: {fileID: 7395555914532165207, guid: 43fa0f03ea19d6243831c062f7acb83a, type: 3}
+      propertyPath: destinationPoints.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7395555914532165207, guid: 43fa0f03ea19d6243831c062f7acb83a, type: 3}
+      propertyPath: 'destinationPoints.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1574960834}
+    - target: {fileID: 7395555914532165207, guid: 43fa0f03ea19d6243831c062f7acb83a, type: 3}
+      propertyPath: 'destinationPoints.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1319358691}
+    - target: {fileID: 7395555914532165207, guid: 43fa0f03ea19d6243831c062f7acb83a, type: 3}
+      propertyPath: 'destinationPoints.Array.data[2]'
+      value: 
+      objectReference: {fileID: 358571969}
+    - target: {fileID: 7395555914532165207, guid: 43fa0f03ea19d6243831c062f7acb83a, type: 3}
+      propertyPath: 'destinationPoints.Array.data[3]'
+      value: 
+      objectReference: {fileID: 914232931}
+    - target: {fileID: 7395555914532165207, guid: 43fa0f03ea19d6243831c062f7acb83a, type: 3}
+      propertyPath: 'destinationPoints.Array.data[4]'
+      value: 
+      objectReference: {fileID: 1189785792}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 43fa0f03ea19d6243831c062f7acb83a, type: 3}
 --- !u!4 &1500714245 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4087705557347123263, guid: b0931bc4615b7ae499b0bea0d0e4bd93, type: 3}
@@ -61739,6 +62206,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8572119383343515143, guid: 6221238a19573455fa0418930c818974, type: 3}
   m_PrefabInstance: {fileID: 1574909083}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1574960833
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1574960834}
+  m_Layer: 0
+  m_Name: Dog 6 Destination Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1574960834
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1574960833}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 14.75, y: 0, z: -22.66}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1244803748}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1577422670
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -73645,6 +74143,37 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 06cb6a507baa50e488f146af08ae0394, type: 3}
+--- !u!1 &1875407348
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1875407349}
+  m_Layer: 0
+  m_Name: Dog 5 Destination Point (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1875407349
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1875407348}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -39.6, y: 0, z: -0.9}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1118736533}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1877402727
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -74029,6 +74558,37 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9e83b4fd5adcd1c4386073c07cf59124, type: 3}
+--- !u!1 &1882632537
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1882632538}
+  m_Layer: 0
+  m_Name: Dog 5 Destination Point (4)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1882632538
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1882632537}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -48.79, y: 0, z: 13.46}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1118736533}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1885327099
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -88131,3 +88691,7 @@ SceneRoots:
   - {fileID: 588816286}
   - {fileID: 1541789716}
   - {fileID: 291975578}
+  - {fileID: 242052472}
+  - {fileID: 1118736533}
+  - {fileID: 1500470704}
+  - {fileID: 1244803748}
