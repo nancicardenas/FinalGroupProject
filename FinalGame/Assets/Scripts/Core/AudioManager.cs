@@ -10,7 +10,8 @@ public class AudioManager : MonoBehaviour
     public AudioClip deathSound;
     public AudioClip jumpSound;
     public AudioClip interactSound;
-    public AudioClip dogBarkSound;
+    public AudioClip dogBark1Sound;
+    public AudioClip dogBark2Sound;
     
     [Header("Human AI Sounds")]
     public AudioClip humanHeySound;
@@ -96,8 +97,6 @@ public class AudioManager : MonoBehaviour
     public void PlayDeath() => PlaySFX(deathSound);
     public void PlayJump() => PlaySFX(jumpSound);
     
-    public void PlayDogBark() => PlaySFX(dogBarkSound);
-    
     public void PlayHumanHey() => PlaySFX(humanHeySound);
 
     public void PlayHumanStopHidingSound() => PlaySFX(humanStopHidingSound);
@@ -115,6 +114,10 @@ public class AudioManager : MonoBehaviour
     public void PlayHumanHuhSound() => PlaySFX(humanHuhSound);
     
     public void PlayHumanWhatSound() => PlaySFX(humanWhatSound);
+    
+    public void PlayDogBark1() => PlaySFX(dogBark1Sound);
+
+    public void PlayDogBark2() => PlaySFX(dogBark2Sound);
 
     // --- Music ---
 

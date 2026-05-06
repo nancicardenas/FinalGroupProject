@@ -35,6 +35,9 @@ public class DogAI : MonoBehaviour
     private float catchRadius = 1f;
     private float caughtTimer = 0f;
     private float caughtDuration = 4f;
+    //private bool barkPlayedOnce = false;
+    private float lostSightTimer = 0f;
+    private float lostSightDelay = 1f;
 
     //Change These when resizing cat/dog objects
     private float dogHeight = 0.75f;
@@ -165,12 +168,14 @@ public class DogAI : MonoBehaviour
         // Prioritize ghosts over player
         if (TryDetectGhost())
         {
+            //barkPlayedOnce = false;
             EnterChase();
             return;
         }
 
         if (CanSeeTarget())
         {
+            //barkPlayedOnce = false;
             EnterChase();
             return;
         }
@@ -211,12 +216,14 @@ public class DogAI : MonoBehaviour
         // Prioritize ghosts over player
         if (TryDetectGhost())
         {
+            //barkPlayedOnce = false;
             EnterChase();
             return;
         }
 
         if (CanSeeTarget())
         {
+            //barkPlayedOnce = false;
             EnterChase();
             return;
         }
@@ -236,8 +243,22 @@ public class DogAI : MonoBehaviour
     void EnterChase()
     {
         if (!dogAgent.isOnNavMesh) return;
-        
-        if(AudioManager.Instance != null) AudioManager.Instance.PlayDogBark();
+
+        lostSightTimer = 0f;
+        print("enter chase");
+        if (AudioManager.Instance != null)
+        {
+            //barkPlayedOnce = true;
+            bool dogBark1 = Random.Range(0, 2) == 0;
+            if (dogBark1)
+            {
+                AudioManager.Instance.PlayDogBark1();
+            }
+            else
+            {
+                AudioManager.Instance.PlayDogBark2();
+            }
+        }
 
         dogAgent.isStopped = false;
         dogAgent.speed = chaseSpeed;
@@ -267,8 +288,14 @@ public class DogAI : MonoBehaviour
             return;
         }
 
-        dogAgent.ResetPath();
-        EnterIdle();
+        lostSightTimer += Time.deltaTime;
+
+        if (lostSightTimer >= lostSightDelay)
+        {
+            lostSightTimer = 0f;
+            dogAgent.ResetPath();
+            EnterIdle();
+        }
     }
 
     bool ReachedTarget()
