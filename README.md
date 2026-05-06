@@ -111,50 +111,53 @@ Each member is responsible for their system and must understand how it integrate
 - [x] Life system (9 lives)
 - [x] Death/reset system
 - [x] Record player actions
-- [x] Ghost replay system
-- [x] Multi-ghost support (8 max = death on 9th life)
-- [x] Reset clearing logic
-- [ ] Interaction replay
-- [x] Differentiate ghosts with shaders
+- [x] Ghost replay system/manual death
+- [x] Movement/Interaction
+- [x] Ghost shaders
+- [x] Key/Gate/Doors/Traps
+- [x] Options/Pause menu/Sound sliders
+- [x] Cat selection
+- [x] Tutorial UI prompts
+- [x] CutScenes
 
 ---
 
 ## Noah – Gameplay & Interaction
 
-- [x] Movement (WASD)
-- [x] Run (Shift)
-- [x] Jump (Space)
-- [ ] Idle animations (2 states)
-- [x] Interaction (Left Click)
-- [x] Manual reset (Right Click)
-- [ ] Key system
-- [ ] Gate system
-- [ ] Win/lose conditions
+- [ ] Idle animations
+- [ ] Jump animations
+- [ ] Walk animations
+- [ ] Run animations
+- [ ] Pickup key animation
+- [ ] Search animation
 
 ---
 
 ## Dylan Rambo – Enemies & AI
 
 - [x] NPC state machine system
-- [x] Dog AI (patrol, chase)
-- [ ] Human AI (alert, detection)
+- [x] Dog AI (patrol, chase, idle, player caught, resetting)
+- [x] Human AI (alert, idle, walking, search, distracted, player caught, resetting)
+- [x] AI SFX
+- [x] Navmesh deconfliction for AIs
 - [x] Detection systems
-- [x] Interaction with ghosts
-- [ ] Balance enemy behavior
+- [x] AI Interaction with ghosts
+- [x] Balance enemy behavior
 
 ---
 
 ## Nanci Cardenas – Level Building & UI
 
 - [x] Title screen (Play, Options, Exit)
-- [ ] Options menu (sound slider)
-- [ ] Cat selection
+- [x] HUD/UI Overlay
+- [x] Key inventory
 - [x] Tutorial level
+- [x] Level Design Layout and Assets
 - [x] Key, gate, trap placement
-- [ ] UI prompts
-- [ ] Scene transitions
-- [x] Sound effects (no music)
-- [ ] Rabbit chase 
+- [x] Level/Player SFX
+- [x] Rabbit chase
+- [x] Rabbit animation (idle, hop, death)
+- [x] Rabbit key drop on caught
 
 ---
 
