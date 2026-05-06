@@ -5,10 +5,21 @@ MonoImporter:
   serializedVersion: 2
   defaultReferences:
   - pickupSound: {fileID: 8300000, guid: 63ac332a2cb1f45c5b01617d6e3297ab, type: 3}
-  - gateOpenSound: {instanceID: 0}
+  - gateOpenSound: {fileID: 8300000, guid: 9d647c90e66694325958f45e941fc287, type: 3}
   - deathSound: {fileID: 8300000, guid: c69915a12c84c4374b68157d9c95a04b, type: 3}
   - jumpSound: {fileID: 8300000, guid: 71b69ff5587024a82bcbbb0844d833a5, type: 3}
   - interactSound: {instanceID: 0}
+  - dogBark1Sound: {instanceID: 0}
+  - dogBark2Sound: {instanceID: 0}
+  - humanHeySound: {instanceID: 0}
+  - humanStopHidingSound: {instanceID: 0}
+  - humanFindYouSound: {instanceID: 0}
+  - humanOutThereSound: {instanceID: 0}
+  - humanShowYourselfSound: {instanceID: 0}
+  - humanWhosThereSound: {instanceID: 0}
+  - humanIntruderSound: {instanceID: 0}
+  - humanHuhSound: {instanceID: 0}
+  - humanWhatSound: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
