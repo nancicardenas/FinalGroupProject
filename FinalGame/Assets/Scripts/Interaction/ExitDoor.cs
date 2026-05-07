@@ -24,6 +24,12 @@ public class ExitDoor : MonoBehaviour
         }
 
         Debug.Log("Exiting tutorial! Loading: " + nextSceneName);
+
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayExitDoor();
+        }
+        
         SceneManager.LoadScene(nextSceneName);
     }
 
