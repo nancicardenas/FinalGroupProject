@@ -142,6 +142,7 @@ public class Rabbit : MonoBehaviour
         //hop state 
         else if(m_nState == eState.kHop)
         {
+            if (AudioManager.Instance != null) AudioManager.Instance.PlayRabbitHop();
 
             float t = (Time.time - m_fHopStart) / m_fHopTime;
             transform.rotation = Quaternion.LookRotation(hopDirection);
