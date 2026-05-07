@@ -38283,6 +38283,7 @@ MonoBehaviour:
   interactSound: {fileID: 0}
   dogBark1Sound: {fileID: 0}
   dogBark2Sound: {fileID: 0}
+  rabbitSound: {fileID: 8300000, guid: df5b2d33f17544089955b81b12141ee9, type: 3}
   humanHeySound: {fileID: 0}
   humanStopHidingSound: {fileID: 0}
   humanFindYouSound: {fileID: 0}

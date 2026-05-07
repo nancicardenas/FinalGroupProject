@@ -12,6 +12,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip interactSound;
     public AudioClip dogBark1Sound;
     public AudioClip dogBark2Sound;
+    public AudioClip rabbitSound;
     
     [Header("Human AI Sounds")]
     public AudioClip humanHeySound;
@@ -118,6 +119,8 @@ public class AudioManager : MonoBehaviour
     public void PlayDogBark1() => PlaySFX(dogBark1Sound);
 
     public void PlayDogBark2() => PlaySFX(dogBark2Sound);
+
+    public void PlayRabbitHop() => PlaySFX(rabbitSound);
 
     // --- Music ---
 
