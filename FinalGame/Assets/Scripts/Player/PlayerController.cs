@@ -129,6 +129,11 @@ public class PlayerController : MonoBehaviour
 
             controller.Move(diveDir * diveSpeed * Time.deltaTime);
 
+            if (AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlayDive();
+            }
+
             if(t >= 1.0f)
             {
                 isRecovering = true;
@@ -169,6 +174,11 @@ public class PlayerController : MonoBehaviour
         // Jump
         if (Input.GetButtonDown("Jump") && isGrounded && !jumpQueued)
         {
+            if (AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlayJump();
+            }
+            
             jumpQueued = true;
             jumpQueueTimer = jumpStartDelay;
             isJumping = true;

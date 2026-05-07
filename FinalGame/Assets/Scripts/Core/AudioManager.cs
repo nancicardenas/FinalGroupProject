@@ -14,6 +14,8 @@ public class AudioManager : MonoBehaviour
     public AudioClip dogBark1Sound;
     public AudioClip dogBark2Sound;
     public AudioClip rabbitSound;
+    public AudioClip diveSound;
+    public AudioClip exitDoorSound;
     
     [Header("Human AI Sounds")]
     public AudioClip humanHeySound;
@@ -122,6 +124,10 @@ public class AudioManager : MonoBehaviour
     public void PlayDogBark2() => PlaySFX(dogBark2Sound);
 
     public void PlayRabbitHop() => PlaySFX(rabbitSound);
+
+    public void PlayDive() => PlaySFX(diveSound);
+    
+    public void PlayExitDoor() => PlaySFX(exitDoorSound);
 
     // --- Music ---
 

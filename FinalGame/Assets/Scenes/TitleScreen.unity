@@ -2725,12 +2725,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickupSound: {fileID: 8300000, guid: 63ac332a2cb1f45c5b01617d6e3297ab, type: 3}
-  gateOpenSound: {fileID: 0}
+  gateOpenSound: {fileID: 8300000, guid: 9d647c90e66694325958f45e941fc287, type: 3}
   deathSound: {fileID: 8300000, guid: c69915a12c84c4374b68157d9c95a04b, type: 3}
   jumpSound: {fileID: 8300000, guid: 71b69ff5587024a82bcbbb0844d833a5, type: 3}
   interactSound: {fileID: 0}
   dogBark1Sound: {fileID: 8300000, guid: 67d6858d2a4193541b8fce7fa027fdb3, type: 3}
   dogBark2Sound: {fileID: 8300000, guid: 01cd810d52e0b934ea646bff4075d54e, type: 3}
+  rabbitSound: {fileID: 8300000, guid: df5b2d33f17544089955b81b12141ee9, type: 3}
+  diveSound: {fileID: 8300000, guid: 61b68ac62c892994399ec1ca62eb5960, type: 3}
+  exitDoorSound: {fileID: 8300000, guid: fca7eeb5285fe4c419a61c89320aa92d, type: 3}
   humanHeySound: {fileID: 8300000, guid: 270e0188346fd4d258de1fc654ce720c, type: 3}
   humanStopHidingSound: {fileID: 8300000, guid: 1dd10317bfe8a4b62889f90c47f27914, type: 3}
   humanFindYouSound: {fileID: 8300000, guid: 8814cddedb63742c8b121986f6268416, type: 3}
