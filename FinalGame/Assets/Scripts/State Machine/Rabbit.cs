@@ -42,6 +42,7 @@ public class Rabbit : MonoBehaviour
 
     public int attempts = 0;
     public bool validDirection = false;
+    private bool rabbitCoolDown; 
 
     public Vector3 playerPos;
     Vector3 hopDirection;
@@ -142,7 +143,13 @@ public class Rabbit : MonoBehaviour
         //hop state 
         else if(m_nState == eState.kHop)
         {
-            if (AudioManager.Instance != null) AudioManager.Instance.PlayRabbitHop();
+            if (AudioManager.Instance != null && !rabbitCoolDown)
+            {
+
+                AudioManager.Instance.PlayRabbitHop();
+                StartCoroutine(RabbitHopCooldown());
+
+            }
 
             float t = (Time.time - m_fHopStart) / m_fHopTime;
             transform.rotation = Quaternion.LookRotation(hopDirection);
@@ -169,11 +176,19 @@ public class Rabbit : MonoBehaviour
 
             if(t >= 1.0f)
             {
-                //animate.SetBool("IsJumping", false);
                 m_nState = eState.kIdle;
                 m_fHopStart = Time.time;
             }
         }
+    }
+
+    private IEnumerator RabbitHopCooldown()
+    {
+        rabbitCoolDown = true;
+
+        yield return new WaitForSeconds(1f);
+
+        rabbitCoolDown = false; 
     }
 
     //Sphere cast downward to check ground 
@@ -187,7 +202,7 @@ public class Rabbit : MonoBehaviour
         {
             float angle = Vector3.Angle(hit.normal, Vector3.up);
 
-            if(angle < 50)
+            if(angle < 60)
             {
                 groundY = hit.point.y;
                 return true;
